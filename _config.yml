@@ -14,38 +14,18 @@ color:
 
 # Team names, titles and social links
 people:
-- name: Kay Garland
+- name: Yves Peirsman
   pic: 1
-  position: Lead Designer
+  position: NLP Expert
   social:
     - title: twitter
-      url: #
-    - title: facebook
-      url: #
-    - title: stack-overflow
-      url: #
-
-- name: Larry Parker
-  pic: 2
-  position: Lead Marketer
-  social:
-    - title: twitter
-      url: #
-    - title: facebook
-      url: #
+      url: https://twitter.com/yvespeirsman
     - title: linkedin
-      url: #
+      url: https://www.linkedin.com/in/yvespeirsman
 
-- name: Diana Petersen
-  pic: 3
-  position: Lead Developer
-  social:
-    - title: twitter
-      url: #
-    - title: facebook
-      url: #
-    - title: google-plus
-      url: #
+- name: Johan Leys
+  pic: 2
+  position: Software Engineer
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
