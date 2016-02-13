@@ -1,0 +1,1216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<title type="text">Yves Peirsman</title>
+<generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
+<link rel="self" type="application/atom+xml" href="http://nlp.yvespeirsman.be/feed.xml" />
+<link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be" />
+<updated>2015-08-09T09:20:43-04:00</updated>
+<id>http://nlp.yvespeirsman.be/</id>
+<author>
+  <name>Yves Peirsman</name>
+  <uri>http://nlp.yvespeirsman.be/</uri>
+  <email></email>
+</author>
+
+
+<entry>
+  <title type="html"><![CDATA[Generating Genre Fiction with Deep Learning]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/generating-genre-fiction-with-deep-learning/" />
+  <id>http://nlp.yvespeirsman.be/blog/generating-genre-fiction-with-deep-learning</id>
+  <published>2015-08-09T11:00:00-04:00</published>
+  <updated>2015-08-09T11:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt; These days Deep Learning is everywhere. Neural networks are used for just about every task in Natural Language Processing &amp;mdash; from named entity recognition to sentiment analysis and machine translation. A few months ago, &lt;a href=&quot;http://karpathy.github.io&quot;&gt;Andrej Karpathy&lt;/a&gt;, PhD student at Stanford University, released a small software package for automatically generating texts with a recurrent neural network. I wanted to find out how it performs when it is asked to generate genre fiction, such as fantasy or chick lit.&lt;/p&gt;
+
+&lt;p&gt;Andrej’s model is a character-level language model based on multi-layer LSTMs. Let’s break this mouthful down into its most important components. First, we’re dealing with a language model: this means we need to train it on a text, and through analyzing that text, it will learn to generate language all by itself. Second, it operates on the level of characters. In other words, it analyzes and generates texts character by character. Initially, it doesn’t know anything about words: it just knows there are around 130 characters &amp;mdash; mainly letters, numbers, capitalized letters, spaces and punctuation. During its training, it learns the patterns these characters appear in. It will learn, for example, that when it sees the sequence &lt;em&gt;altho&lt;/em&gt;, the next character is much more likely to be a &lt;em&gt;u&lt;/em&gt; than another &lt;em&gt;o&lt;/em&gt;. In this way, it will learn to build words, and eventually, sentences. Third, the language model is based on multi-layer LSTMs. LSTMs, or Long Short-Term Memories, help it learn longer dependencies than the two or three characters it has just seen. We will see an example of that behaviour below. For the interested reader, there’s more information in &lt;a href=&quot;http://karpathy.github.io/2015/05/21/rnn-effectiveness/&quot;&gt;Andrej’s blog post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Earlier blog posts from people in the deep learning community have shown the effectiveness of training this type of model on a single book such as &lt;a href=&quot;http://korbonits.github.io/2015/06/28/Torch-bleeding-edge-DNN-research.html&quot;&gt;Ulysses&lt;/a&gt; or &lt;a href=&quot;http://cpury.github.io/learning-holiness/&quot;&gt;the Bible&lt;/a&gt;, or on works by a single author, such as &lt;a href=&quot;http://karpathy.github.io/2015/05/21/rnn-effectiveness/
+&quot;&gt;Shakespeare&lt;/a&gt; or &lt;a href=&quot;https://medium.com/@samim/obama-rnn-machine-generated-political-speeches-c8abd18a2ea0&quot;&gt;President Obama’s speeches&lt;/a&gt;. After a few training cycles, the model is able to generate text all by itself that clearly displays the same characteristics as the text it was trained on. After analyzing Obama’s speeches, it produces sentences such as &lt;em&gt;The United States will step up to the cost of a new challenges of the American people that will share the fact that we created the problem&lt;/em&gt;. Training it on Shakespeare results in fragments such as &lt;em&gt;They are away this miseries, produced upon my soul,/ Breaking and strongly should be buried, when I perish/ The earth and thoughts of many states&lt;/em&gt;. Obviously, the results are mostly nonsense, but they bear strong similarities to the texts from that particular author or source.&lt;/p&gt;
+
+&lt;p&gt;I was interested to see what would happen if I trained a similar language model on genre fiction &amp;mdash; 
+not just works from one author, but books from several authors in the same genre, such
+as chick lit or fantasy. Last year I collected a large corpus of amateur fiction 
+from &lt;a href=&quot;https://www.smashwords.com/&quot;&gt;Smashwords&lt;/a&gt;. As all of its books are labelled with one or more genres, this corpus lends itself perfectly to that experiment. I trained 
+three different models: one for chick lit, one for historical fantasy and one for mystery
+&amp;amp; detective. For those interested in the technical details, I used three 2-layer LSTMs with 512 nodes. For all other settings, I kept the default configuration in Andrej’s code. Each network took as its input some forty-odd books from one particular genre, totalling around
+2,250,000 words or 10 MB of data. The fragments below were generated with a so-called &lt;em&gt;temperature&lt;/em&gt; of 0.7 or 0.8, which struck a good balance between confidence and diversity.&lt;/p&gt;
+
+&lt;p&gt;It’s time to dive into the results. Here’s a first fragment of automatically generated chick lit. It takes on the form of a short dialogue:&lt;/p&gt;
+
+&lt;blockquote&gt;
+They know the next six months, she said, “I don’t know, when he’s going to have a dinner, as much as he did.”&lt;br /&gt;
+“No, did you start the tension?” She chorused at her, and started as he took her arms and looked at the bear. &lt;br /&gt;
+“You are in this place. I’m sorry,” she chuckled.&lt;br /&gt;
+“I’m going to get out of this bathroom and see all the call of my hands. Sometimes I’m in the kitchen under the kitchen wall.”&lt;br /&gt;
+“Okay , he’s happy for you.” &lt;br /&gt;
+He continued to smack the back of the ball. &lt;br /&gt;
+“You stay around.”&lt;br /&gt;
+“I’m sorry to meet you. Don’t worry about what we wanted.” &lt;br /&gt;
+“So,” asked Maelyn. “You don&#39;t know what I know where we have a thing.”&lt;br /&gt;
+“I think he will be free for me.” &lt;br /&gt;
+“What’s the next week?” Jeremy asked. &lt;br /&gt;
+“I don’t believe that maintaining how to be the only one who some things have picked out.”&lt;/blockquote&gt;
+
+&lt;p&gt;While this is far from a realistic conversation, the typical elements of chick lit are present. The model has produced meaningful phrases such as &lt;em&gt;he’s happy for you&lt;/em&gt;, &lt;em&gt;he took her arms&lt;/em&gt;, &lt;em&gt;we have a thing&lt;/em&gt; or &lt;em&gt;I think he will be free for me&lt;/em&gt;. Male and female characters are involved, and the topic is never far from the relationship between them. Note also that most sentences are perfectly grammatical, even
+though they rarely make sense. My favourite must be &lt;em&gt;Sometimes I’m in the kitchen under the kitchen wall.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Here’s another, slightly longer example:&lt;/p&gt;
+
+&lt;blockquote&gt;The form of the weekend. The arrival in the corner of the church came. But they looked for the museum, the only person that there was something about it. God, he was introduced to my first stalker. Serena was all strange that before I would like to make sure that this coffee reaches off the bar like she was born and impressed the talent alone. &lt;br /&gt;
+“Come from Heath, but it’s a perfect need of an accourted team.” I had seen a group of majors, but brain. I thought when he put her hand in the floor, which I felt full of water. &lt;br /&gt;
+“I’ve got to do anything there here to me. That doesn’t . I’m kind of strange,” I said as he let out a smile. He was sure that after that she ended up slowly parking in her door. For some reason, I hadn’t seen the shop in the California he’d only had time. My heart beat some points. I lived in the form of The Edition’s phone to handle the gaze of my underwear before the demolitional regulation of the adults in his eyes. By the arrival are defensed through the grey composure. I presumed I was the only one who couldn’t help while tears could stand up. I didn’t mean to be better at first on this brother’s activity for the one thing to make it much for me. I went for the sun, and then she found his hand it was a very salary she expressed to her hotel. &lt;br /&gt;
+“So our whole left will get out of the day, we’re just in a little consultation.” &lt;br /&gt;
+“I know. It would be a bit positive. It’s just a great time . I want to go to the car.” My face notices and should be patient in between. Even he played to bed, and my chest means much to make sure that by a milk. When I was doing the telling love when we stopped to realise that I wasn’t the only way to make all that. I was the last time you were glad you invited them for the excess ones. What about his woman, I smile. I can’t complete all this. They’re in its number, so you’ve come to just change my things. I’m a sister.
+&lt;/blockquote&gt;
+
+&lt;p&gt;Again, romance is never far off (see &lt;em&gt;I’m kind of strange, I said as he let out a smile&lt;/em&gt; or &lt;em&gt;then she found his hand&lt;/em&gt;). There is talk of rivalry (&lt;em&gt;What about his woman, I smile&lt;/em&gt;) and stalking (&lt;em&gt;he was introduced to my first stalker&lt;/em&gt;). And while there are many phrases I don’t know what to make of (&lt;em&gt;the gaze of my underwear&lt;/em&gt; or &lt;em&gt;I was doing the telling love&lt;/em&gt;), but I’m sure people with a more lively imagination won’t have any problem dreaming up a fine explanation.&lt;/p&gt;
+
+&lt;p&gt;Next, I trained the model on forty-four books of historical fantasy. This made it produces passages such as this one:&lt;/p&gt;
+
+&lt;blockquote&gt;
+He heard a soldier on the road and the children came here out of the concern. I stood slowly and reached for my own face. I was standing in the still steps to the mountains the other was my last boy. Hywel began to cover in a cry. &lt;br /&gt;
+“You are getting the flower of the dragon for my days for not to act as the fallen streets -- they somehow come out the shadow of the air, as if the gods were begging,” I replied. &lt;br /&gt;
+“I can find the road.” &lt;br /&gt;
+An angel blow, truth and reveals of the line of a messenger that stretched into the streets of Brechalon. The soldiers ate quietly to his father’s men, completely still and the old fool said the power of respecting a chance, and they would stay in the face of the pilgrim, and I was interrupted by the other man. She had not lived down the side of the choir, a stone -- and it would be more than anything that had been still to see and they brought their eyes upon him, but it had been a lot of the first thing to trouble their thanks. The celebration who stood in the hall. He had the whole of the men, while Azkun laughed as he attempted to simply felt a strange knight. He felt his mouth in the north, and his voice was the demon he had seen again. In the darkness, he had not found a few and a consequence of water that enjoyed the first thing to have, but the dropped completely he was, bound the table by a small, measured form. The girl fell silent to the cross from the field. At the same time, the sun touched the door, the crossbowman approaching the continue in the marble stairs. It was the same one, she pursued the dragon on the ground. He shrugged and swing the knife in careful glance. “We want to get some nights ago.” I pulled her with it in a storm and helped her to him. 
+&lt;/blockquote&gt;
+
+&lt;p&gt;This fragment couldn’t be further removed from the previous ones. Instead of stalkers and sisters, it features soldiers, dragons, knights and demons. The scene conjures up an image of beleaguered villages, violent sword fights and a general atmosphere of fear and dread. I would argue it captures the genre of historical fantasy pretty well.&lt;/p&gt;
+
+&lt;p&gt;The third and final genre I played with was mystery and detective. Here’s what the model came up with:&lt;/p&gt;
+
+&lt;blockquote&gt;
+“Dead, maybe something supposed to be.”&lt;br /&gt;
+“Interesting, Di. But if you will take a clear paper,” Steve said , then nodded. I stepped and slammed onto the building. &lt;br /&gt;
+“No, he’s together and don’t know me on the stage.” &lt;br /&gt;
+“Then it’s exactly and you’re well happy with me.”&lt;br /&gt;
+“He’s never too at the demise of that amount of conversation with the phone down. It’s my background, about five years ago. And it can’t change the voice.” &lt;br /&gt;
+She grabbed his face to his feet. &lt;br /&gt;
+“That’s incident, I think. I was caught with our accident.” &lt;br /&gt;
+“The older man who would actually escape but he will need to have a big plot about his mother.” &lt;br /&gt;
+I dropped a drink and saw that a hull of in this case smelled of laptop. &lt;br /&gt;
+“Okay , huh?” I thought then who, he didn’t know what you’re under, so I put it careful to drink in bitching mind to make the first thing. Even as first it should be Lord Rushton and Collin who had reached his file, Mrs. Johnson 15, suddenly watching her that I had been. It was the fact that he’d met him near the Civil Search, and the time in making documents, it was a story with what that was a murder. And if I had discomfort with him for leaving anything that was worse, while you’ve got it in his house in the air and Evangeline offered to be a man’s heart to pay from the people. &lt;br /&gt;
+“He pressed his girl and jerked his arms around her breasts. &lt;br /&gt;
+“If he didn’t say anything but is my life on his Anthony, now,” he said.&lt;br /&gt; 
+“I’ve never wanted to be more sort of time to give the address,” she said. “And let’s go.” She groaned and feared she was such a comment of her supplier as he washed on the table. &lt;br /&gt;
+“What are you talking about ?” &lt;br /&gt;
+“Everyone in the wrong minute was so sailing the man in his flashlight.” Maggie shook her head. &lt;br /&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Like many detective stories, this fragment starts with a body. It later mentions an &lt;em&gt;accident&lt;/em&gt; and a &lt;em&gt;murder&lt;/em&gt;, often the competing explanations offered for someone’s &lt;em&gt;demise&lt;/em&gt;. Its general topic is less focused than in the historical fantasy fragment above, but these lexical clues nevertheless link it to mystery and detective.&lt;/p&gt;
+
+&lt;p&gt;Here’s a final example, again by the mystery and detective model:&lt;/p&gt;
+
+&lt;blockquote&gt;
+It felt as if she came in or happen, but I think Will, if she was really under the lab, he was about to score off the company and something of the day back into the front of the house with both like a captain. There was no more secret back at the shop. I had to know where the little committee was murdered.”&lt;br /&gt; 
+“I’m the best side of the second difference,” I said.&lt;br /&gt; 
+“Nothing. The construction way. I’m sorry I don’t have to talk to you.”&lt;br /&gt;  
+“The man? I’ll be the one who was the only one who has a problem.” The two girls would be back and forth to Steve’s perfect statement and looked at him with a hard hand beneath the car on the back panel of the gloom.&lt;br /&gt;  
+“Suppose the speaker was the Sergeant.”&lt;br /&gt; 
+“You all really like to waste a glass of the contrary?”&lt;br /&gt; 
+“No, I was, but I know you’re all the day.” He smiled.&lt;br /&gt;  
+“I wouldn’t want a stranger off and say it would be said, but it’s fine. There was a brief story.”&lt;br /&gt; 
+“Oh , I know you don’t really do more,” she said, “okay, I can. I’ll need to start a fifty feet on top of these time.”&lt;br /&gt;  
+“But what do you mean?”&lt;br /&gt;  
+“Not so,” Jason said, “it says the men were coming in here.”&lt;br /&gt;  
+“Thank you for respecting the way,” Chet said. “I have a professional less than a life of the news and the painting of the jail when it was going to have to tell me.”&lt;br /&gt;  
+“I think I can not say that. Wouldn’t you be able to help you?” Ronnie took a step back.&lt;br /&gt; 
+“That’s a low, lid, but I will never begin to the right seat.” She took his shoulder to her feet and shake his head around.&lt;br /&gt;  
+“I think I’m all right.” I was positive to explain her back.&lt;br /&gt;  
+“Well, if you can have some more attempt to leave the window’s walls and the others killed Stephen.” The police taste, a warm slipper branches. As if I’d been recognising the choice with the employees? It didn’t matter. She thought for a second to come and then ask her.&lt;br /&gt; 
+&lt;/blockquote&gt;
+
+&lt;p&gt;Again, the influence of the detective genre can be recognized in a number of lexical clues, such as &lt;em&gt;killed&lt;/em&gt;, &lt;em&gt;police&lt;/em&gt;, &lt;em&gt;jail&lt;/em&gt; and &lt;em&gt;statement&lt;/em&gt;. Some sentences could even come directly from a detective novel, such as &lt;em&gt;I had to know where the secret committee was murdered&lt;/em&gt; or &lt;em&gt;I’m sorry I don’t have to talk to you&lt;/em&gt;. In short, the model has reliably picked up some of the most typical characteristics of all three genres I have explored. 
+
+&lt;p&gt;Although it’s good to see the neural networks produce genre-specific words, what I find even more impressive is their ability to imitate language at a lower level. Remember that these are character-level language models that produce one character (letter, symbol, space, etc.) at a time, given the preceding context. Now consider for a moment some of the things these LSTMs have learnt:
+
+&lt;ul&gt;
+    &lt;li&gt;A lexicon: with very few exceptions, almost all words in the samples are existing English words.&lt;/li&gt;
+    &lt;li&gt;Syntax: nonsensical as they may be, many sentences are grammatically correct. They generally contain a subject and a main verb, transitive verbs mostly have a direct object, singular nouns are preceded by articles, and so on.&lt;/li&gt;
+    &lt;li&gt;Spelling: All sentences and names, and only sentences and names, begin with capital letters.&lt;/li&gt;
+    &lt;li&gt;Punctuation: All sentences end in a full stop, and most opening quotation marks are followed at some later point by closing quotation marks. This is probably due to the long-term memory capabilities of LSTMs, which are able to remember that there are opening quotation marks in the preceding context, and only forget about them when these have been closed again.&lt;/li&gt;
+&lt;/ul&gt;
+
+That’s pretty impressive.&lt;/p&gt;
+
+&lt;p&gt;Given the nonsensical nature of all fragments above, deep learning models aren’t going to replace novelists any time soon. Still, they are already able to learn some of the most typical characteristics of genre-specific language. This behaviour could help us classify stories by their genre or help recognise the author of a book. Moreover, the appeal of these models is much wider than language or literature &amp;mdash; the same neural networks can be &lt;a href=&quot;https://soundcloud.com/seaandsailor/sets/char-rnn-composes-irish-folk-music&quot;&gt;applied to music&lt;/a&gt;, for instance. And with deep neural networks becoming better almost by the day, who knows what will become possible in the future.&lt;/p&gt;
+ 
+&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/generating-genre-fiction-with-deep-learning/&quot;&gt;Generating Genre Fiction with Deep Learning&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on August 09, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Text Retrieval & Search Engines (Coursera): Week&nbsp;4 Part&nbsp;2: Recommender Systems]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/text-retrieval-6/" />
+  <id>http://nlp.yvespeirsman.be/blog/text-retrieval-6</id>
+  <published>2015-05-31T08:00:00-04:00</published>
+  <updated>2015-05-31T08:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;Last month I took the online course &lt;a href=&quot;https://www.coursera.org/course/textretrieval&quot;&gt;Text Retrieval &amp;amp; Search Engines&lt;/a&gt; on Coursera, and I’m using this blog to write down the main takeaways every week. In the fourth and final week of the course, we shifted our gaze to Web Search and Recommender Systems. In this blog post I share my notes on Recommender Systems.&lt;/p&gt;
+
+&lt;p&gt;Recommender Systems are systems that don’t require you to search for content, but that recommend relevant content to you themselves. They are also called “filtering systems”, because they filter a large collection of candidate documents and keep only the useful ones. This filtering takes place in one of two ways. &lt;em&gt;Content-based filtering&lt;/em&gt; looks at what items a user likes, and checks if a candidate item is similar to these. &lt;em&gt;Collaborative filtering&lt;/em&gt; looks at the users who like the candidate item, and then checks if the current user is similar to those other users. These two modes of filtering can obviously be combined.&lt;/p&gt;
+
+&lt;p&gt;A typical content-based filtering system consists of a number of components. First, it has a binary classifier with a user interest profile, which decides whether a document is relevant to a user or not. Second, it has an initialisation module that takes input from the user to feed the system with an initial user profile. Third, it has a learning module that allows the system to learn from the user’s behaviour through time. The system is evaluated on the basis of a utility function, which compares the number of good documents it recommends to the number of bad documents.&lt;/p&gt;
+
+&lt;p&gt;A search-based information retrieval system can be turned into a recommender system by combining its ranking function with a score threshold above which documents are recommended to the user. Traditional feedback methods can then be used to improve the scoring. Of course, finding an appropriate threshold can be hard: judgements are only available on recommended documents, and the system needs to deal with the trade-off between exploration and exploitation. On the one hand, it can sometimes be useful to lower the threshold to &lt;em&gt;explore&lt;/em&gt; the search space for potential interests of the user that are currently unknown. On the other hand, the system should focus on &lt;em&gt;exploiting&lt;/em&gt; its current knowledge about the user rather than exploring too much. Some methods have been developed for finding an optimal threshold, such as Beta-Gamma Threshold Learning, which starts from the threshold that gives the maximum utility on the training data set and then heuristically lowers it to improve recall.&lt;/p&gt;
+
+&lt;p&gt;In contrast to content-based filtering, collaborative filtering makes filtering decisions for an individual user based on the judgements of other users. It assumes that users with the same interest have similar preferences, and that users with similar preferences share the same interest. Obviously, it needs a sufficiently large number of user preferences to make its estimates, otherwise there will be a problem of “cold start”. 
+In mathematical terms, collaborative filtering tries to fill in the unknown values in a sparse user-by-object matrix. A simple memory-based implementation would normalise the ratings made by each user, to make the numbers comparable across users, and then compute unknown ratings by a certain user as a form of weighted average of the ratings of other users, where the weighting depends on the similarity between the current user and the other users.&lt;/p&gt;
+
+&lt;p&gt;A central question in collaborative filtering is how we determine the similarity between two users. Basic solutions are the Pearson correlation coefficient or the cosine between the vectors of user preferences. More advanced methods take the Inverse User Frequency into account, based on the assumption that a similar rating for a rare item is more informative than a similar rating for a popular item. In addition, they often fill in the unknown values in an iterative way: they first use a basic prediction of the missing values, use these figures to improve the similarity rating between two users, predict the unknown values again on the basis of this new similarity, and so on. Finally, actual recommender systems often rely on more information about the user than just their ratings, and combine collaborative filtering with content-based filtering.&lt;/p&gt;
+
+&lt;p&gt;With this introduction into recommender systems, we came to the end of the online course &lt;a href=&quot;https://www.coursera.org/course/textretrieval&quot;&gt;Text Retrieval &amp;amp; Search Engines&lt;/a&gt;. Despite its short duration, this was one of the best courses I’ve taken on Coursera so far. The lectures were very well-structured and focused, and even though most of the content remained fairly superficial, it succeeded in giving a succinct overview of a complex field. There were many pointers to related literature, and it surely kept me interested throughout. Now it’s time to put some of these ideas into practice.&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/text-retrieval-6/&quot;&gt;Text Retrieval & Search Engines (Coursera): Week&nbsp;4 Part&nbsp;2: Recommender Systems&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on May 31, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Visualizing Word Embeddings with t-SNE]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/visualizing-word-embeddings-with-tsne/" />
+  <id>http://nlp.yvespeirsman.be/blog/visualizing-word-embeddings-with-tsne</id>
+  <published>2015-05-18T18:00:00-04:00</published>
+  <updated>2015-05-18T18:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;When you work with high-dimensional datasets such as the word embeddings produced by &lt;a href=&quot;https://code.google.com/p/word2vec/&quot;&gt;word2vec&lt;/a&gt; or &lt;a href=&quot;http://nlp.stanford.edu/projects/glove/&quot;&gt;GloVe&lt;/a&gt;, it’s important to get a good idea of what the data look like. One option is to create a visualization of the dataset in two dimensions, and simply eyeball the clusters of data points that appear. However, creating a useful low-dimensional visualization is a non-trivial matter. The best solution I’ve found so far is &lt;a href=&quot;http://lvdmaaten.github.io/tsne/&quot;&gt;t-SNE&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;t-SNE was developed by Laurens van der Maaten at the University of Delft. It won Maarten the &lt;a href=&quot;https://www.kaggle.com/c/MerckActivity/prospector#186&quot;&gt;Merck Visualization Challenge on Kaggle&lt;/a&gt;, and has been applied to images, word embeddings, movies, and similar high-dimensional datasets. Maarten’s website contains links to implementations of the technique in a variety of programming languages, in addition to the research papers that go into the gory details of the underlying maths.&lt;/p&gt;
+
+&lt;p&gt;I tested out t-SNE by visualizing the 300-dimensional word embeddings produced by GloVe, a deep learning method developed at Stanford University. Word embeddings model the contexts in which words appear, and are often used as a way of measuring the semantic similarity between two words. You can download a large number of example word embeddings directly from the &lt;a href=&quot;http://nlp.stanford.edu/projects/glove/&quot;&gt;GloVe website&lt;/a&gt;. As you’ll see, t-SNE really makes it easy to visualize these 300-dimensional embeddings in two dimensions, and to get a rough idea of their quality.&lt;/p&gt;
+
+&lt;p&gt;Let’s go through the process step by step. First we read in the word embeddings and their labels from two text files. The embeddings file should contain one vector per line, with the values for all dimensions separated by tabs. The label file should list the labels for these vectors &amp;mdash; one label per line, in the same order as the vectors in the embeddings file.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code&gt;import numpy as Math
+import pylab as Plot
+
+glove_matrix = Math.loadtxt(&quot;glove.6B.300d.embeddings.txt&quot;);
+glove_words = [line.strip() for line in open(&quot;glove.6B.300d.labels.txt&quot;)]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Obviously, visualizing all 400,000 words in the GloVe download would give a plot that is rather hard to read.  Instead we will focus on the &lt;a href=&quot;http://www.rupert.id.au/resources/1000-words.php&quot;&gt;2,000 most frequent words in English&lt;/a&gt;, according to the &lt;a href=&quot;http://www.wordfrequency.info/&quot;&gt;American National Corpus&lt;/a&gt;. This means we need to select from the GloVe matrix the rows that correspond to these words. We do this by compiling a list of all the row indices for the target words and using that list to assemble our target matrix:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code&gt;target_words = [line.strip().lower() for line in open(&quot;4000-most-common-english-words-csv.csv&quot;)][:2000]
+
+rows = [glove_words.index(word) for word in target_words if word in glove_words]
+target_matrix = glove_matrix[rows,:]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;One line of code then puts t-SNE to work. The first argument to the function is the matrix with our word embeddings, the second is the number of dimensions we want to reduce the matrix to:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code&gt;reduced_matrix = tsne(target_matrix, 2);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Finally, we use a scatter plot to visualize the results of the dimensionality reduction:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code&gt;Plot.figure(figsize=(200, 200), dpi=100)
+max_x = Math.amax(reduced_matrix, axis=0)[0]
+max_y = Math.amax(reduced_matrix, axis=0)[1]
+Plot.xlim((-max_x,max_x))
+Plot.ylim((-max_y,max_y))
+
+Plot.scatter(reduced_matrix[:, 0], reduced_matrix[:, 1], 20);
+
+for row_id in range(0, len(rows)):
+    target_word = glove_words[rows[row_id]]
+    x = reduced_matrix[row_id, 0]
+    y = reduced_matrix[row_id, 1]
+    Plot.annotate(target_word, (x,y))
+
+Plot.savefig(&quot;glove_2000.png&quot;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;A quick inspection immediately shows the quality of both the GloVe word embeddings and the t-SNE visualization. For example, in the two-dimensional plot all frequent numbers are grouped together. “One” is likely missing because its contextual distribution is so different from the other numbers &amp;mdash; it fulfils more linguistic functions than just counting.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/glove-word-embeddings-numbers.png&quot; class=&quot;centered&quot; width=&quot;300&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Similarly, there is a separate group of words related to education:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/glove-word-embeddings-education.png&quot; class=&quot;centered&quot; width=&quot;500&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;And here’s another one about crime and punishment:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/glove-word-embeddings-crime-and-punishment.png&quot; class=&quot;centered&quot; width=&quot;500&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;If you take a look at &lt;a href=&quot;/images/glove-word-embeddings.png&quot; class=&quot;centered&quot;&gt;the complete figure&lt;/a&gt;, you’ll find similar clusters for body parts, family members, media, food, politics, sports, and many other concepts.&lt;/p&gt;
+
+&lt;p&gt;This simple exercise shows t-SNE is a great tool for visualizing word embeddings. It’s easy to use, produces high-quality visualizations, and will certainly contribute to our understanding of high-dimensional datasets.&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/visualizing-word-embeddings-with-tsne/&quot;&gt;Visualizing Word Embeddings with t-SNE&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on May 18, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Text Retrieval & Search Engines (Coursera): Week&nbsp;4 Part&nbsp;1: Web Search]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/text-retrieval-5/" />
+  <id>http://nlp.yvespeirsman.be/blog/text-retrieval-5</id>
+  <published>2015-05-09T13:30:00-04:00</published>
+  <updated>2015-05-09T13:30:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;Last month I took the online course &lt;a href=&quot;https://www.coursera.org/course/textretrieval&quot;&gt;Text Retrieval &amp;amp; Search Engines&lt;/a&gt; on Coursera, and I’m using this blog to write down the main takeaways of every week. In the fourth and final week of the course, we shifted our gaze to Web Search and Recommender Systems. In this blog post I share my notes on web search.&lt;/p&gt;
+
+&lt;p&gt;Scaling up a text retrieval system from a limited set of texts to a web search engine brings with it a number of challenges and opportunities. Obviously the first challenge is scalability: how can we handle the size of the web and ensure completeness of coverage? How do we serve many users quickly? The answer to these questions lies in parallel indexing and searching, for example on the basis of MapReduce. The second challenge is the low quality of a lot of information on the web. Spam detection and robust ranking methods must harness our search engine against low-quality data. Third, we must take the dynamics of the web into account: new pages are created constantly, while other pages are updated very quickly. The news isn’t all bad, however. The web also brings a few opportunities: we can leverage many additional heuristics, such as the information available in links, to improve the search accuracy of our system.&lt;/p&gt;
+
+&lt;p&gt;Three components are essential in building a web search engine: the crawler, indexer and retriever. First, the crawler (also often referred to as a &lt;em&gt;spider&lt;/em&gt; or &lt;em&gt;robot&lt;/em&gt;) needs to fetch all pages we would like to index. While building a toy crawler is easy, a real-world crawler must be able to deal with the many intricacies of the world wide web, including server failures, crawling courtesy, the variation in file types, etc. Crawling is usually done in a parallel fashion, following a breadth-first strategy to avoid overloading servers. The process is repeated many times, but not every web page is crawled equally often. Efficient crawlers target pages that are updated and accessed frequently.&lt;/p&gt;
+
+&lt;p&gt;The second essential component in a web search engine is the index. Although web indexes are still based on standard IR techniques, the system must be able to deal with index files that do not fit into a single machine. Solutions come in the form of distributed file systems on a cluster of machines, such as the Google File System, and software frameworks for parallel computing, such as MapReduce (of which &lt;em&gt;Hadoop&lt;/em&gt; is an open-source implementation). Because it hides many low-level details, MapReduce makes parallel programming relatively easy. At its core are two main functions: the map function that defines the tasks that are executed in parallel, and the reduce function that processes the output of all map functions. In the context of inverted indexing, the map function counts how many times each word occurs in each document, and the reduce function concatenates this information and sorts it.&lt;/p&gt;
+
+&lt;p&gt;Finally, the retriever in a web search engine needs to go beyond standard IR models. Generally, it uses link information to improve scoring, exploits clickthrough data as a source of implicit feedback and relies on machine learning to combine various types of features. Links are crucial to the web: they indicate how useful a web page is, and their &lt;em&gt;anchor text&lt;/em&gt; provides an additional summary for a document. The most well-known algorithm for capturing page popularity through links is probably PageRank. Essentially, PageRank treats links like citations in scientific literature. It assumes that pages that are “cited” more often will be more useful, and also considers “indirect citation”: a link to a page is given more weight if it appears on another page that is often linked to. A similar algorithm, HITS (Hypertext-Induced Topic Search), relies on the notion of &lt;em&gt;authorities&lt;/em&gt; (pages with many &lt;em&gt;in-links&lt;/em&gt;) and &lt;em&gt;hubs&lt;/em&gt; (pages with many &lt;em&gt;out-links&lt;/em&gt;). It iteratively applies the idea that good authorities are linked to by good hubs, and that good hubs point to good authorities. Both PageRank and HITS have many applications beyond web search, for example in network analysis.
+&lt;/p&gt;
+
+&lt;p&gt;Given that there is so much useful information available for ranking web pages, a web search engine needs to figure out how it can combine all these features into a single ranking function. The general idea is that the relevance of a page is a weighted sum of all its features. The values of the weights can be learned on the basis of training data whose relevance is known, with an approach such as logistic regression. Other, more advanced learning algorithms attempt to directly optimise a retrieval measure such as MAP or nDCG. Details can be found in Tie-Yan Liu’s “Learning to Rank for Information Retrieval” (2009), or Hang Li’s “A Short Introduction to Learning to Rank” (2011).
+&lt;/p&gt;
+
+&lt;p&gt;The future of web search engines looks extremely varied. More specialised search engines could achieve better performance, for example because they cater to a special group of users that they know very well, or because they focus on a specific genre or domain, where they understand the documents better. Other approaches could learn over time, integrate search, navigation and recommendation, and support a whole workflow instead of the search task only. In terms of the data, these engines will likely evolve away from the bag-of-word approach to deeper semantic analysis. In terms of users, they will become more and more personalised. In terms of service, they will move from the simple search task towards more intelligent and interactive task support.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/text-retrieval-5/&quot;&gt;Text Retrieval & Search Engines (Coursera): Week&nbsp;4 Part&nbsp;1: Web Search&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on May 09, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[NLP Meets Linguistics: Detecting Synonyms in Pluricentric Languages]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/article-ijcl/" />
+  <id>http://nlp.yvespeirsman.be/blog/article-ijcl</id>
+  <published>2015-05-02T05:00:00-04:00</published>
+  <updated>2015-05-02T05:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;The most recent issue of the International Journal of Corpus Linguistics features an &lt;a href=&quot;https://benjamins.com/#catalog/journals/ijcl.20.1.03pei/details&quot;&gt;article on word variation by my two PhD advisors and myself&lt;/a&gt;. In this paper we explore how computational models of meaning can be used to find synonyms across two varieties of the same language, such as the Dutch used in Belgium and the Netherlands, or the German spoken in Austria and Germany. Here’s my story about a meeting between Natural Language Processing and linguistics, and peer review gone wrong.&lt;/p&gt;
+
+&lt;p&gt;It’s a well-known fact that speakers of the same language often use different words to refer to the same thing. This is not only the case in dialects, but also in languages where different standard varieties have developed. Two such &lt;em&gt;pluricentric&lt;/em&gt; languages are Dutch, with different standard varieties in Belgium and the Netherlands, and German, with different standard varieties in Germany and Austria, among other places. For example, while the Dutch like to call their uncle &lt;em&gt;oom&lt;/em&gt;, the Flemish like to say &lt;em&gt;nonkel&lt;/em&gt;, and while the Germans refer to the first month of the year as &lt;em&gt;Januar&lt;/em&gt;, many Austrians say &lt;em&gt;Jänner&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;As part of my PhD research at the University of Leuven, I investigated if we can identify such synonyms fully automatically. I compiled a long list of words typical for Belgian Dutch and Austrian German, on the basis of the &lt;a href=&quot;http://tst-centrale.org/producten/lexica/referentiebestand-belgisch-nederlands/7-24&quot;&gt;Referentiebestand Belgisch-Nederlands&lt;/a&gt; and the &lt;a href=&quot;http://www.degruyter.com/view/product/14332&quot;&gt;Variantenwörterbuch des Deutschen&lt;/a&gt;. Because I wanted to find the synonyms of these words automatically, I needed large collections of texts in the relevant standard varieties. For Dutch, I used the &lt;a href=&quot;http://hmi.ewi.utwente.nl/TwNC&quot;&gt;Twente Nieuws Corpus&lt;/a&gt;, together with a similar collection of Belgian newspaper articles that we compiled at the University of Leuven. For German, I used the &lt;a href=&quot;http://www.ims.uni-stuttgart.de/forschung/ressourcen/korpora/hgc.html&quot;&gt;Huge German Corpus&lt;/a&gt; for German German, and the &lt;a href=&quot;http://www1.ids-mannheim.de/kl/projekte/korpora/&quot;&gt;Deutsches Referenzkorpus&lt;/a&gt; for Austrian German.&lt;/p&gt;
+
+&lt;p&gt;To detect the synonyms, I applied &lt;a href=&quot;http://nlp.yvespeirsman.be/blog/nlp-classics-retrieval-similar-words/&quot;&gt;an NLP method that I discussed earlier on this blog&lt;/a&gt;, which assumes that we can find synonyms by looking for words that often have the same context. For example, because Belgian-Dutch &lt;em&gt;nonkel&lt;/em&gt; (uncle) often occurs together with the word &lt;em&gt;tante&lt;/em&gt; (aunt), we can expect its Netherlandic-Dutch counterpart &lt;em&gt;oom&lt;/em&gt; to do the same. I wrote a piece of software that for each of the words typical of Belgian Dutch or Austrian Dutch looks up all its contexts in the Belgian-Dutch or Austrian-Dutch corpus, and then identifies the words with the most similar contextual behaviour in the Netherlandic-Dutch and German-Dutch corpus, respectively.&lt;/p&gt;
+
+&lt;p&gt;The results proved that this so-called &lt;em&gt;distributional-semantic&lt;/em&gt; method can indeed be used to detect synonyms across different standard varieties of the same language. It automatically detected &lt;em&gt;jam&lt;/em&gt; (jam) as the Netherlandic-Dutch synonym for Belgian &lt;em&gt;confituur&lt;/em&gt;, &lt;em&gt;woonkamer&lt;/em&gt; (living room) for &lt;em&gt;living&lt;/em&gt;, &lt;em&gt;schoon&lt;/em&gt; (clean) for &lt;em&gt;proper&lt;/em&gt;, and many more examples. The same was true for German, where it correctly identified &lt;em&gt;Fleischer&lt;/em&gt; (butcher) as the German-German synonym for Austrian &lt;em&gt;Fleischhauer&lt;/em&gt;, or &lt;em&gt;Krankenhaus&lt;/em&gt; (hospital) for &lt;em&gt;Spittal&lt;/em&gt;. Whereas the method did struggle with infrequent words or words with several meanings, overall its results were very convincing.&lt;/p&gt;
+
+&lt;p&gt;While I’m happy to see this article published, I’m pretty dissatisfied with the publication process. It’s hard to believe, but I submitted this article in October 2011 &amp;mdash; three years and six months ago. I’ve reviewed enough papers myself to know that this can take some time. Articles for the International Journal of Corpus Linguistics are reviewed by three anonymous specialists, who doubtlessly have very busy lives themselves. But it took the journal two years and five months to get the reviews for our article, after which it kindly asked me to revise the paper in less than three months. That’s just unacceptable. Fast forward another year, and our article is finally available for everyone, except it’s not, because John Benjamins is one of those publishers that keeps academic articles behind a paywall. Oh well. If I ever need reminding why I left academia, I’ll know where to go.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/article-ijcl/&quot;&gt;NLP Meets Linguistics: Detecting Synonyms in Pluricentric Languages&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on May 02, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Text Retrieval & Search Engines (Coursera): Week 3 Part 2: User Feedback]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/text-retrieval-4/" />
+  <id>http://nlp.yvespeirsman.be/blog/text-retrieval-4</id>
+  <published>2015-04-23T05:00:00-04:00</published>
+  <updated>2015-04-23T05:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;This month I’m taking the online course &lt;a href=&quot;https://www.coursera.org/course/textretrieval&quot;&gt;Text Retrieval &amp;amp; Search Engines&lt;/a&gt; on Coursera, and I’m using this blog to write down the main takeaways every week. In this third week of the course, we again focused on two main topics: probabilistic models for information retrieval and methods for user feedback. In this blog post I share my notes on user feedback.&lt;/p&gt;
+
+&lt;p&gt;There are several ways in which a search engine can get feedback from its users. It can simply ask them to make &lt;em&gt;explicit relevance judgements&lt;/em&gt; about its initial result list, for example. The system can subsequently update the query to give a better ranking, by adding new terms (so-called &lt;em&gt;query expansion&lt;/em&gt;) or by adjusting the weight of old terms. However, because users are generally reluctant to make this effort, developers of IR systems have come up with more creative ways of improving the results. In &lt;em&gt;pseudo-relevance feedback&lt;/em&gt;, they assume the top ranked documents are relevant, and improve the query on the basis of these documents. For example, the system can find new words that are related to the query words, by comparing the word frequencies in these documents to those in the full document collection. In &lt;em&gt;implicit feedback&lt;/em&gt;, the system tracks user behaviour: if a user clicks on a document, it assumes this document will be relevant. It can then use the snippet that was shown to the user to improve the query. 
+
+&lt;p&gt;The most effective method for feedback in the &lt;a href=&quot;http://nlp.yvespeirsman.be/blog/text-retrieval-1/&quot;&gt;vector space model&lt;/a&gt; is called Rocchio Feedback. Basically, the search engine adapts the query by moving its vector $\overrightarrow{q}$ closer to the centroid of the relevant documents $D_r$, and away from the centroid of the non-relevant documents $D_n$. Three parameters $\alpha$, $\beta$ and $\gamma$ control the amount of movement: $$ \overrightarrow{q_m} = \alpha \overrightarrow{q} + \frac{\beta}{|D_r|}\sum_{\forall \overrightarrow{d_j} \in D_r} \overrightarrow{d_j} - \frac{\gamma}{|D_n|}\sum_{\forall \overrightarrow{d_j} \in D_n}\overrightarrow{d_j}$$ Some tricks of the trade help make the Rocchio method more effective. For example, it is customary to truncate the updated query vector, since too many words get a non-zero weight after query expansion. Also, because the non-relevant documents are typically not clustered together, their centroid tends to be fairly uninformative and is often ignored. Finally, you can prevent overfitting by setting $\alpha$  fairly high. Particularly in the case of pseudo-relevance feedback, $\beta$ should be kept relatively small, in order to avoid adjusting the query vector too much to documents whose relevance is not 100% certain.&lt;/p&gt;
+
+&lt;p&gt;Things are slightly more complex in the &lt;a href=&quot;http://nlp.yvespeirsman.be/blog/text-retrieval-3/&quot;&gt;Query Likelihood Model&lt;/a&gt;. Because this model treats the query as a sample from a language model, adding terms or adjusting weights is rather awkward (Zhai 2008). Therefore it is often replaced by the more general Kullback-Leibler Divergence retrieval model. This approach computes the score $s$ of a document $D$ with respect to a query $Q$ as the Kullback-Leibler divergence between the document language model $\theta_D$ and the query language model $\theta_Q$: $$\begin{align*}s(D,Q)&amp;amp;=-\sum_{w \in V}p(w|\theta_Q) log \frac{p(w|\theta_Q)}{p(w|\theta_D)} \\ &amp;amp;= \sum_{w \in V}p(w|\theta_Q) log p(w|\theta_D) - \sum_{w \in V}p(w|\theta_Q) log p(w|\theta_Q)\end{align*}$$
+
+Because the last term in this equation depends on the query only, documents can be ranked on the basis of just the first term, the so-called negative cross-entropy. It is now easy to see the Query Likelihood model is a special case of this approach: the frequency of a word in the query can be interpreted as the maximum likelihood estimate of its probability in the query language model, $p(w|\theta_Q)$, and the relevance of a query to a document is the sum of the probability of the query words in the document language model, $p(w|\theta_Q)$.&lt;/p&gt;
+
+&lt;p&gt;The advantage of this KL Divergence model is that is becomes much easier to take user feedback into account. We can do this by updating the query language model with a third language model &amp;mdash; the &lt;em&gt;feedback language model&lt;/em&gt; &amp;mdash; for example by linear interpolation. Of course, the question is how we estimate this feedback language model. The answer takes the form of a generative mixture model, where we assume the relevant documents are generated from a mixture of a topic language model and a background language model. The background model is  computed as the maximum likelihood estimate of all documents in the collection, while the topic model should maximise the probability of seeing the relevant documents. A parameter $\lambda$ controls the weight that will be given to either of these documents.&lt;/p&gt;
+
+&lt;p&gt;In contrast to the other parts of a typical IR system, there is no real standard for the feedback component, and many competing approaches exist. Some of these are discussed in ChengXiang Zhai’s 2008 paper &lt;a href=&quot;http://times.cs.uiuc.edu/czhai/pub/slmir-now.pdf&quot;&gt;Statistical Language Models for Information Retrieval&lt;/a&gt;, specifically in the context of language models. Don’t miss it in case you’re interested in a much more detailed overview of the challenges and solutions to user feedback.&lt;/p&gt;
+&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/text-retrieval-4/&quot;&gt;Text Retrieval & Search Engines (Coursera): Week 3 Part 2: User Feedback&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on April 23, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Text Retrieval & Search Engines (Coursera): Week 3 Part 1: Query Likelihood Model]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/text-retrieval-3/" />
+  <id>http://nlp.yvespeirsman.be/blog/text-retrieval-3</id>
+  <published>2015-04-13T05:00:00-04:00</published>
+  <updated>2015-04-13T05:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;This month I’m taking the online course &lt;a href=&quot;https://www.coursera.org/course/textretrieval&quot;&gt;Text Retrieval &amp;amp; Search Engines&lt;/a&gt; on Coursera, and I’m using this blog to write down the main takeaways every week. In this third week of the course, we again focused on two main topics: probabilistic models for information retrieval and methods for user feedback. In this blog post I share my notes on probabilistic models.&lt;/p&gt;
+
+&lt;p&gt;Probabilistic models for IR rank documents according to the probability that they are relevant to a query. There are several possible implementations, but in this course we focused on the so-called Query Likelihood Model. This approach makes the assumption that we can model $p(R=1|q,d)$, the probability that a document is relevant for a given query, as $p(q|d,R=1)$, the probability that the query is observed if a given document is relevant. In other words, if a user is interested in document $d$, how likely are they to enter query $q$? To answer this question, the Query Likelihood Model makes use of language models.&lt;/p&gt;
+
+&lt;p&gt;Language models are basically probability distributions over word sequences: they give us the probability of observing a certain word or word sequence in a text. Information Retrieval generally relies on &lt;em&gt;unigram&lt;/em&gt; language models, which only have probabilities for single words. They assume that texts are created by drawing words at random, independently of one another. The presence of one word therefore does not tell us anything about the probability of observing another word. This assumption is clearly false, but it allows us to simplify our approach drastically. For example, we can now compute the probability of a text as the product of the probabilities of its words.&lt;/p&gt;
+
+&lt;p&gt;Now, to rank all documents for a query, we use each document in the collection to estimate a language model, and compute the probability of the query on the basis of the resulting word probabilities. The simplest way of building such a language model is with Maximum Likelihood Estimation, where we set the parameters in such a way that our observed data (the document) receives the highest possible probability. In practice, this means that we will use the relative frequencies of the words observed in the document as their probabilities: $$p(w|d) = \frac{c(w,d)}{|d|}$$&lt;/p&gt;
+
+&lt;p&gt;This Maximum Likelihood Estimation has one downside, however: because it assigns zero probability to words that were not observed in the document, any query with such an unseen word will receive a probability of zero. To solve this method, we need to &lt;em&gt;smooth&lt;/em&gt; our language models: we take away some probability mass from the words that were observed in the document, and assign it to the unseen words. One of the most popular smoothing methods is Jelinek-Mercer Smoothing, which applies linear interpolation between the relative frequencies of the words in the document and their probability according to a language model on the basis of the full text collection: $$p(w|d)=(1-\lambda)\frac{c(w,d)}{|d|} + \lambda p(w|C)$$ Another effective method is Dirichlet Prior Smoothing. Here we add pseudo word counts to the observed text, based on the collection language model. As a result, the smoothing coefficient is dynamic, depending on the length of the document, and longer documents will receive less smoothing: $$p(w|d) = \frac{c(w,d) + \mu p(w|C)}{|d| + \mu} = \frac{|d|}{|d|+\mu}\frac{c(w,d)}{|d|} + \frac{\mu}{|d|+\mu} p(w|C)$$&lt;/p&gt;
+
+&lt;p&gt;One interesting result of these smoothing methods is that they lead to a ranking function that is very similar to the ranking methods we obtained with the vector space model. All the familiar heuristics, such as term frequency, inverse document frequency and document length normalization, are there, in one form or another. However, this time we obtained them in a very natural way: our new ranking functions followed quite automatically from thinking about information retrieval as a probabilistic problem.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/text-retrieval-3/&quot;&gt;Text Retrieval & Search Engines (Coursera): Week 3 Part 1: Query Likelihood Model&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on April 13, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Text Retrieval & Search Engines (Coursera): Week 2]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/text-retrieval-2/" />
+  <id>http://nlp.yvespeirsman.be/blog/text-retrieval-2</id>
+  <published>2015-04-06T05:00:00-04:00</published>
+  <updated>2015-04-06T05:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;This month I’m taking the online course &lt;a href=&quot;https://www.coursera.org/course/textretrieval&quot;&gt;Text Retrieval &amp;amp; Search Engines&lt;/a&gt; on Coursera, and I’m using this blog to write down the main takeaways every week. In this second week of the course, we focused on two main topics: the implementation details of text retrieval systems and the evaluation of their output.&lt;/p&gt;
+
+&lt;p&gt;A text retrieval system typically consists of three parts. First there is the indexer, where documents are tokenized, transformed to their desired document representation, and indexed. Second we have the scorer, which takes the representation of a query and the documents in the collection, and comes up with a list of documents relevant to the query. Third there is an optional feedback loop, where users give feedback about the initial results, and the ranked list is adjusted. Whereas the implementation of the indexer and scorer are fairly standard, this feedback loop has many possible variations.&lt;/p&gt;
+
+&lt;p&gt;Let us start with the indexer. The most popular indexing method for basic search algorithms is the so-called &lt;a href=&quot;http://en.wikipedia.org/wiki/Inverted_index&quot;&gt;inverted index&lt;/a&gt;, which contains all the crucial information about the terms and documents in the collection. It has a dictionary with basic statistics for each term (such as its frequency and the number of documents in which it occurs), and the postings list with the documents that match a term, together with the frequency of that term in every document. The index may also contain position information, so that the system can check whether two matched terms are adjacent, for example. Since most words occur very rarely, consulting this inverted index is much more efficient than scanning all documents sequentially.&lt;/p&gt;
+
+&lt;p&gt;However, one problem with indexes is their sheer size. Because computers may run out of memory during indexing, text retrieval systems often construct their indexes through a sort-based method. As they scan all documents in a collection, they collect (term id, doc id, term frequency) tuples. Every time they run out of memory, they sort these tuples on term id and write the result to the disk as a temporary file. At the end of the indexing process, they merge and sort all temporary files to build the final inverted index. Of course, this final index will still be very large, and a lot of disk space can be saved by compressing it. This is very effective because many of its values have very skewed distributions. Term frequencies are the clearest example of this (they tend to obey &lt;a href=&quot;http://en.wikipedia.org/wiki/Zipf%27s_law&quot;&gt;Zipf’s law&lt;/a&gt;), but document information, too, can be compressed very effectively. This is done by replacing the consecutive doc ids for a term by the difference between them, and then compressing the resulting values. Popular compression methods are &lt;a href=&quot;http://en.wikipedia.org/wiki/Elias_gamma_coding&quot;&gt;gamma coding&lt;/a&gt; or &lt;a href=&quot;http://en.wikipedia.org/wiki/Delta_encoding&quot;&gt;delta encoding.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The scorer, too, can be optimized for fast searching. For example, statistics such as document lengths are generally precomputed. Scoring works by keeping a score accumulator for each document in the collection. When the system fetches the inverted list of documents and frequencies for a term, it updates the score accumulators for each document incrementally. There are several tricks to improve the efficiency of this process. It is a good idea, for example, to process rare terms in a query first, in order to quickly identify the most promising document accumulators. Efficient text retrieval systems make use of caching (they store the results of popular queries and keep inverted index lists for popular terms in memory), pruning (they keep only the most promising accumulators), and parallel processing.&lt;/p&gt;
+
+&lt;p&gt;With all the variation in the implementation of text retrieval systems, it is important to be able to assess how good individual systems are. This is generally done with the Cranfield Evaluation Methodology. This methodology relies on a sample document collection, a sample set of queries, a set of relevance judgements, and measures to quantify how well the results of the system match the ideal ranked list. The two most popular measures are precision (what percentage of the retrieved results are relevant?), and recall (what percentage of the relevant documents are retrieved?). These are often combined in the F-measure, the harmonic mean of precision and recall.&lt;/p&gt;
+
+&lt;p&gt;These concepts of precision and recall need to be translated to ranked lists, however. One way to get an idea of the performance at different points in the list is to plot its precision-recall curve. This curve can also be expressed in one number, the &lt;em&gt;average precision&lt;/em&gt;. This is the sum of the precision values at every point where a new document is retrieved, divided by the total number of relevant documents in the collection. The arithmetic and geometric means of this precision over a set of queries are called &lt;a href=&quot;http://en.wikipedia.org/wiki/Information_retrieval#Mean_average_precision&quot;&gt;Mean Average Precision (MAP)&lt;/a&gt; and Geometric Mean Average Precision (gMAP). &lt;/p&gt;
+
+&lt;p&gt;An additional difficulty arises with multi-level relevance judgements. In this case, we can use the Normalized &lt;a href=&quot;http://en.wikipedia.org/wiki/Discounted_cumulative_gain&quot;&gt;Discounted Cumulative Gain&lt;/a&gt; (nDCG@10 documents, for example). This measure sums the gains (the utility of a document from a user’s perspective) of all documents in the ranked list. It divides them by the log of their rank (hence &lt;em&gt;discounted&lt;/em&gt;) and normalizes them by the ideal DCG at the same cut-off (hence &lt;em&gt;normalized&lt;/em&gt;).&lt;/p&gt;
+
+&lt;p&gt;Additionally, there are some practical issues we must take into account when evaluating a text retrieval system. There must be a sufficient number of queries and documents in our test set, and they must be representative of the task. Documents are often selected by pooling the top K results from a diverse set of ranking methods. These documents are then judged by human assessors, and it is assumed that other documents are not relevant. This is acceptable for comparing systems that contributed to the pool, but it is problematic for evaluating new systems. Finally, our measures must capture the perceived usefulness of a system by its users, and we need to perform a statistical significance test such as the &lt;a href=&quot;http://en.wikipedia.org/wiki/Sign_test&quot;&gt;sign test&lt;/a&gt; or &lt;a href=&quot;http://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test&quot;&gt;wilcoxon test&lt;/a&gt; to determine if the observed difference between two systems doesn’t simply result from the particular queries we chose for our test set.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/text-retrieval-2/&quot;&gt;Text Retrieval & Search Engines (Coursera): Week 2&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on April 06, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Text Retrieval & Search Engines (Coursera): Week 1]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/text-retrieval-1/" />
+  <id>http://nlp.yvespeirsman.be/blog/text-retrieval-1</id>
+  <published>2015-03-27T05:00:00-04:00</published>
+  <updated>2015-03-27T05:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;Last week, &lt;a href=&quot;https://www.coursera.org/course/textretrieval&quot;&gt;Text Retrieval &amp;amp; Search Engines&lt;/a&gt; by the University of Illinois kicked off on Coursera. I’ve signed up to the online course, and on this blog I intend to write down the main takeaways every week.&lt;/p&gt;
+
+&lt;p&gt;The first week was very much an introduction to the field of text retrieval, with a high-level overview of the general concepts, and an exploration of some effective ranking functions that are used in search engines today. I was happy to see the first lecture started with a gentle introduction into NLP. After all, text must be processed in some way to prepare it for retrieval. We learnt how only shallow language processing, such as part-of-speech tagging, is really robust and efficient enough to be applied for large-scale text retrieval. Luckily, most search tasks can be effectively answered by bag-of-words techniques, and only more complex applications, such as Google’s Knowledge Graph, require deeper NLP.&lt;/p&gt;
+
+&lt;p&gt;Next, we explored some fundamental approaches to text retrieval. In the &lt;em&gt;push mode&lt;/em&gt;, the system takes the initiative and presents the user with relevant documents. This requires the user to have a stable information need, and is the approach taken by recommender systems. In the &lt;em&gt;pull mode&lt;/em&gt;, users take the initiative and search for documents that answer to their information need. This is the approach taken by classic search engines. Here we can further distinguish between two types of behaviour: querying and browsing.&lt;/p&gt;
+
+&lt;p&gt;There are two general strategies to solve the text retrieval problem. The first is &lt;em&gt;document selection&lt;/em&gt; &amp;mdash; a binary classification problem where the system decides whether a document is relevant or not. The second is &lt;em&gt;document ranking&lt;/em&gt;, where the system decides if one document is more likely relevant than the other. In general, the latter option is preferred, because the classifier is probably inaccurate and  relevance is not a binary concept. However, the so-called &lt;em&gt;probability ranking principle&lt;/em&gt; reminds us that returning a ranked list of documents is only the optimal strategy under two assumptions: that the relevance of any document is independent of the relevance of any other, and that users browse the results sequentially.&lt;/p&gt;
+
+&lt;p&gt;Next, we spent a good deal of time designing a good ranking function. Although different types of retrieval models exist (similarity-based models, probabilistic models, axiomatic models, etc.), these tend to result in similar ranking functions with similar variables. Indeed, most state-of-the-art retrieval models have the same backbone, the bag-of-words approach, and work on the basis of term frequency, document length and document frequency. Some good examples of such models are BM25, pivoted length normalisation, query likelihood and PL2.&lt;/p&gt;
+
+&lt;p&gt;The vector space model is actually a very simple concept: it represents a document and query on the basis of a term vector, and assumes the relevance of a document to a query is proportional to the similarity between the query and the document. The main differences between individual models lie in the precise definition of the dimensions in the vector space, the choice of similarity measure, etc. In the simplest instantiation, the dimensions in the vector space simply correspond to the words in the vocabulary, queries and documents are represented by a bit vector, and the similarity between them is computed as the dot product. If implemented in this way, the relevance of a document is simply the number of query words that appear in the document.&lt;/p&gt;
+
+&lt;p&gt;This simple approach has some problems, however. For example, because we want to give a higher weight to terms that appear more often in a document, it is better to use a term frequency vector than a simple bit vector. This approach is best combined with a sublinear transformation of the term frequency, because higher term frequencies in a document give diminishing returns. Next, in order to discriminate between informative and non-informative words, we should multiply the frequency of a word with its &lt;em&gt;inverse document frequency&lt;/em&gt;, which downweights terms that appear in many documents. Finally, we should penalise long documents, bells -ause they have a better chance of matching any query. The videos discussed the most popular methods for each of these corrections.&lt;/p&gt;
+
+&lt;p&gt;Through the ranking equation, this week’s lectures built up nicely to the IR models that are behind state-of-the-art search engines today. The pace was relatively slow, as tends to be the case with most Coursera courses, but in the end some fairly advanced ranking functions, such as BM25F and BM25+, were discussed. This indicates the course should be interesting for beginners as well as more advanced students. I’m looking forward to seeing where next week’s lectures will take us.&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/text-retrieval-1/&quot;&gt;Text Retrieval & Search Engines (Coursera): Week 1&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on March 27, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Book review: The Signal and the Noise by Nate Silver]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/signal-and-noise/" />
+  <id>http://nlp.yvespeirsman.be/blog/signal-and-noise</id>
+  <published>2015-02-22T04:00:00-05:00</published>
+  <updated>2015-02-22T04:00:00-05:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;I recently read Nate Silver’s &lt;em&gt;The Signal and the Noise&lt;/em&gt;, a book about statistical prediction. Silver is famous for building an innovative system for predicting baseball performance, and later forecasting the results of the 2012 American presidential election. In his book, he explores a vast array of areas where statistical models are used to predict the future &amp;mdash; from baseball and politics to the weather, earthquakes and even terrorism &amp;mdash; and investigates how these models have improved through time.&lt;/p&gt;
+
+&lt;p&gt;The central premise of the book is that the best predictive models apply the so-called Bayesian approach. In contrast to frequentist methods, which rely only on the information in a small data sample, Bayesian models bring together three types of information. For example, if you want to determine if a patient has breast cancer after a positive mammogram, you need to know three things: the general prevalence of breast cancer (the so-called prior probability), the probability of a positive mammogram if the patient has cancer, and the probability of a positive mammogram if the patient does not have cancer. If you take a patient in her forties, the prior probability of breast cancer is relatively low: only 1.4%. Now assume our mammogram detects 75% of the breast cancers, and incorrectly claims the presence of cancer only 10% of the time. Although it sounds like bad news, such a positive mammogram raises the probability of cancer in our patient only to 10%. This counter-intuitive result is a surprise to many, and showcases the importance of Bayesian reasoning.&lt;/p&gt;
+
+&lt;p&gt;Bayesian methods pervade many areas of prediction, and Silver explores quite a few of them: sports, politics, chess, finance, terrorism, weather, poker, earthquakes, etc. This choice for breadth rather than depth makes sense for a popular science book, but it also makes the whole rather anecdotical. There are no answers here for readers who seek more information than the very basics of Bayes’ theorem, or who want to get deeper insights into how exactly Silver arrived at his own accurate predictions about sports and politics. Still, the book has many interesting and entertaining moments.&lt;/p&gt;
+
+&lt;p&gt;One part I particularly liked was Silver’s discussion of political pundits. In it, he reviews a study by Philip Tetlock, a professor of psychology and political science who was fascinated by the fact that so few political experts had predicted the collapse of the Soviet Union. Tetlock showed that on average, when they were asked to predict future political events, the political experts in his survey did barely better than random chance. The success of individual experts correlated largely with their type of personality: in general, it appeared that people who believe in Big Ideas (law-like principles that govern the world) are considerably worse at forecasting than people who believe in combining many little ideas and approaches. Unfortunately, the former type of personality is more often preferred by the media, even to the extent that “the more interviews that an expert had done with the press, Tetlock found, the &lt;em&gt;worse&lt;/em&gt; his predictions tended to be.” &lt;/p&gt;
+
+&lt;p&gt;Another fascinating study that Silver introduced me to, is John Ioannidis’ &lt;em&gt;Why Most Published Research Findings are False&lt;/em&gt;. In this paper, Ioannidis cites “a variety of statistical and theoretical arguments to claim that (as his title implies) the &lt;em&gt;majority&lt;/em&gt; of hypotheses deemed to be true in journals in medicine and most other academic and scientific professions are, in fact, false”. His claim is borne out by the experience of Bayer Laboratories, which found it was unable to replicate &lt;em&gt;two thirds&lt;/em&gt; of the positive findings in medical journals. Silver rightly notes that in this era of Big Data, our predictions may actually be more prone to failure than before. After all, as the amount of information grows, there is an exponential increase in the number of hypotheses to investigate, and therefore, the number of false positives we will find. &lt;/p&gt;
+
+&lt;p&gt;Finally, the most entertaining chapter in the book may be the story of how Deep Blue, the chess computer, defeated Gary Kasparov in 1997. Although Kasparov won the first game of their six-game match, he was baffled by one seemingly pointless move by Deep Blue, just before it resigned the game. Kasparov didn’t understand the computer could make such a tactical error in a simple position. As he studied the data, he found that the conventional play for Deep Blue would have led it to lose anyway, but only more than 20 moves later. The implication that the computer could see more than twenty moves ahead frightened him so much, Silver writes, that Kasparov would never defeat Deep Blue again. In fact, in the next game Kasparov resigned, although a tie was only seven moves away. “I was so impressed by the deep positional play of the computer”, he later said, “that I didn’t think there was any escape.”&lt;/p&gt;
+
+&lt;p&gt;It’s clear there’s a lot to like about Nate Silver’s book. It has a wealth of topics, many interesting anecdotes, and an enjoyable introduction into Bayes’ theorem somewhere in between. Personally I would have liked to see a little more depth rather than breadth, as some chapters could have been replaced by a more detailed discussion of the predictive models that Silver mentions. It’s a difficult balance, however, and I appreciate &lt;em&gt;The Signal and the Noise&lt;/em&gt; is mainly intended for a general audience. It certainly deserves a wide readership in these times where data and algorithms shape so much of our lives. This time, for sure, there isn’t any escape.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/signal-and-noise/&quot;&gt;Book review: The Signal and the Noise by Nate Silver&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on February 22, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Notable NLP: GloVe &mdash; Global Vectors for Word Representations]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/glove/" />
+  <id>http://nlp.yvespeirsman.be/blog/glove</id>
+  <published>2015-01-15T04:00:00-05:00</published>
+  <updated>2015-01-15T04:00:00-05:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;In NLP research, models of word meaning are making a comeback. While previously, attention seemed to shift from words to phrases and sentences, word meaning is again at the forefront of research. Maybe people have figured out that, before we can capture phrases and sentences correctly, we need better models of word meaning first. One particularly interesting contribution last year came from Stanford, with Jeffrey Pennington, Richard Socher and Christopher D. Manning presenting &lt;a href=&quot;http://nlp.stanford.edu/projects/glove/glove.pdf&quot;&gt;GloVe: Global Vectors for Word Meaning&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In recent years, two main types of models of word meaning have emerged: &lt;i&gt;matrix factorization methods&lt;/i&gt; such as &lt;a href=&quot;http://lsa.colorado.edu/papers/dp1.LSAintro.pdf&quot;&gt;Latent Semantic Analysis&lt;/a&gt;, which work on the basis of global co-occurrence counts of words in a corpus, and &lt;i&gt;local context window methods&lt;/i&gt; such as &lt;a href=&quot;http://research.microsoft.com/pubs/189726/rvecs.pdf&quot;&gt;Mikolov et al.’s skip-gram model&lt;/a&gt;, which are trained on local co-occurrences. Pennington et al. position themselves in the first group, as GloVe, short for Global Vectors, relies on global corpus statistics rather than local context.&lt;/p&gt;
+
+&lt;p&gt;One thing I like about Pennington et al.’s approach is their commitment to finding word vectors with semantically meaningful dimensions. They do this by building a model that is biased towards  dimensions of meaning that potentially distinguish between two words, such as gender. They start by defining a learning function that gives a value for a combination of two target words and a context word. The ideal outcome of such a function, they claim, is the ratio between the co-occurrence probabilities of those target words with that context word. When a context word is highly correlated with one of the target words, this ratio will be either very high or very low; when it does not distinguish between the words, this ratio will lie around 1. That sounds logical enough.&lt;/p&gt;
+
+&lt;p class=&quot;nomargin&quot;&gt;In addition, Pennington et al. continue, this function &lt;i&gt;F&lt;/i&gt; should have some other desirable characteristics:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Because vector spaces are inherently linear, &lt;i&gt;F&lt;/i&gt; should depend only on the difference between the vectors of the two target words.&lt;/li&gt;
+&lt;li&gt;&lt;i&gt;F&lt;/i&gt;  should not mix the dimensions of the word vectors in undesirable ways.&lt;/li&gt;
+&lt;li&gt;Because the distinction between a target word and a context word is irrelevant, &lt;i&gt;F&lt;/i&gt;  should be invariant when these words are swapped.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After identifying a suitable candidate, Pennington et al. use it to factorize an initial global co-occurrence matrix into a matrix with fewer dimensions, which are more semantically meaningful. In particular, they cast the factorization of the co-occurrence matrix as a least-squares problem that involves the logarithm of the original co-occurrence values and a weighting function that manages the impact of rare and frequent co-occurrences.&lt;/p&gt;
+
+&lt;p&gt;Through a number of experiments, they then shown that the resulting word vectors perform very well across a variety of tasks, including a word analogy task that requires them to answer questions like “Athens is to Greece as Berlin is to ___”. As with all models of this kind, performance depends heavily on a number of parameter settings: the context window for the co-occurrences has an optimal size of 10 words, and the word vectors ideally have around 300 dimensions.&lt;/p&gt;
+
+&lt;p&gt;In addition to the paper, the &lt;a href=&quot;http://nlp.stanford.edu/projects/glove/&quot;&gt;accompanying website&lt;/a&gt; shows that the final word matrix captures a number of semantic distinctions very nicely. For example, word pairs like &lt;i&gt;man-woman&lt;/i&gt;, &lt;i&gt;brother-sister&lt;/i&gt; and &lt;i&gt;king-queen&lt;/i&gt; differ along the same dimensions. There’s only a small number of examples, but it’s really fascinating stuff.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;centered&quot; src=&quot;http://nlp.stanford.edu/projects/glove/images/man_woman.jpg&quot; height=&quot;400&quot; width=&quot;400&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Unsurprisingly, GloVe has generated quite some interest. The code is freely available from &lt;a href=&quot;http://nlp.stanford.edu/projects/glove/&quot;&gt;the Stanford website&lt;/a&gt;, just like several sets of pre-trained word vectors. Someone wrote a &lt;a href=&quot;http://www.foldl.me/2014/glove-python/&quot;&gt;helpful tutorial for coding GloVe in Python&lt;/a&gt;, and there’s &lt;a href=&quot;https://github.com/maciejkula/glove-python&quot;&gt;another toy implementation&lt;/a&gt; on Github. While most people are impressed by GloVe&#39;s performance, other reactions have been lukewarm, arguing that &lt;a href=&quot;https://docs.google.com/document/d/1ydIujJ7ETSZ688RGfU5IMJJsbxAi-kRl8czSwpti15s/edit#heading=h.66rkmh7nd17u&quot;&gt;the GloVe paper makes an unfair comparison with other competing methods&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Lately there has been some kind of arms race for the best word vectors, with several types of models competing. While this is surely a good thing, we shouldn’t forget word vectors can only give an abstract approximation of word meaning, no matter how good they are. The meaning of a word is not just some average of all its uses in a corpus: for each occurrence it crucially depends on the local context in which the word is used. Among all attention that word meaning is now getting, modelling the local meaning of a single occurrence of a word is a challenge I would love to see addressed more often.&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/glove/&quot;&gt;Notable NLP: GloVe &mdash; Global Vectors for Word Representations&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on January 15, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[NLP Classics (1): Automatic Retrieval and Clustering of Similar Words]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/nlp-classics-retrieval-similar-words/" />
+  <id>http://nlp.yvespeirsman.be/blog/nlp-classics-retrieval-similar-words</id>
+  <published>2014-11-29T04:00:00-05:00</published>
+  <updated>2014-11-29T04:00:00-05:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;In this series of blog posts, I present some of the most influential papers from the recent history of Natural Language Processing. First up is Dekang Lin&#39;s &lt;a href=&quot;https://webdocs.cs.ualberta.ca/~lindek/papers/acl98.pdf&quot;&gt;Automatic Retrieval and Clustering of Similar Words&lt;/a&gt;, published in 1998. Lin’s paper, which has been cited more than 1500 times according to Google, explains how computers can automatically find words with a similar meaning. This similarity can be exploited by search engines like Google, for example, in order to find more relevant web pages for a given search term.&lt;/p&gt;
+
+&lt;p class=&quot;nomargin&quot;&gt;Last month I learnt a new word: &lt;i&gt;echidna&lt;/i&gt;. Unless you know Greek, the word itself gives you no clue to its meaning. For all you know, its meaning might be similar to &lt;i&gt;influenza&lt;/i&gt;, &lt;i&gt;geyser&lt;/i&gt;, &lt;i&gt;hedgehog&lt;/i&gt; or &lt;i&gt;oak&lt;/i&gt;. Now suppose I gave you these four sentences, which describe my first encounter with an echidna:&lt;/p&gt;
+
+&lt;blockquote&gt;
+I looked up at the sound, and suddenly I saw an echidna next to the trail. &lt;br /&gt;
+The echidna was eating ants with its long nose. &lt;br /&gt;
+I tried to take a picture, but the echidna hid in the bushes. &lt;br /&gt;
+Eventually the echidna crawled out and looked me in the eye. &lt;br /&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Although none of these sentences defines &lt;i&gt;echidna&lt;/i&gt;, together they give you a vague idea of what the word means: it must be some kind of small, ant-eating animal with a long nose. Confronted with the list of words above, you can easily pick the most similar one: it must be &lt;i&gt;hedgehog&lt;/i&gt;. Now imagine having hundreds of sentences like these. Your understanding of &lt;i&gt;echidna&lt;/i&gt; would become very precise indeed.&lt;/p&gt;
+
+&lt;p&gt;Just like you did, computers guess the similarity in meaning between two words on the basis of its use in example sentences. One of their strategies is described in Lin’s classic paper &lt;a href=&quot;https://webdocs.cs.ualberta.ca/~lindek/papers/acl98.pdf&quot;&gt;Automatic Retrieval and Clustering of Similar Words&lt;/a&gt;. Its central idea is to exploit the syntactic behaviour of the words in a text to determine their similarity in meaning. For example, in the sentences above, &lt;i&gt;echidna&lt;/i&gt; occurs as the subject of &lt;i&gt;eat&lt;/i&gt;, &lt;i&gt;hide&lt;/i&gt; and &lt;i&gt;crawl&lt;/i&gt;, and as the object of &lt;i&gt;see&lt;/i&gt;. This information can be automatically extracted by a so-called &lt;i&gt;parser&lt;/i&gt;, a piece of software that uncovers the syntactic structure of a sentence. The general idea behind Lin’s approach is that the more often two words occur in the same syntactic relationship (for example, as the subject of &lt;i&gt;eat&lt;/i&gt;), the more similar their meanings must be. &lt;/p&gt;
+
+&lt;p class=&quot;nomargin&quot;&gt;Lin tested this hypothesis on a large collection of newspaper articles, totalling 64 million words. For all nouns, verbs and adjectives/adverbs in that collection, he found the words from the same word class with the most similar syntactic behaviour. This proved to be a very reliable technique of extracting words with a similar meaning. Here are some of the word pairs that Lin identified:
+&lt;/p&gt;
+
+&lt;blockquote&gt;
+Nouns: earnings-profit, plan-proposal, employee-worker, battle-fight, actor-actress, oil-petroleum, gallery-museum, pub-tavern, waiter-waitress, … &lt;br /&gt;
+Verbs: fall-rise, injure-kill, concern-worry, convict-sentence, limit-restrict, narrow-widen, hit-strike, … &lt;br /&gt;
+Adjectives/Adverbs: high-low, bad-good, extremely-very, alleged-suspected, stormy-turbulent, communist-leftist, sad-tragic, enormously-tremendously, … &lt;br /&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Although the words in these pairs tend to have a very similar meaning, they are not always substitutable. In fact, many word pairs contain polar opposites, such as &lt;i&gt;fall-rise&lt;/i&gt;, &lt;i&gt;narrow-widen&lt;/i&gt;, &lt;i&gt;high-low&lt;/i&gt;, &lt;i&gt;bad-good&lt;/i&gt;, etc. Other words differ in one specific semantic dimension, such as gender (&lt;i&gt;actor-actress&lt;/i&gt;, &lt;i&gt;waiter-waitress&lt;/i&gt;). Similarity in meaning can take on many forms. &lt;/p&gt;
+
+&lt;p&gt;In general, however, Lin’s results indicate that the syntactic similarity between two words gives a pretty good idea of their semantic similarity. It’s no surprise that Dekang Lin works at Google these days: search engines often use strategies like the one he developed to expand people’s queries. For example, if you Google &lt;i&gt;lawyers in Belgium&lt;/i&gt;, Google also looks for websites with the word &lt;i&gt;attorney&lt;/i&gt;, in order to give you more relevant hits. Lin’s technique offers one way to do this automatically. &lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;P.S.: By the way, if you still want to know what an echidna looks like, here’s my picture:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;centered&quot; src=&quot;https://movingdots.files.wordpress.com/2014/11/dsc00479a.jpg&quot; height=&quot;300&quot; width=&quot;450&quot; /&gt;&lt;/p&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;However close your guess was, I bet you didn’t expect it to be so cute.&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/nlp-classics-retrieval-similar-words/&quot;&gt;NLP Classics (1): Automatic Retrieval and Clustering of Similar Words&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on November 29, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Through Good Times and Bad Times: Measuring the Happiest and Saddest Episodes of Friends]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/friends-sentiment/" />
+  <id>http://nlp.yvespeirsman.be/blog/friends-sentiment</id>
+  <published>2014-08-27T07:31:52-04:00</published>
+  <updated>2014-08-27T07:31:52-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;This September 20 years ago, the first episode of Friends aired on NBC. 
+The sitcom became a world-wide success, and even 20 years later &lt;a href=&quot;http://www.theguardian.com/tv-and-radio/2014/sep/03/friends-after-all-these-years-20th-anniversary-sitcom&quot;&gt;it is still amazingly popular&lt;/a&gt;. Jimmy Kimmel made our toes curl when he &lt;a href=&quot;https://www.youtube.com/watch?v=i4H2JHp5XOQ&quot;&gt;brought together Rachel, Monica and Phoebe&lt;/a&gt; in his show, someone recreated Friends in &lt;a href=&quot;http://www.buzzfeed.com/josephbernstein/someone-recreated-all-of-friends-in-the-sims-4-and-it-is-per#1cfie92&quot;&gt;The Sims 4&lt;/a&gt;, and next week a &lt;a href=&quot;http://variety.com/2014/tv/news/friends-20th-anniversary-central-perk-replica-coffee-new-york-1201291937/&quot;&gt;replica of Central Perk&lt;/a&gt; will pop up in New York. Inspired by the various &lt;a href=&quot;http://rankings.gawker.com/every-episode-of-friends-ranked-1629809447&quot;&gt;seemingly random rankings&lt;/a&gt; of &lt;a href=&quot;http://metro.co.uk/2014/09/03/friends-turns-20-20-episodes-you-need-to-watch-4854407/&quot;&gt;Friends episodes&lt;/a&gt;, I wanted to find the happiest and saddest episodes of the series. After all, when I watch Friends, it’s these emotions
+that I’m looking for. 
+&lt;/p&gt;
+
+&lt;p&gt;One way to tap into people’s emotions is to analyze their language. Sentiment analysis 
+is an application of Natural Language Processing that automatically 
+measures the positive or negative sentiment in a text. I therefore downloaded the English subtitles of all episodes of Friends, and used the 
+&lt;a href=&quot;http://www.clips.ua.ac.be/pages/pattern-en&quot;&gt;Pattern&lt;/a&gt; software to measure the 
+sentiment in each sentence. Pattern assigns a sentiment score between -1 and 1 to each sentence, where
+-1 is most negative and 1 is most positive. For example, the sentence &lt;em&gt;I’m so happy today&lt;/em&gt; gets a score
+of 0.8, whereas &lt;em&gt;I’m feeling sad&lt;/em&gt; gets -0.5. Most factual sentences receive a score of 0, because they 
+do not contain any positive or negative emotion. For every episode, I counted up the sentiment scores of all sentences and 
+divided the result by the number of sentences. This gave me a mean sentiment score, and a measure of 
+how positive or negative the episode is. I then did the same for the ten seasons of the series.&lt;/p&gt;
+
+&lt;p class=&quot;nomargin&quot;&gt;The graph below shows these mean sentiment scores for all ten seasons of Friends. 
+On average, episodes are slightly more positive than negative, with a typical sentiment score between 0.05 and 0.07.
+Their tone also appears to have become more positive through the years: the language in the last five
+seasons is consistently more positive than that in the first five. 
+The first season is the least positive one, the last season brought the happy ending
+that everyone was waiting for:&lt;/p&gt;
+
+&lt;div id=&quot;seasonChart&quot;&gt;&lt;/div&gt;
+
+&lt;p class=&quot;nomargin&quot;&gt;If we zoom in on the individual episodes in every season, we can see their  
+sentiment scores are all over the place. The graph below has all episodes in a season (typically 24) on the 
+X axis, and their sentiment score on the Y axis. Each season has a different color. For what it’s worth, episode 22, 
+near the end of each season, appears to have the widest variation in sentiment. Immediately 
+after that, most seasons end in a balance of emotions, with very little variation between 
+episodes 23 and 24 across the seasons:&lt;/p&gt;
+
+&lt;div id=&quot;seasonSentiment&quot;&gt;&lt;/div&gt;
+
+&lt;p class=&quot;nomargin&quot;&gt;Let’s take a look at the single episodes that stand out. If we focus on the 
+negative emotions, &lt;em&gt;The One with the Screamer&lt;/em&gt; is the champion.
+Joey’s play gets terrible reviews, his new girlfriend moves to LA, 
+Rachel is dating a guy with temper tantrums (despite Ross telling her not to) and Phoebe calls 
+a support line where no one answers the phone. Life is sad indeed.  
+The same goes for the second episode on the list. Joey’s big breakthrough movie 
+turns out to be a disappointment, Rachel freaks out because she has to take eyedrops, and 
+Phoebe is mad at Ross for reasons even she doesn’t know. You get the picture. Here is the full 
+top 10 of negative episodes:&lt;/p&gt;
+
+&lt;div id=&quot;sadEpisodes&quot;&gt;&lt;/div&gt;
+
+&lt;p class=&quot;nomargin&quot;&gt;At the other end of the spectrum, the most positive language can be found in 
+&lt;em&gt;The One where Ross got High&lt;/em&gt;: 
+Monica and Rachel throw a Thanksgiving party, Chandler tries to charm Monica’s parents,  
+and everyone pretends Rachel’s dessert is delicious, although it is really a mixture of trifle
+and Shepherd’s pie. Positive language, it turns out, isn’t always sincere. &lt;em&gt;The One with the Worst Best Man Ever&lt;/em&gt; is equally 
+ambiguous: Chandler is jealous when Ross picks Joey as his best man, Joey loses Ross’s wedding ring,
+and Phoebe’s pregnancy causes mood swings. However, these negative feelings are more than compensated by an abundance of positive emotions: Phoebe’s highs, Ross’s thankfulness for his bachelor party, and the happy ending when the
+wedding ring is recovered and Ross chooses both Joey and Chandler as his best men. It&#39;s clear: no Friends episode
+has positive emotions only &amp;mdash; that would make for boring television. Still, these ten episodes stand out:
+&lt;/p&gt;
+
+&lt;div id=&quot;happyEpisodes&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;Friends is a bit like real life. It’s never all good, never all bad. Sometimes people are sincere, 
+sometimes they are not. This makes it hard to always measure emotions correctly, and now and then the 
+algorithm gets a sentence completely wrong. That’s a bit like real life, too. Still, when you compare
+the results above with the actual episodes, they do make sense. They can help you choose what episodes to 
+watch when you want to wallow in other people’s misfortune, or simply need the comfort that 
+everything will turn out fine. Isn’t that what friends are for?&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://www.google.com/jsapi&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+      google.load(&#39;visualization&#39;, &#39;1&#39;, {packages: [&#39;corechart&#39;]});
+&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+      function drawVisualization() {
+        // Create and populate the data table.
+        var data = google.visualization.arrayToDataTable([
+          [&#39;Season&#39;,&#39;Average Sentiment&#39;,{ role: &#39;style&#39; }],
+          [&#39;Season 1&#39;,  0.0533262489913, &#39;blue&#39;],
+          [&#39;Season 2&#39;,  0.0537777134577, &#39;blue&#39;],
+          [&#39;Season 3&#39;,  0.0550003420029, &#39;blue&#39;],
+          [&#39;Season 4&#39;,  0.0575138289955, &#39;blue&#39;],
+          [&#39;Season 5&#39;,  0.0561693703898, &#39;blue&#39;],
+          [&#39;Season 6&#39;,  0.0642795403317, &#39;blue&#39;],
+          [&#39;Season 7&#39;,  0.0630630529526, &#39;blue&#39;],
+          [&#39;Season 8&#39;,  0.061232211108, &#39;blue&#39;],
+          [&#39;Season 9&#39;,  0.0632837732746, &#39;blue&#39;],
+          [&#39;Season 10&#39;,  0.0654210569296, &#39;blue&#39;],
+        ]);
+        
+        // Create and draw the visualization.
+        new google.visualization.ColumnChart(document.getElementById(&#39;seasonChart&#39;)).
+            draw(data,
+                 {title:&quot;Season Sentiment&quot;,
+                  width:600, height:400,
+                  vAxis: {minValue: 0},
+                  legend: { position: &quot;none&quot; }}
+            );
+      }
+      google.setOnLoadCallback(drawVisualization);
+&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          [&#39;Episode&#39;, &#39;Season 1&#39;, &#39;Season 2&#39;, &#39;Season 3&#39;, &#39;Season 4&#39;, &#39;Season 5&#39;, &#39;Season 6&#39;, &#39;Season 7&#39;, &#39;Season 8&#39;, &#39;Season 9&#39;,
+          &#39;Season 10&#39;],
+          [1, 0.0581879450562, 0.0371380751032, 0.0453028636319, 0.0189530716352, 0.0505310346219, 0.0689167819173, 0.0597376194067, 0.0865770152795, 0.0393075372055, 0.0598393736934],
+            [2, 0.0585417989961, 0.0526675265374, 0.0627749317196, 0.0699466247459, 0.0297608121046, 0.0645150563479, 0.0353632279861, 0.057126512267, 0.0574943190247, 0.0637188993473],
+[3, 0.0542749895922, 0.0278443178399, 0.0405631687937, 0.0447949468885, 0.0672142149965, 0.0806193357558, 0.0566530399176, 0.0793356778293, 0.0783996709647, 0.0655948623136],
+            [4, 0.0553730492885, 0.0761401949137, 0.0378426578838, 0.0686710598647, 0.0891952796062, 0.0390044198759, 0.0613563152534, 0.076011578437, 0.0589287544661, 0.0826105716404],
+            [5, 0.0491602297485, 0.0505851337449, 0.0586372618461, 0.0454989303332, 0.0359338608516, 0.0755650644645, 0.0807070044786, 0.0614088128434, 0.0647004105146, 0.0688086704216],
+            [6, 0.048949105394, 0.0447994992628, 0.063591353483, 0.0673732512562, 0.0339506878071, 0.0493585409271, 0.0899261247553, 0.0650831616085, 0.0632715024967, 0.028145399265],
+            [7, 0.0588953433012, 0.0582545655051, 0.0628762406644, 0.0644368698285, 0.0690122170533, 0.0607566434814, 0.0477599410898, 0.0500287309402, 0.0794341608369, 0.0866124449888],
+            [8, 0.0727893648334, 0.0485749399262, 0.0614548124098, 0.035132187854, 0.0366237590364, 0.0677582905153, 0.0384946800016, 0.0445795042533, 0.0593419667748, 0.0432795730668],
+            [9, 0.0488485264735, 0.0621402182411, 0.0494725421908, 0.0773913530119, 0.0390356053533, 0.0998679013274, 0.0739405621921, 0.0346955332484, 0.0626378440928, 0.0806028805132],
+            [10, 0.0645726587302, 0.0348943998944, 0.0484516634279, 0.0523583925068, 0.0626469567189, 0.0650471369235, 0.061862539112, 0.0686715145788, 0.0672598246589, 0.0474604021284],
+            [11, 0.031577721181, 0.0571287220816, 0.0566681175105, 0.0614726097956, 0.0726685535731, 0.0735471565088, 0.0416937229437, 0.0572222567045, 0.0620324472035, 0.0463660906489],
+            [12, 0.0606764998829, 0.0452918426476, 0.0564599064167, 0.0485979345678, 0.0394734364473, 0.0663702378748, 0.0511301539621, 0.0496344573183, 0.0776586825583, 0.0635949239464],
+            [13, 0.0440183158556, 0.0452918426476, 0.0591076629434, 0.0550912790913, 0.0593778008832, 0.0527869683227, 0.0490241934416, 0.0396676748351, 0.0466574264715, 0.0871842113576],
+            [14, 0.070215802661, 0.0567939919684, 0.0418068507152, 0.0403091126679, 0.081795223803, 0.04580699339, 0.069691896645, 0.0886984720279, 0.0319268220756, 0.0570315494808],
+            [15, 0.0802448946343, 0.0477051240327, 0.0497421634947, 0.0381989228529, 0.0672559585703, 0.0551597700318, 0.0903137278227, 0.0537581799175, 0.0720934835367, 0.0822150352541],
+            [16, 0.048194625774, 0.0558716842571, 0.056341784056, 0.0654008304306, 0.0717004975367, 0.0551597700318, 0.0714783675913, 0.0646215164216, 0.0512919951219, 0.0836295787824],
+            [17, 0.048194625774, 0.0570524089188, 0.0487350624661, 0.0842132731436, 0.0511889201954, 0.0596946332437, 0.0815979875756, 0.0441772840298, 0.0458665342251, 0.065463500954],
+            [18, 0.0544456076803, 0.0857402987618, 0.0666754455651, 0.0587333036174, 0.0682891525093, 0.0531769827883, 0.0758296671711, 0.0880383968868, 0.0872355561365, 0.065463500954],
+            [19, 0.0495151934786, 0.0459421714875, 0.0854827980692, 0.048660192147, 0.0650127432423, 0.0831084824772, 0.0674852599236, 0.0628465888278, 0.0739836738193, null],
+            [20, 0.035785263479, 0.0764097036431, 0.0597334047707, 0.0671027900824, 0.0586190803818, 0.0555995181597, 0.0542539804515, 0.0619641327216, 0.0635592720462, null],
+            [21, 0.0205192680683, 0.0434580350205, 0.0742197821372, 0.0686137171662, 0.067050673292, 0.0590718818738, 0.0660427480421, 0.060609421841, 0.0619767661494, null],
+            [22, 0.0556718784394, 0.0654140737734, 0.0162987325883, 0.0963717777163, 0.017723152058, 0.0754284052005, 0.061251132791, 0.0610978104369, 0.08222037575, null],
+            [23, 0.0503609951287, 0.0430149670775, 0.0491840665303, 0.045495635692, 0.0578358983225, 0.068017593856, 0.0648563253553, 0.0545137190658, 0.0682477591853, null],
+            [24, 0.0556846491228, 0.0640255148892, 0.050642569341, 0.045495635692, 0.0578358983225, 0.0592516323667, 0.0648563253553, 0.0592051142725, 0.0682477591853, null]
+        ]);
+
+        var options = {
+          title: &#39;Episode Sentiment&#39;,
+          hAxis: {title: &#39;Episode&#39;, minValue: 0},
+          vAxis: {title: &#39;Sentiment&#39;, minValue: 0},
+	  width: 600,
+	  height: 400
+        };
+
+        var chart = new google.visualization.ScatterChart(document.getElementById(&#39;seasonSentiment&#39;));
+
+        chart.draw(data, options);
+      }
+&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          [&#39;Episode&#39;, &#39;Sentiment&#39;, { role: &#39;style&#39; }, { role: &#39;annotation&#39; } ],
+          [&#39;70 (S03E22)&#39; ,  0.016298732588273402, &#39;red&#39;, &#39;The One with the Screamer&#39;],
+          [&#39;119 (S05E22)&#39;,  0.017723152057981917, &#39;red&#39;, &quot;The One with Joey&#39;s Big Break&quot;],
+          [&#39;74 (S04E01)&#39; ,  0.018953071635232438, &#39;red&#39;, &#39;The One with the Jellyfish&#39;],
+          [&#39;21 (S01E21)&#39; ,  0.020519268068344282, &#39;red&#39;, &#39;The One with the Fake Monica&#39;],
+          [&#39;27 (S02E03)&#39; ,  0.02784431783987471, &#39;red&#39;, &#39;The One Where Heckles Dies&#39;],
+          [&#39;224 (S10E06)&#39;,  0.02814539926500356, &#39;red&#39;, &quot;The One with Ross&#39;s Grant&quot;],
+          [&#39;99 (S05E02)&#39; ,  0.0297608121045621, &#39;red&#39;, &#39;The One with All the Kissing&#39;],
+          [&#39;11 (S01E11)&#39; ,  0.03157772118101459, &#39;red&#39;, &#39;The One with Mrs. Bing&#39;],
+          [&#39;208 (S09E14)&#39;,  0.03192682207563157, &#39;red&#39;, &#39;The One with the Blind Dates&#39;],
+          [&#39;103 (S05E06)&#39;,  0.033950687807070785, &#39;red&#39;, &#39;The One with the Yeti&#39;],
+        ]);
+
+        var options = {
+          title: &#39;Top 10 Most Negative Friends Episodes&#39;,
+	  width: 700,
+	  height: 400,
+          vAxis: {title: &#39;Episode&#39;},
+          hAxis: {minValue: 0, maxValue:0.035},
+          legend: { position: &quot;none&quot; }
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById(&#39;sadEpisodes&#39;));
+
+        chart.draw(data, options);
+      }
+&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          [&#39;Episode&#39;, &#39;Sentiment&#39;, { role: &#39;style&#39; }, { role: &#39;annotation&#39; } ],
+          [&#39;130 (S06E09)&#39; ,  0.0998679013274184, &#39;green&#39;, &#39;The One Where Ross Got High&#39;],
+          [&#39;95 (S04E22)&#39;,  0.09637177771625448, &#39;green&#39;, &quot;The One with the Worst Best Man Ever&quot;],
+          [&#39;161 (S07E15)&#39; ,  0.09031372782268844, &#39;green&#39;, &quot;The One with Joey&#39;s New Brain&quot;],
+          [&#39;152 (S07E06)&#39; ,  0.0899261247553327, &#39;green&#39;, &#39;The One with the Nap Partners&#39;],
+          [&#39;101 (S05E04)&#39; ,  0.08919527960623853, &#39;green&#39;, &#39;The One Where Phoebe Hates PBS&#39;],
+          [&#39;184 (S08E14)&#39;,  0.0886984720278671, &#39;green&#39;, &quot;The One with the Secret Closet&quot;],
+          [&#39;188 (S08E18)&#39; ,  0.08803839688680119, &#39;green&#39;, &#39;The One in Massapequa&#39;],
+          [&#39;212 (S09E18)&#39; ,  0.08723555613653926, &#39;green&#39;, &#39;The One with the Lottery&#39;],
+          [&#39;231 (S10E13)&#39;,  0.08718421135755809, &#39;green&#39;, &#39;The One Where Joey Speaks French&#39;],
+          [&#39;225 (S10E07)&#39;,  0.08661244498877951, &#39;green&#39;, &#39;The One with the Home Study&#39;],
+        ]);
+
+        var options = {
+          title: &#39;Top 10 Most Positive Friends Episodes&#39;,
+	  width: 700,
+	  height: 400,
+          vAxis: {title: &#39;Episode&#39;},
+          hAxis: {minValue: 0},
+          legend: { position: &quot;none&quot; }
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById(&#39;happyEpisodes&#39;));
+
+        chart.draw(data, options);
+      }
+&lt;/script&gt;
+
+&lt;script src=&quot;http://d3js.org/d3.v3.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/friends-sentiment/&quot;&gt;Through Good Times and Bad Times: Measuring the Happiest and Saddest Episodes of Friends&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on August 27, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Taaltechnologie bewijst: OpenVld had de kleinste invloed op het Vlaamse regeerakkoord]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/gelijkenis-partijen/" />
+  <id>http://nlp.yvespeirsman.be/blog/gelijkenis-partijen</id>
+  <published>2014-08-14T06:14:02-04:00</published>
+  <updated>2014-08-14T06:14:02-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;Taaltechnologie is straf spul. Ze kan &lt;a href=&quot;http://www.standaard.be/cnt/dmf20140317_01028403&quot; target=&quot;_blank&quot;&gt;pedofielen ontmaskeren op het internet&lt;/a&gt;, of &lt;a href=&quot;http://languagelog.ldc.upenn.edu/nll/?p=5315&quot; target=&quot;_blank&quot;&gt;J.K. Rowling aanwijzen&lt;/a&gt; als de auteur van &lt;i&gt;The Cuckoo’s Calling&lt;/i&gt;, een detectiveroman gepubliceerd onder het pseudoniem Robert Galbraith. Vaak zijn de gebruikte methoden verrassend eenvoudig: door simpelweg
+woorden te tellen kan je heel wat leren over de auteur van een tekst. Op dezelfde manier kan je ook
+de publicaties van politieke partijen
+vergelijken. De resultaten geven een fascinerend inzicht in ons politieke landschap.&lt;/p&gt;
+
+&lt;p&gt;Laten we bijvoorbeeld het woordgebruik analyseren in de verkiezingsprogramma’s waarmee de grootste Vlaamse partijen afgelopen
+lente naar de kiezer trokken. Door te tellen hoe vaak elk woord in zo’n programma voorkomt, kunnen we
+meten hoe belangrijk een partij een politiek thema vindt. Gaat het om een partij die mobiliteit hoog in het vaandel voert? Verwacht hoge frequenties voor woorden als “vervoer”, “transport”, “bus”, “fiets”
+of “auto”. Legt een partij eerder de nadruk op onderwijs? Dan zullen woorden als “leerkracht”, 
+“school” en “leerling” vaak voorkomen. Als twee partijen dezelfde thema’s belangrijk vinden, zal dus ook 
+hun woordgebruik normaal gezien erg gelijkaardig zijn.&lt;/p&gt;
+
+&lt;p class=&quot;nomargin&quot;&gt;De figuur hieronder toont de gelijkenis in woordgebruik tussen de programma’s van de 
+zes grootste Vlaamse partijen. Hoe donkerder het vakje
+op het snijpunt van de twee partijen, hoe meer de partijprogramma’s op elkaar lijken. De patronen
+zijn erg herkenbaar: aan de linkerkant van de figuur lijken Sp.a en Groen sterk op elkaar,
+aan de rechterkant vinden we de hoogste verwantschap tussen N-VA en OpenVld. Sommige partijen, zoals
+N-VA, Sp.a en in iets mindere mate CD&amp;amp;V, hebben gemiddeld gesproken een hoge verwantschap
+met andere partijen: hun programma beslaat een een breed thematisch spectrum. Andere partijen, zoals Vlaams Belang, staan dan weer meer geïsoleerd, mogelijk omdat ze inzetten op een kleiner aantal thema’s.&lt;/p&gt;
+
+&lt;div id=&quot;chart&quot;&gt;&lt;/div&gt;
+
+&lt;p class=&quot;indent&quot;&gt;Laten we eens naar de woorden kijken die de relaties tussen de partijen het beste
+beschrijven. Groen en Sp.a danken hun hoge verwantschap aan woorden als “wijkgezondheidscentra”,  “genderidentiteit, “coöperatief” en “jeugdzorg”. N-VA en OpenVld schermen beide met “overheidsbeslag”,
+“pensioenleeftijd” en “zelfstandige”. Met Vlaams Belang deelt N-VA dan weer zijn nadruk op 
+nationaliteit enerzijds (“Wallonië”, “Franstalig”, “nationaliteit”, “Vlaming”, “vreemdelingen”), en criminaliteit anderzijds (“politie”, “criminaliteit” en “gevangenis”). Ook “splitsing” komt vaak voor. 
+CD&amp;amp;V, ten slotte, deelt met Sp.a zijn bekommernis om zorg (“zorgbehoefte”, “zorgvorm”, “psychiatrie”),
+en met N-VA zijn aandacht voor de economie (“vooruitgang”, “ondernemingszin”,” werkplek”, “horeca”).&lt;/p&gt;
+
+&lt;p class=&quot;nomargin&quot;&gt;Hoe overtuigend deze resultaten ook lijken, 
+woordfrequenties kunnen natuurlijk niet alle nuances van een 
+verkiezingsprogramma vatten. Neem bijvoorbeeld de volgende twee zinnen: 
+&lt;blockquote&gt;
+We zullen de werkloosheidsuitkeringen in de tijd beperken.&lt;br /&gt;
+We zullen de werkloosheidsuitkeringen niet in de tijd beperken.
+&lt;/blockquote&gt; 
+&lt;p class=&quot;noindent&quot;&gt;Ondanks hun bijna identieke woordgebruik, staan deze zinnen
+qua betekenis lijnrecht tegenover elkaar. Als twee partijen vaak dezelfde woorden gebruiken,
+ zegt dat dus niet noodzakelijk iets over hun complexe politieke standpunten. 
+Wat woordgebruik wel blootlegt, is de thema’s waar een partij belang aan hecht. Uit de resultaten 
+hierboven blijkt dat ook
+deze thematische verwantschap heel wat informatie over ons politieke landschap bevat.&lt;/p&gt;
+
+&lt;p class=&quot;nomargin&quot;&gt;Vanzelfsprekend kunnen we niet alleen verkiezingsprogramma&#39;s met elkaar vergelijken. Onze studie wordt
+pas echt interessant wanneer we ook het nieuwste regeerakkoord erbij betrekken. 
+In de figuur hieronder zie je dat vooral de programma’s van de CD&amp;amp;V en de N-VA thematisch
+erg verwant zijn aan dat akkoord. Dat mag niet verbazen: beide partijen onderhandelden tenslotte wekenlang over
+het resultaat. Typische N-VA-woorden in het regeerakkoord zijn “ondernemingszin”, “inburgering”,
+“efficiëntie” en “activeringsbeleid”. Typische CD&amp;amp;V-woorden zijn “gezinszorg”, “jeugdhulp” en
+“vervoersnetwerk”. Zoals verwacht vertonen de verkiezingsprogramma&#39;s van Groen en Sp.a al heel wat minder 
+gelijkenissen met het regeerakkoord. Dat van Vlaams Belang wijkt het meeste af.&lt;/p&gt;
+
+&lt;div id=&quot;chart2&quot;&gt;&lt;/div&gt;
+
+
+&lt;p class=&quot;indent&quot;&gt;Opvallender is de positie van OpenVld. De gelijkenis tussen het verkiezingsprogramma
+van OpenVld en het regeerakkoord is weliswaar groter dan bij Groen, Sp.a of Vlaams Belang, maar 
+beduidend kleiner dan bij CD&amp;amp;V of N-VA. Woorden als “woonbonus”,” ondernemerschap” en “basisonderwijs” 
+verraden een zekere thematische verwantschap, maar erg hoog is die niet. Zien we 
+hier een resultaat van het feit dat OpenVld pas op de valreep bij de onderhandelingen werd betrokken? 
+Bevestigen deze cijfers dat OpenVld van de drie regeringspartijen het minste zijn stempel op het
+regeerakkoord kon drukken? Het heeft er alle schijn van.&lt;/p&gt;
+
+&lt;p&gt;Met woorden tellen kan je een heel eind komen. Enerzijds bevestigt deze 
+kleine studie wat we 
+al wisten: de verwantschap tussen de Vlaamse politieke partijen beantwoordt grotendeels aan onze verwachtingen, 
+en de gedeelde woorden in de partijprogramma&#39;s beschrijven inderdaad het gekende profiel van de partijen. Dat schept vertrouwen in de resultaten.
+Anderzijds geeft ze ook nieuwe inzichten: zo meet ze de invloed die de regeringspartijen op het
+regeerakkoord hadden, en toont ze dat OpenVld waarschijnlijk heel wat minder in de pap te brokken had
+dan CD&amp;amp;V en N-VA. Toch moeten we voorzichtig blijven. Een echte politieke analyse gaat natuurlijk heel
+wat dieper dan dit experiment, en zal naast de algemene thema’s bijvoorbeeld ook de meer complexe 
+partijstandpunten bekijken. Ook taaltechnologie heeft tenslotte zijn limieten.&lt;/p&gt;
+
+
+&lt;script src=&quot;http://d3js.org/d3.v3.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;http://d3js.org/colorbrewer.v1.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    var margin = { top: 150, right: 0, bottom: 100, left: 150 },
+          width = 1000 - margin.left - margin.right,
+          height = 430 - margin.top - margin.bottom,
+          gridSize = Math.floor(width / 24),
+          legendElementWidth = gridSize*&quot;2,&quot;,
+          buckets = 9,
+          //colors = [&quot;#ffffd9&quot;,&quot;#edf8b1&quot;,&quot;#c7e9b4&quot;,&quot;#7fcdbb&quot;,&quot;#41b6c4&quot;,&quot;#1d91c0&quot;,&quot;#225ea8&quot;,&quot;#253494&quot;,&quot;#081d58&quot;], // 
+	  colors = colorbrewer.YlGnBu[9],
+          parties1 = [&quot;Groen&quot;, &quot;Spa&quot;, &quot;CD&amp;V&quot;, &quot;N-VA&quot;, &quot;OpenVld&quot;, &quot;VlaamsBelang&quot;],
+          parties2 = parties1;
+
+    var data = [	
+{party1: 1, party2: 1, value: NaN },
+{party1: 1, party2: 2, value: 0.054121242241719485}, // 1st
+{party1: 1, party2: 3, value: 0.04754739601228949},
+{party1: 1, party2: 4, value: 0.0458296549057599},
+{party1: 1, party2: 5, value: 0.0442577326593442},
+{party1: 1, party2: 6, value: 0.042148307375478256},
+{party1: 2, party2: 1, value: 0.054121242241719485},
+{party1: 2, party2: 2, value: NaN },
+{party1: 2, party2: 3, value: 0.0508468428352834},
+{party1: 2, party2: 4, value: 0.05109902097704151},
+{party1: 2, party2: 5, value: 0.04961256993042664},
+{party1: 2, party2: 6, value: 0.044233614034666094},
+{party1: 3, party2: 1, value: 0.04754739601228949},
+{party1: 3, party2: 2, value: 0.0508468428352834},
+{party1: 3, party2: 3, value: NaN },
+{party1: 3, party2: 4, value: 0.04996689827737326},
+{party1: 3, party2: 5, value: 0.0484843114216387},
+{party1: 3, party2: 6, value: 0.04003586553138994},
+{party1: 4, party2: 1, value: 0.0458296549057599},
+{party1: 4, party2: 2, value: 0.05109902097704151},
+{party1: 4, party2: 3, value: 0.04996689827737326},
+{party1: 4, party2: 4, value: NaN },
+{party1: 4, party2: 5, value: 0.05210358367666044},  //2nd
+{party1: 4, party2: 6, value: 0.05192968227676471},  //3rd
+{party1: 5, party2: 1, value: 0.0442577326593442},
+{party1: 5, party2: 2, value: 0.04961256993042664},
+{party1: 5, party2: 3, value: 0.0484843114216387},
+{party1: 5, party2: 4, value: 0.05210358367666043},
+{party1: 5, party2: 5, value: NaN },
+{party1: 5, party2: 6, value: 0.044006037246828236},
+{party1: 6, party2: 1, value: 0.042148307375478256},
+{party1: 6, party2: 2, value: 0.044233614034666094},
+{party1: 6, party2: 3, value: 0.04003586553138994},
+{party1: 6, party2: 4, value: 0.05192968227676471},
+{party1: 6, party2: 5, value: 0.044006037246828236},
+{party1: 6, party2: 6, value: NaN },
+	];
+
+    var allValues = [];
+    for (i = 0; i&lt;data.length; i++){
+	var val = data[i].value;
+	if (! isNaN(val)) {
+	    allValues.push(data[i].value);
+	}
+    }
+    allValues.sort();
+
+    var colorScale = d3.scale.quantile()
+              .domain(allValues)
+              .range(colors);
+
+    var svg = d3.select(&quot;#chart&quot;).append(&quot;svg&quot;)
+              .attr(&quot;width&quot;, width + margin.left + margin.right)
+              .attr(&quot;height&quot;, height + margin.top + margin.bottom)
+              .append(&quot;g&quot;)
+              .attr(&quot;transform&quot;, &quot;translate(&quot; + margin.left + &quot;,&quot; + margin.top + &quot;)&quot;);
+
+    var dayLabels = svg.selectAll(&quot;.dayLabel&quot;)
+              .data(parties1)
+              .enter().append(&quot;text&quot;)
+                .text(function (d) { return d; })
+                .attr(&quot;x&quot;, 0)
+                .attr(&quot;y&quot;, function (d, i) { return i * gridSize; })
+                .style(&quot;text-anchor&quot;, &quot;end&quot;)
+                .attr(&quot;transform&quot;, &quot;translate(-6,&quot; + gridSize / 1.5 + &quot;)&quot;);
+
+    var timeLabels = svg.selectAll(&quot;.timeLabel&quot;)
+              .data(parties2)
+              .enter().append(&quot;text&quot;)
+                .text(function(d) { return d; })
+                .attr(&quot;x&quot;, 0)
+                .attr(&quot;y&quot;, function (d, i) {return i * gridSize; })
+                .style(&quot;text-anchor&quot;, &quot;start&quot;)
+                .attr(&quot;transform&quot;, &quot;translate(&quot; + gridSize / 1.5 + &quot;)rotate(-90)translate(5)&quot;)
+
+    var heatMap = svg.selectAll(&quot;.party2&quot;)
+              .data(data)
+              .enter().append(&quot;rect&quot;)
+              .attr(&quot;x&quot;, function(d) { return (d.party2 - 1) * gridSize; })
+              .attr(&quot;y&quot;, function(d) { return (d.party1 - 1) * gridSize; })
+              .attr(&quot;rx&quot;, 4)
+              .attr(&quot;ry&quot;, 4)
+              .attr(&quot;class&quot;, &quot;hour bordered&quot;)
+              .attr(&quot;width&quot;, gridSize)
+              .attr(&quot;height&quot;, gridSize)
+              .style(&quot;fill&quot;, colors[0]);
+
+    heatMap.transition().duration(2000)
+              .style(&quot;fill&quot;, function(d) { return colorScale(d.value); });
+
+&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+    var margin = { top: 150, right: 0, bottom: 100, left: 150 },
+          width = 1000 - margin.left - margin.right,
+          height = 250 - margin.top - margin.bottom,
+          gridSize = Math.floor(width / 24),
+          legendElementWidth = gridSize*2,
+          buckets = 9,
+          colors = colorbrewer.YlGnBu[9],
+          parties2 = [&quot;Groen&quot;, &quot;Sp.a&quot;, &quot;CD&amp;V&quot;, &quot;N-VA&quot;, &quot;OpenVld&quot;, &quot;Vlaams Belang&quot;],
+          parties1 = [&quot;Regeerakkoord&quot;];
+
+    var data = [
+{party1: 1, party2: 1, value: 0.04461471220982939},
+{party1: 1, party2: 2, value: 0.045343726673312594},
+{party1: 1, party2: 3, value: 0.05992731949034553},
+{party1: 1, party2: 4, value: 0.05250499365685988},
+{party1: 1, party2: 5, value: 0.04638612879239342},
+{party1: 1, party2: 6, value: 0.0337242840343301},
+		]; 
+
+    var allValues = [];
+    for (i = 0; i&lt;data.length; i++){
+	var val = data[i].value;
+	if (! isNaN(val)) {
+	    allValues.push(data[i].value);
+	}
+    }
+    allValues.sort();
+
+    var colorScale = d3.scale.quantile()
+              .domain(allValues)
+              .range(colors);
+
+    console.log(d3.max(data, function (d) { return d.value; }));
+
+    var svg = d3.select(&quot;#chart2&quot;).append(&quot;svg&quot;)
+              .attr(&quot;width&quot;, width + margin.left + margin.right)
+              .attr(&quot;height&quot;, height + margin.top + margin.bottom)
+              .append(&quot;g&quot;)
+              .attr(&quot;transform&quot;, &quot;translate(&quot; + margin.left + &quot;,&quot; + margin.top + &quot;)&quot;);
+
+    var dayLabels = svg.selectAll(&quot;.dayLabel&quot;)
+              .data(parties1)
+              .enter().append(&quot;text&quot;)
+                .text(function (d) { return d; })
+                .attr(&quot;x&quot;, 0)
+                .attr(&quot;y&quot;, function (d, i) { return i * gridSize; })
+                .style(&quot;text-anchor&quot;, &quot;end&quot;)
+                .attr(&quot;transform&quot;, &quot;translate(-6,&quot; + gridSize / 1.5 + &quot;)&quot;);
+
+    var timeLabels = svg.selectAll(&quot;.timeLabel&quot;)
+              .data(parties2)
+              .enter().append(&quot;text&quot;)
+                .text(function(d) { return d; })
+                .attr(&quot;x&quot;, 0)
+                .attr(&quot;y&quot;, function (d, i) {return i * gridSize; })
+                .style(&quot;text-anchor&quot;, &quot;start&quot;)
+                .attr(&quot;transform&quot;, &quot;translate(&quot; + gridSize / 1.5 + &quot;)rotate(-90)translate(5)&quot;);
+
+    var heatMap = svg.selectAll(&quot;.party2&quot;)
+              .data(data)
+              .enter().append(&quot;rect&quot;)
+              .attr(&quot;x&quot;, function(d) { return (d.party2 - 1) * gridSize; })
+              .attr(&quot;y&quot;, function(d) { return (d.party1 - 1) * gridSize; })
+              .attr(&quot;rx&quot;, 4)
+              .attr(&quot;ry&quot;, 4)
+              .attr(&quot;class&quot;, &quot;hour bordered&quot;)
+              .attr(&quot;width&quot;, gridSize)
+              .attr(&quot;height&quot;, gridSize)
+              .style(&quot;fill&quot;, colors[0]);
+
+    heatMap.transition().duration(2000)
+              .style(&quot;fill&quot;, function(d) { return colorScale(d.value); });
+&lt;/script&gt;
+&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/gelijkenis-partijen/&quot;&gt;Taaltechnologie bewijst: OpenVld had de kleinste invloed op het Vlaamse regeerakkoord&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on August 14, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Hoe moeilijk is het Vlaamse regeerakkoord?]]></title>
+  <link rel="alternate" type="text/html" href="http://nlp.yvespeirsman.be/blog/hoe-moeilijk-is-het-vlaamse-regeerakkoord/" />
+  <id>http://nlp.yvespeirsman.be/blog/hoe-moeilijk-is-het-vlaamse-regeerakkoord</id>
+  <published>2014-07-28T07:31:52-04:00</published>
+  <updated>2014-07-28T07:31:52-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://nlp.yvespeirsman.be</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;De publicatie van het Vlaamse regeerakkoord eerder deze week maakte heel 
+wat reacties los, niet enkel op politiek, maar ook op taalkundig vlak. Schrijfster Ann De Craemer hekelde de holle woordenbrij 
+in een &lt;a href=&quot;http://www.demorgen.be/dm/nl/30969/Regeringsvorming/article/detail/1957085/2014/07/24/De-lulkoektaal-van-het-Vlaamse-wezelwoordakkoord.dhtml&quot;&gt;column in De Morgen&lt;/a&gt;, 
+maar kreeg al snel &lt;a href=&quot;http://www.demorgen.be/dm/nl/2461/Opinie/article/detail/1958641/2014/07/24/Schrijven-wij-lulkoek-Dat-is-gewoon-de-wereld-van-het-beleid-maken.dhtml&quot;&gt;lik op stuk&lt;/a&gt; van Maurits Vande Reyde, 
+beleidsmedewerker van Open Vld. “Zaken worden complexer verwoord omdat ze nu eenmaal 
+complexer zijn”, schrijft Vande Reyde over het taalgebruik van onze politici. 
+Maar is dat zo? En is het Vlaamse regeerakkoord inderdaad zo moeilijk?&lt;p&gt;
+
+&lt;p&gt;“Moeilijk” is natuurlijk lastig om te definiëren. Toch hoeven we niet alleen
+op ons gevoel te vertrouwen. Taalkundig onderzoek gebruikt typisch 
+een aantal eenvoudige maten om de complexiteit van een tekst 
+aanschouwelijk te maken: de gemiddelde lengte van een woord, de gemiddelde lengte 
+van een zin, en onze vertrouwdheid met de gebruikte woorden.&lt;/p&gt;
+
+&lt;p&gt;Laten we dus het huidige Vlaamse regeerakkoord op deze vlakken eens vergelijken
+met drie andere teksten: 
+de vorige Vlaamse regeerakkoorden uit 2004 en 2010, en een reeks artikelen 
+uit de krant De Standaard. Die laatste dienen als referentiepunt voor een taalgebruik dat 
+tegelijkertijd kwalitatief hoogstaand en begrijpelijk is. Bovendien kozen we met
+opzet artikelen over het meest recente regeerakkoord, wat de vergelijkbaarheid 
+tussen de teksten aanzienlijk verhoogt.&lt;/p&gt;
+
+&lt;p&gt;De woorden in het nieuwe regeerakkoord tellen gemiddeld 6.1 letters. 
+Ze zijn nagenoeg even lang als in de vorige regeerakkoorden (telkens 6.1 letters), maar 
+duidelijk langer dan de woorden van De Standaard (5.3 letters).  De recordhouder in het 
+huidige regeerakkoord is “broeikasgasemissiereductiedoelstellingen”, een 
+vondst van maar liefst 40 letters.&lt;/p&gt;
+
+&lt;div id=&quot;chart1&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;Bij de zinslengte zit er iets meer variatie tussen de regeerakkoorden. 
+In 2004 was een gemiddelde zin zo’n 17 woorden lang, in 2010 bijna 20, 
+nu iets minder dan 19. Dat zijn telkens erg hoge gemiddeldes. 
+In de politieke artikelen van De Standaard is een zin 
+gemiddeld minder dan 14 woorden lang.&lt;/p&gt;
+
+&lt;div id=&quot;chart2&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;Naast woordlengte en zinslengte zegt ook onze vertrouwdheid met een woord iets
+over zijn moeilijkheidsgraad: hoe vaker we een woord tegenkomen, hoe makkelijker
+we het kunnen verwerken. Eén manier om “vertrouwdheid&quot; te definiëren is met behulp
+van een grote collectie algemene teksten, zoals Wikipedia. We beschouwen een woord
+als “zeldzaam” wanneer het minder dan 20 keer voorkomt in een collectie van 240.000
+willekeurige Nederlandstalige Wikipedia-artikelen. Opnieuw zien we dat zulke zeldzame
+woorden veel vaker voorkomen in de regeerakkoorden. Met 6,5% à 7% zeldzame woorden
+zijn deze veel moeilijker te begrijpen dan een krant als De Standaard, waar slechts 4,3% 
+van de woorden zeldzaam zijn.&lt;/p&gt;
+
+&lt;div id=&quot;chart3&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;Natuurlijk is geen van deze drie maten een perfect instrument om de complexiteit 
+van een tekst te meten: lange zinnen zijn niet noodzakelijk moeilijker, 
+net zomin als lange of weinig gebruikte woorden dat hoeven te zijn. 
+Toch kunnen ze alledrie, zeker in combinatie, een zinvolle indicatie geven van de moeilijkheidsgraad
+van een tekst. &lt;/p&gt;
+&lt;p&gt;Onze metingen bevestigen dat het Vlaamse regeerakkoord in een erg complexe taal is opgesteld, die voor veel kiezers moeilijk te begrijpen zal zijn. Door de jaren heen is op dat vlak weinig verbetering
+te merken. Met uitspraken dat de media deze taal wel naar 
+de bevolking zullen vertalen, zoals Vande Reyde schrijft, ontlopen politici hun verantwoordelijkheid. 
+Ook ongefilterd moeten hun teksten een breed publiek kunnen bereiken. 
+&lt;a href=&quot;www.kortom.be&quot;&gt;Kortom&lt;/a&gt;, de vereniging voor overheidscommunicatie,
+formuleert het zo: “overheidscommunicatie moet voor iedereen toegankelijk zijn” en 
+“overheidscommunicatie wordt in een heldere, duidelijke taal geformuleerd”. Voor het Vlaamse 
+Regeerakkoord is er nog een hele weg te gaan.&lt;/p&gt;
+&lt;br /&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://www.google.com/jsapi&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+      google.load(&#39;visualization&#39;, &#39;1&#39;, {packages: [&#39;corechart&#39;]});
+&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+      function drawVisualization() {
+        // Create and populate the data table.
+        var data = google.visualization.arrayToDataTable([
+          [&#39;tekst&#39;,&#39;woordlengte&#39;,{ role: &#39;style&#39; }],
+          [&#39;2004&#39;,  6.1, &#39;orange&#39;],
+          [&#39;2010&#39;,  6.1, &#39;orange&#39;],
+          [&#39;2014&#39;,  6.1, &#39;orange&#39;],
+          [&#39;De Standaard&#39;,  5.3, &#39;blue&#39;],
+        ]);
+        
+        // Create and draw the visualization.
+        new google.visualization.ColumnChart(document.getElementById(&#39;chart1&#39;)).
+            draw(data,
+                 {title:&quot;Gemiddelde woordlengte&quot;,
+                  width:600, height:400,
+                  vAxis: {minValue: 0},
+                  legend: { position: &quot;none&quot; }}
+            );
+      }
+      
+      google.setOnLoadCallback(drawVisualization);
+&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+      function drawVisualization() {
+        // Create and populate the data table.
+        var data = google.visualization.arrayToDataTable([
+          [&#39;tekst&#39;,&#39;percentage zeldzame woorden&#39;,{ role: &#39;style&#39; }],
+          [&#39;2004&#39;,  6.4, &#39;orange&#39;],
+          [&#39;2010&#39;,  6.6, &#39;orange&#39;],
+          [&#39;2014&#39;,  7.1, &#39;orange&#39;],
+          [&#39;De Standaard&#39;,  4.3, &#39;blue&#39;],
+        ]);
+        
+        // Create and draw the visualization.
+        new google.visualization.ColumnChart(document.getElementById(&#39;chart3&#39;)).
+            draw(data,
+                 {title:&quot;Percentage zeldzame woorden&quot;,
+                  width:600, height:400,
+                  vAxis: {minValue: 0},
+                  legend: { position: &quot;none&quot; }}
+            );
+      }
+      google.setOnLoadCallback(drawVisualization);
+&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+      function drawVisualization() {
+        // Create and populate the data table.
+        var data = google.visualization.arrayToDataTable([
+          [&#39;tekst&#39;,&#39;zinslengte&#39;,{ role: &#39;style&#39; }],
+          [&#39;2004&#39;,  17.2, &#39;orange&#39;],
+          [&#39;2010&#39;,  19.8, &#39;orange&#39;],
+          [&#39;2014&#39;,  18.8, &#39;orange&#39;],
+          [&#39;De Standaard&#39;,  13.9, &#39;blue&#39;],
+        ]);
+        
+        // Create and draw the visualization.
+        new google.visualization.ColumnChart(document.getElementById(&#39;chart2&#39;)).
+            draw(data,
+                 {title:&quot;Gemiddelde zinslengte&quot;,
+                  width:600, height:400,
+                  vAxis: {minValue: 0},
+                  legend: { position: &quot;none&quot; }}
+            );
+      }
+      
+      google.setOnLoadCallback(drawVisualization);
+&lt;/script&gt;
+&lt;/p&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://nlp.yvespeirsman.be/blog/hoe-moeilijk-is-het-vlaamse-regeerakkoord/&quot;&gt;Hoe moeilijk is het Vlaamse regeerakkoord?&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://nlp.yvespeirsman.be&quot;&gt;Yves Peirsman&lt;/a&gt; on July 28, 2014.&lt;/p&gt;</content>
+</entry>
+
+</feed>
