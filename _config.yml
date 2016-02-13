@@ -1,109 +1,70 @@
-title:            Yves Peirsman
-description:      Welcome to my website and blog.
-# Your site's domain goes here. Leave localhost server or blank when working locally.
-url:              http://nlp.yvespeirsman.be
-#url: 		  http://localhost:4000
-disqus_shortname: yvespeirsman
-
-# Owner/author information
-owner:
-  name:           Yves Peirsman
-  avatar:         bio-photo.jpg
-  bio:            "Crazy about Natural Language Processing."
-  email:
-  # Social networking links are used in author-bio sidebar. Update and remove as you like.
-  twitter:	  yvespeirsman
-  facebook:
-  github:
-  stackoverflow:
-  linkedin:	yvespeirsman
-  instagram:
-  lastfm:
-  tumblr:
-  pinterest:
-  foursquare:
-  steam:
-  dribbble:
-  # For Google Authorship https://plus.google.com/authorship
-  google_plus:  
-
-# Analytics and webmaster tools stuff goes here
-google_analytics:  UA-53268217-1
-google_verify:
-# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
-bing_verify:
-
-# Links to include in top navigation
-# For external links add external: true
-links:
-  - title: Home
-    url: /
-  - title: All Posts
-    url: /blog/
-
-# http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:    America/New_York
-future:      true
-#pygments:    true
-highlighter: pygments
-markdown:    kramdown
-
-# https://github.com/mojombo/jekyll/wiki/Permalinks
-permalink:   /:categories/:title/
-
-kramdown:
-  auto_ids: true
-  footnote_nr: 1
-  entity_output: as_char
-  toc_levels: 1..6
-  use_coderay: false
-
-  coderay:
-    coderay_line_numbers:
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
-
-include: [".htaccess"]
-exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules", "Gemfile", "Gemfile.lock", "LICENSE", "README.md"]
+url: https://y7kim.github.io
+baseurl: /agency-jekyll-theme/
 
 # Site settings
-email: yves.peirsman@gmail.com
-description: "This is the website and blog of Yves Peirsman, Natural Language Processing Consultant." 
-
-# Contact form: comment the line below if you want to stick with the default PHP contact form
-contact: static
+title: Awesome Title
+email: your-email@domain.com
+description: "Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description."
 
 # Color settings (hex-codes without the leading hash-tag)
 color:
-  primary: 18bc9c #80B3FF
-  secondary: 2c3e50 #FD6E8A
-  secondary-dark: 233140 #A2122F
-  ternary: 10c3d3
+  primary: fed136
+  secondary: fec503  
+  secondary-dark: 333
 
-# Footer settings
-footer:
-  copyright: Yves Peirsman
-  location: Location
-  social: Around the Web
-  credits: Contact
+# Team names, titles and social links
+people:
+- name: Kay Garland
+  pic: 1
+  position: Lead Designer
+  social:
+    - title: twitter
+      url: #
+    - title: facebook
+      url: #
+    - title: stack-overflow
+      url: #
+
+- name: Larry Parker
+  pic: 2
+  position: Lead Marketer
+  social:
+    - title: twitter
+      url: #
+    - title: facebook
+      url: #
+    - title: linkedin
+      url: #
+
+- name: Diana Petersen
+  pic: 3
+  position: Lead Developer
+  social:
+    - title: twitter
+      url: #
+    - title: facebook
+      url: #
+    - title: google-plus
+      url: #
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
   - title: twitter
-    url: http://twitter.com/yvespeirsman
-  - title: linkedin
-    url: http://linkedin.com/in/yvespeirsman
-  - title: google-plus
-    url: http://plus.google.com/+YvesPeirsman
+    url: http://twitter.com/jekyllrb
+  - title: facebook
+    url:
+  - title: stack-overflow
+    url: http://stackoverflow.com/questions/tagged/jekyll
+  - title: bitbucket 
+    url: http://bitbucket.org/jekyll
+  - title: github
+    url: http://github.com/jekyll
 
 # Postal address (add as many lines as necessary)
 address:
-  - line: Tervuursevest 21 
-  - line: 3001 Leuven
-  - line: Belgium
+  - line: 3481 Melrose Place
+  - line: Beverly Hills, CA 90210
 
-# Credits content
-credits: 'Get in touch via the channels to the left<br>or +32 485 024334'
-
+# Build settings
+markdown: kramdown
+permalink: pretty
