@@ -61,6 +61,11 @@ h6 {
     margin: 0 auto;
 }
 
+.img-centered-padding {
+    margin: 0 auto;
+    padding: 150px;
+}
+
 .bg-light-gray {
     background-color: #f7f7f7;
 }
