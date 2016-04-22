@@ -4,7 +4,7 @@ baseurl: http://www.nlp.town/
 # Site settings
 title: nlp.town
 email: yves@nlp.town
-description: "Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description."
+description: "NLP Town provides Natural Language Processing consultancy and development."
 
 # Color settings (hex-codes without the leading hash-tag)
 color:
