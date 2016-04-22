@@ -64,6 +64,7 @@ h6 {
 .img-centered-padding {
     margin: 0 auto;
     padding: 150px 0px 0px 0px;
+    max-width: 100%;
 }
 
 .bg-light-gray {
