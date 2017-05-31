@@ -26,6 +26,10 @@ people:
   pic: 2
   position: Software Engineer
 
+- name: We’re hiring
+  pic: anonymous
+  position: Computational Linguist
+
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
   - title: twitter
