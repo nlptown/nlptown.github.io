@@ -14,7 +14,7 @@ color:
 # Team names, titles and social links
 people:
 - name: Yves Peirsman
-  pic: 1
+  pic: yves
   position: NLP Expert
   social:
     - title: twitter
@@ -23,11 +23,11 @@ people:
       url: https://www.linkedin.com/in/yvespeirsman
 
 - name: Johan Leys
-  pic: 2
+  pic: johan
   position: Software Engineer
 
-- name: We’re hiring
-  pic: anonymous
+- name: Adriaan Lemmens
+  pic: adriaan
   position: Computational Linguist
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
