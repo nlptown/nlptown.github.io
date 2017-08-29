@@ -5,9 +5,536 @@
     <description>NLP Town provides Natural Language Processing consultancy and development.</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 02 Jun 2017 10:23:17 +0200</pubDate>
-    <lastBuildDate>Fri, 02 Jun 2017 10:23:17 +0200</lastBuildDate>
+    <pubDate>Tue, 29 Aug 2017 08:22:04 +0200</pubDate>
+    <lastBuildDate>Tue, 29 Aug 2017 08:22:04 +0200</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
+    
+      <item>
+        <title>Perplexed by Game of Thrones. A Song of N-Grams and Language Models</title>
+        <description>&lt;p class=&quot;first&quot;&gt;
+N-grams have long been part of the arsenal of every NLPer. These fixed-length word sequences are not only ubiquitous 
+as features in NLP tasks such as text classification, but also formed the basis of the language models underlying machine translation 
+and speech recognition. However, with the advent of recurrent neural networks and the diminishing role of feature selection in 
+deep learning, their omnipresence could quickly become a thing of the past. Are we witnessing the end of n-grams in Natural Language Processing?
+&lt;/p&gt;
+
+&lt;p&gt;
+N-grams are sequences of &lt;em&gt;n&lt;/em&gt; linguistic items, usually words. Depending on the length of these sequences, we call them 
+unigrams, bigrams, trigrams, four-grams, five-grams, etc. N-grams have often been essential in developing high-quality 
+NLP applications. Traditional models for sentiment analysis, 
+for example, benefit immensely from n-gram features. To classify a sentence such 
+as &lt;em&gt;I did not like this movie&lt;/em&gt; as negative, it’s not sufficient to know that it contains the words &lt;em&gt;not&lt;/em&gt; and &lt;em&gt;like&lt;/em&gt; 
+&amp;mdash; after all, so does the positive sentence &lt;em&gt;What’s not to like about this movie&lt;/em&gt;?
+A sentiment model will have a much better chance of guessing the positive or negative nature of a sentence correctly when it relies on
+ the bigrams or trigrams, such as &lt;em&gt;did not like&lt;/em&gt;, in addition to the individual words. 
+&lt;/p&gt;
+
+&lt;p&gt;This benefit of n-grams is apparent in many other examples of text classification as well.
+To illustrate this, let’s do a fun experiment. Let’s take a look at the television series &lt;em&gt;A Game of Thrones&lt;/em&gt;, 
+and investigate whether we can use the dialogues in the individual episodes to determine which book from George
+R. R. Martin’s book series &lt;em&gt;A Song of Ice and Fire&lt;/em&gt; they are based on. 
+According to Wikipedia, the episodes in series 1 are all based on the first novel, &lt;em&gt;A Game of Thrones&lt;/em&gt;,
+series 2 covers the events in &lt;em&gt;A Clash of Kings&lt;/em&gt;, series 3 and 4 are adapted from A &lt;em&gt;Storm of Swords&lt;/em&gt;, and series 5 and
+6 mix events from &lt;em&gt;A Feast for Crows&lt;/em&gt; and &lt;em&gt;A Dance of Dragons&lt;/em&gt;. It turns out we can induce this mapping 
+pretty well on the basis of the dialogues in the episodes.&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://www.gstatic.com/charts/loader.js&quot;&gt;&lt;/script&gt;
+&lt;div id=&quot;sankey_basic&quot; style=&quot;width: 900px; height: 300px;&quot;&gt;&lt;/div&gt;
+&lt;script async=&quot;&quot; type=&quot;text/javascript&quot;&gt;
+      google.charts.load('current', {
+        'packages': ['sankey']
+      });
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'From');
+        data.addColumn('string', 'To');
+        data.addColumn('number', 'Weight');
+        data.addRows([
+          ['Series 1', 'A Game of Thrones', 10],
+          ['Series 2', 'A Clash of Kings', 10],
+          ['Series 3', 'A Storm of Swords', 1],
+          ['Series 3', 'A Storm of Swords', 9],
+          ['Series 4', 'A Storm of Swords', 9],
+          ['Series 4', 'A Feast for Crows', 0],
+          ['Series 4', 'A Dance with Dragons', 1],
+          ['Series 5', 'A Storm of Swords', 2],
+          ['Series 5', 'A Feast for Crows', 3],
+          ['Series 5', 'A Dance with Dragons', 5],
+          ['Series 6', 'A Feast for Crows', 2],
+          ['Series 6', 'A Clash of Kings', 1],
+          ['Series 6', 'A Storm of Swords', 3],
+          ['Series 6', 'A Dance with Dragons', 4]
+        ]);
+
+        // Sets chart options.
+        var options = {
+          width: 600,
+          sankey: {
+            iterations: 0,
+          }
+        };
+
+        // Instantiates and draws our chart, passing in some options.
+        var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
+        chart.draw(data, options);
+      }
+&lt;/script&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;For each episode and book, I collected the n-grams in a feature vector. I used Tf-Idf to weight the n-gram
+frequencies and applied L2-normalization. For each episode, I then picked the book whose feature vector had the
+highest cosine similarity with the episode’s vector. If we look at just the unigrams, 46 of the 60 episodes (76.67%)
+are assigned to the correct book, according to the Wikipedia mapping. If we also take bigrams into account,
+this figure climbs to 50 (83.33%). Adding trigrams takes us to 52 correct episodes (86.67%). This indicates
+that the n-grams capture the similarities between the books and the episodes very well: random guessing would have only given
+us a success ratio of 22%. The diagram above, which plots the mappings of the model with unigrams, bigrams and trigrams,
+also suggests another interesting pattern: the later the television series, the more difficult it becomes to connect its episodes
+to the correct book. While this is obviously just a toy example, this trend is in line with
+&lt;a href=&quot;https://www.pastemagazine.com/articles/2015/05/20-big-differences-between-the-game-of-thrones-tv.html&quot;&gt;observations&lt;/a&gt;
+that with each &lt;em&gt;Game of Thrones&lt;/em&gt; series, the screen adaptation has become &lt;a href=&quot;http://www.vanityfair.com/hollywood/2016/06/game-of-thrones-season-6-debate&quot;&gt;
+less faithful to the books&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;Apart from text classification, n-grams are most often used in the context of language models. Language models are models that can assign a probability
+to a sequence of words, such as a sentence. This ability underpins many successful NLP applications, such as speech recognition, 
+machine translation and text generation. In speech recognition, say, it is useful to know that the sentence &lt;em&gt;there is a hair in my soup&lt;/em&gt;
+is much more probable than &lt;em&gt;there is a air in my soup&lt;/em&gt;. Traditionally, language models estimated these probabilities on the 
+basis of the frequencies of the n-grams they had observed in a large corpus. A bigram model would 
+look up the frequencies of the relevant bigrams, such as &lt;em&gt;a hair&lt;/em&gt; and &lt;em&gt;a air&lt;/em&gt;, in 
+its training corpus, while a trigram model would rely on the frequencies of the three-word sequences,
+such as &lt;em&gt;is a hair&lt;/em&gt;. As the figures from the Google Books N-gram corpus below illustrate, 
+these frequencies should normally
+point towards a large preference for &lt;em&gt;there is a hair in my soup&lt;/em&gt;. Even when the speaker does not
+pronounce the first letter in &lt;em&gt;hair&lt;/em&gt;, the language model will help ensure that the speech recognition
+system gets the sentence right.
+&lt;/p&gt;
+
+&lt;iframe src=&quot;https://books.google.com/ngrams/interactive_chart?content=is+a+hair%2C+is+a+air&amp;amp;year_start=1800&amp;amp;year_end=2000&amp;amp;corpus=15&amp;amp;smoothing=3&amp;amp;share=&amp;amp;direct_url=t1%3B%2Cis%20a%20hair%3B%2Cc0%3B.t1%3B%2Cis%20a%20air%3B%2Cc0&quot; width=&quot;600&quot; height=&quot;275&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; hspace=&quot;0&quot; vspace=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;
+The predictions of language models are usually expressed in terms of &lt;em&gt;perplexity&lt;/em&gt;. The perplexity of a particular model on a
+sentence is the inverse of the probability it assigns to that sentence, normalized for sentence length. Intuitively, the perplexity expresses
+how confused the model is by the words in the sentence: a perplexity of 50 means that the model behaves
+as if it were randomly picking a word from 50 candidates at each step. 
+The lower the perplexity, the better the language model is at predicting the text.&lt;/p&gt;
+
+&lt;p&gt;Let’s return for a minute to the increasing difficulty of linking the &lt;em&gt;Game of Thrones&lt;/em&gt; episodes in the later 
+series to the books.
+If these newer episodes are indeed less faithful to their source material than earlier ones, this should be reflected in a rising perplexity of a language model trained
+on the books. To verify this, I trained a bunch of language models on all books in the &lt;em&gt;Song of Ice and Fire&lt;/em&gt; series, using the KenLM toolkit.
+&lt;a href=&quot;https://kheafield.com/papers/avenue/kenlm.pdf&quot;&gt;KenLM&lt;/a&gt; implements n-gram language models that are equipped with some advanced smoothing
+techniques to deal with word sequences they have never seen in the training corpus. 
+The results in the figure below confirm our expectations: the median perplexity of the four-gram 
+language model on the sentences in the episodes climbs with every series. While on average,
+the median sentence perplexity in the first series is 38, it increases to 48 in the second and
+third series, 52 in the fourth series, 56 in the fifth and 57 in the sixth. This
+pattern is repeated by the other language models I trained (from bigram to 5-gram models). Clearly, n-gram language models
+have a harder time predicting the dialogues in the later episodes from the language in the books.
+&lt;/p&gt;
+
+&lt;iframe width=&quot;700&quot; height=&quot;370&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1Tir_tqVJLQIr9nY868y1dYAwPgM33qSRQbMzR6jFkgU/pubchart?oid=1201461159&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;
+As with so many traditional NLP approaches, in recent years n-gram based language models have been outshone by their neural 
+counterparts. Because neural networks rely on distributed representations that capture the meaning of words 
+(the so-called word embeddings), they are much better at dealing 
+with unseen word sequences. For example, an n-gram model may not be able to predict that &lt;em&gt;pitcher of beer&lt;/em&gt; is more likely 
+than &lt;em&gt;pitcher of cats&lt;/em&gt; if it has never seen these trigrams in the training corpus. This is true even when the training corpus 
+contains many examples of &lt;em&gt;glass of beer&lt;/em&gt; or &lt;em&gt;bottle of beer&lt;/em&gt;, but no examples of &lt;em&gt;glass of cats&lt;/em&gt; or &lt;em&gt;bottle of cats&lt;/em&gt;. 
+A neural language model, by contrast, will typically have learnt that &lt;em&gt;pitcher&lt;/em&gt;, &lt;em&gt;glass&lt;/em&gt; and &lt;em&gt;bottle&lt;/em&gt; have similar meanings, 
+and it will use this information to make the right prediction. These dense word embeddings also have a convenient side effect: neural language models 
+take up much less memory than n-gram models.
+&lt;/p&gt;
+
+&lt;p&gt;
+The first neural language models were still heavily indebted to their predecessors, as they applied neural networks to n-grams.
+&lt;a href=&quot;http://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf&quot;&gt;Bengio et al.’s (2003)&lt;/a&gt; seminal approach learnt word embeddings for all words in the n-gram, along with the probability of the word sequence. Later models, 
+such as those by &lt;a href=&quot;http://www.fit.vutbr.cz/research/groups/speech/publi/2010/mikolov_interspeech2010_IS100722.pdf&quot;&gt;Mikolov et al. (2010)&lt;/a&gt; 
+and &lt;a href=&quot;http://www.quaero.org/media/files/bibliographie/sundermeyer_lstm_neural_interspeech2012.pdf&quot;&gt;Sundermeyer et al. (2013)&lt;/a&gt; 
+did away with the n-grams altogether and introduced recurrent neural networks (RNNs) to the task of language modelling. These RNNs, and Long Short-Term Memories in particular,
+not only learn word embeddings, but are also able to model dependencies that exceed the boundaries of traditional n-grams.
+Even more recently, other neural architectures have been applied to language modelling, such as 
+&lt;a href=&quot;https://arxiv.org/pdf/1612.08083.pdf&quot;&gt;convolutional networks&lt;/a&gt; and 
+&lt;a href=&quot;https://arxiv.org/pdf/1702.04521.pdf&quot;&gt;RNNs with attention&lt;/a&gt;. Teams at 
+&lt;a href=&quot;https://arxiv.org/pdf/1602.02410.pdf&quot;&gt;Google&lt;/a&gt;, 
+&lt;a href=&quot;https://research.fb.com/building-an-efficient-neural-language-model-over-a-billion-words/&quot;&gt;Facebook&lt;/a&gt; 
+and other places seem to have got 
+caught up in a race for ever-lower perplexities. 
+&lt;/p&gt;
+
+&lt;figure&gt;
+&lt;img width=&quot;500&quot; src=&quot;https://www.dropbox.com/s/0z4jq6jo20io24g/Screenshot%202017-07-04%2023.38.09.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;RNN-based language models learn word embeddings to make predictions. Adapted from the &lt;a href=&quot;http://web.stanford.edu/class/cs224n/lectures/cs224n-2017-lecture8.pdf&quot;&gt;Stanford CS224n course slides&lt;/a&gt;.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;There are quite a few toolkits for training and testing neural language models. &lt;a href=&quot;https://nlg.isi.edu/software/nplm/&quot;&gt;NPLM&lt;/a&gt;
+implements Bengio’s original feed-forward neural language models, &lt;a href=&quot;https://www-i6.informatik.rwth-aachen.de/web/Software/rwthlm.php&quot;&gt;RWTHLM&lt;/a&gt;
+adds the later RNN and LSTM architectures, while &lt;a href=&quot;https://github.com/senarvi/theanolm&quot;&gt;TheanoLM&lt;/a&gt; lets you customize the networks more easily.
+It’s also fairly straightforward to build your own language model in more generic deep learning libraries such as
+&lt;a href=&quot;https://www.tensorflow.org/tutorials/recurrent&quot;&gt;Tensorflow&lt;/a&gt;, which is what I did for this blog post. 
+There’s a simple example of an LSTM language
+model in the &lt;a href=&quot;https://github.com/tensorflow/models/blob/master/tutorials/rnn/ptb/ptb_word_lm.py&quot;&gt;Github Tensorflow repo.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;
+I repeated the experiment above with an LSTM-based language model that I trained for ten epochs, using a dimensionality of 256 for the word embeddings
+and the LSTM cell. Ideally, we’d like to have more data than just the sentences in George R. R. Martin’s books to train such a model, but 
+the results are nevertheless interesting. First of all, the median sentence
+perplexities of each episode confirm our earlier findings: with each series, the dialogues in &lt;em&gt;Game of Thrones&lt;/em&gt; get more difficult to predict. Second, the perplexities of our neural language model are generally lower than the ones of the four-gram language model.
+This is true in particular for the later series: while the median sentence perplexities of both models average around 38 in the first series,
+the last series shows more diverging results: the four-gram language model has a median sentence perplexity of 58 on average, while the LSTM 
+model has only 49. This difference showcases the strength of neural language models &amp;mdash; a result of the semantic knowledge they store in their
+word embeddings and their ability to look beyond n-gram boundaries.
+&lt;/p&gt;
+
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1Tir_tqVJLQIr9nY868y1dYAwPgM33qSRQbMzR6jFkgU/pubchart?oid=1561749522&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;N-grams will not disappear from NLP any time soon. For simple applications, it’s often more convenient to train an n-gram model
+rather than a neural network. Doing so will also save you a lot of time: training an n-gram model on the data above is a matter of seconds, while an 
+LSTM can easily need a few hours. Still, when you have the data and the time, neural network models offer some compelling advantages
+over their n-gram competitors, such as
+their ability to model semantic similarity and long-distance dependencies. 
+These days both types of model should be in your toolkit when you’re doing text classification, need to predict the most likely
+word in a sentence, or are just having a bit of fun with books and television series.
+&lt;/p&gt;
+</description>
+        <pubDate>Wed, 05 Jul 2017 14:00:00 +0200</pubDate>
+        <link>http://localhost:4000/blog/2017/07/05/song-of-ngrams-and-lms/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2017/07/05/song-of-ngrams-and-lms/</guid>
+        
+        <category>NLP</category>
+        
+        <category>AI</category>
+        
+        <category>deep</category>
+        
+        <category>learning</category>
+        
+        <category>word</category>
+        
+        <category>embeddings</category>
+        
+        <category>n-grams</category>
+        
+        <category>language</category>
+        
+        <category>models</category>
+        
+        <category>neural</category>
+        
+        <category>networks</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>Anything2Vec, or How Word2Vec Conquered NLP</title>
+        <description>&lt;p class=&quot;first&quot;&gt;
+Word embeddings are one of the main drivers behind the success of deep learning in Natural Language Processing. Even technical 
+people outside of NLP have often heard of word2vec and its uncanny ability to model the semantic relationship between 
+a noun and its gender or the names of countries and their capitals. But the success of word2vec extends far beyond the 
+word level. Inspired by &lt;a href=&quot;https://github.com/MaxwellRebo/awesome-2vec&quot;&gt;this list of word2vec-like models&lt;/a&gt;, 
+I set out to explore embedding methods for a broad variety of linguistic units &amp;mdash; from sentences to tweets and medical concepts.
+&lt;/p&gt;
+
+&lt;p&gt;
+Although the idea of representing words as continuous vectors has been around for a long time, none of the previous approaches 
+have been as successful as word2vec. Popularized in a &lt;a href=&quot;https://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf&quot;&gt;series&lt;/a&gt;
+ &lt;a href=&quot;http://www.aclweb.org/anthology/N13-1090&quot;&gt;of&lt;/a&gt;
+ &lt;a href=&quot;https://arxiv.org/abs/1301.3781&quot;&gt;papers&lt;/a&gt; by Mikolov and colleagues, word2vec offers two ways of 
+training word embeddings: in the continuous bag-of-word (CBOW) model, the context words are used to predict the current word; 
+in the skip-gram model, the current word is used to predict its context words. Because semantically similar words occur in 
+similar contexts, the resulting embeddings successfully capture semantic properties of their words. Most famously, high-quality 
+embeddings can (sometimes) answer analogy questions, such as “man is to king as woman is to _”. Indeed, the semantic (and syntactic) 
+information that is captured in pre-trained word2vec embeddings has helped many deep learning models generalize beyond their small 
+data sets. It is not surprising, then, that this framework has been so influential, both at the word level and beyond. While 
+competitors such as &lt;a href=&quot;https://nlp.stanford.edu/projects/glove/&quot;&gt;GloVe&lt;/a&gt; offer alternative ways of training word vectors, 
+other models have tried to extend the word2vec approach to other linguistic units.
+&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;450&quot; src=&quot;https://www.dropbox.com/s/w0faljyphdohs8s/Screenshot%202017-04-08%2020.59.27.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;Sense2Vec operates on the level of word “senses” rather than simple words.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;
+One problem with the original word2vec model is that it maps every word to a single embedding. If a word has several senses, these 
+are all encoded in the same vector. To address this problem, Trask and colleagues developed &lt;a href=&quot;https://arxiv.org/abs/1511.06388&quot;&gt;sense2vec&lt;/a&gt;, an adaptation of word2vec 
+that uses supervised labels to distinguish between senses. For example, in a corpus that has been labelled with parts of speech, 
+&lt;code&gt;bank/noun&lt;/code&gt; and &lt;code&gt;bank/verb&lt;/code&gt; are treated as distinct tokens. Trask et al. show that downstream NLP tasks such as dependency parsing can 
+benefit when word2vec operates on this “sense” level rather than the word level. Of course, depending on the type of information you choose
+to model, “sense2vec” may or may not be a fitting name for this approach. Senses are more than just combinations of words and and their
+parts of speech, but in the absence of large sense-tagged corpora, POS-tagged tokens can be a valid approximation.  
+Either way, it is clear that performance on certain NLP tasks can get a boost from working with relevant, finer-grained units than simple words.
+&lt;/p&gt;
+
+&lt;p&gt;
+Some tasks require even more specific information about a word. Part-of-speech tagging, for instance, can benefit enormously from intra-word information that is encoded in smaller units such as morphemes. The adverbial suffix &lt;em&gt;-ly&lt;/em&gt; in English is a good example. 
+For this reason, many neural-network approaches operate at least partially on the character level. 
+A good example is &lt;a href=&quot;http://jmlr.csail.mit.edu/proceedings/papers/v32/santos14.pdf&quot;&gt;Dos Santos and Zadrozny’s model for part-of-speech tagging&lt;/a&gt;, which uses a convolutional network to extract character-level features.
+However, character embeddings are usually trained in a supervised way. This sets them apart from word2vec embeddings, whose training procedure is fully unsupervised.
+&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/yhelg3l8k43lqum/Screenshot%202017-04-07%2021.47.30.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;Skip-thought vectors are trained by having a sentence predict the previous and next sentences in a paragraph.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;
+Still, not all NLP tasks need such detailed information, and many of them focus on units larger than single words. &lt;a href=&quot;https://arxiv.org/abs/1506.06726&quot;&gt;Kiros et al.&lt;/a&gt; present a direct way of translating the word2vec model to the sentence level: instead of having a word predict its context, they have a sentence predict the sentences around it. Their so-called skip-thought vectors follow the encoder-decoder pattern that is so pervasive in Machine Translation nowadays. First a recursive neural network (RNN) encoder maps the input sentence to a sentence vector, and then another RNN decodes this vector to produce the next (or previous) sentence. Through a series of eight tasks such as paraphrase detection and text classification, this skip-thought framework proves to be a robust way of modelling the semantic content of sentences. 
+&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/qyjrysvx35ays24/Screenshot%202017-04-07%2022.22.23.png?raw=1&quot; /&gt;
+&lt;figcaption width=&quot;500&quot;&gt;Tweet2Vec produces a character-based embedding of tweets.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;
+Unfortunately, sentences are not always as well-behaved as those modelled by Kiros et al. Social media content in particular is a hard beast to tame. Tweets, for example, do not combine into paragraphs and are riddled by slang, misspellings and special characters. That’s why &lt;a href=&quot;https://arxiv.org/abs/1605.03481&quot;&gt;tweet2vec, a model developed by Dhingra and colleagues&lt;/a&gt; uses a character-based rather than a word-based network. First, a bidirectional Gated Recurrent Unit does a forward and backward pass over all the characters in the tweet. Then the two final states combine to a tweet embedding, and this embedding is projected to a softmax output layer. Dhingra et al. train their network to predict hashtags. The idea is that tweets with the same hashtag should have more or less semantically similar content. Their results show that tweet2vec indeed outperforms a word-based model significantly on hashtag prediction, particularly when the tweets in question contain many rare words. 
+&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;450&quot; src=&quot;https://www.dropbox.com/s/1iig0ptbzuona1w/Screenshot%202017-04-08%2008.59.11.png?raw=1&quot; /&gt;
+&lt;figcaption width=&quot;500&quot;&gt;Doc2Vec combines document and word embeddings in a single model.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;
+Whether they are word-based or character-based, the sentence-modelling methods above require all input sentences to have the same length (in words or characters). This becomes impractical when you’re dealing with longer paragraphs or documents that vary in length considerably. For this type of data, there is &lt;a href=&quot;https://cs.stanford.edu/~quocle/paragraph_vector.pdf&quot;&gt;doc2vec, an approach by Le and Mikolov&lt;/a&gt; that models variable-length text sequences such as sentences, paragraphs, or full documents. It builds embeddings for both documents and words, and concatenates these embeddings to predict the next word in a sliding-window context. For example, in the sliding window &lt;em&gt;the cat sat on&lt;/em&gt;, the document vector would be concatenated with the word vectors for &lt;em&gt;the cat sat&lt;/em&gt; to predict the next word &lt;em&gt;on&lt;/em&gt;. The document vector is unique to each document; the word vectors are shared between documents. Compared to its competitors, doc2vec has some unique advantages: it takes word order into account, generalizes to longer documents, and can learn from unlabelled data. When the resulting document vectors are used in downstream tasks such as sentiment analysis, they prove very competitive indeed. 
+&lt;/p&gt;
+
+&lt;p&gt;
+But why stop at paragraphs or documents? The next victim that has fallen prey to the word2vec framework is topic modelling. Traditional topic models such as Latent Dirichlet Allocation do not take advantage of distributed word representations, which could help them model semantic similarity between words. &lt;a href=&quot;https://arxiv.org/abs/1605.02019&quot;&gt;Moody’s lda2vec&lt;/a&gt; aims to cure this by embedding word, topic and document vectors into the same space. His method owes a lot to word2vec, but in lda2vec the vector for a context word is obtained by summing the word vector with the vector of the document in which the word occurs. In order to obtain LDA-like topic distributions, these document vectors are defined as a weighted sum of topic vectors, where the weights are sparse, non-negative and sum to one. Moody’s experiments show that lda2vec produces semantically coherent topics, but unfortunately his paper does not offer an explicit comparison with LDA topics. 
+&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;550&quot; src=&quot;https://www.dropbox.com/s/36awrn287o6hz15/Screenshot%202017-04-07%2022.04.20.png?raw=1&quot; /&gt;
+&lt;figcaption width=&quot;500&quot;&gt;Topic2Vec produces both word and topic embeddings, based on LDA topic assignments.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;
+&lt;a href=&quot;https://arxiv.org/abs/1506.08422&quot;&gt;Niu and Dai's topic2vec&lt;/a&gt; is even more similar to word2vec. In the CBOW setting, the context words are used to predict both a word and topic vector; in the skip-gram setting, these two vectors themselves predict the context words. Niu and Dai argue that their topics are more semantically coherent than those produced by LDA, but because they only give a few examples, their argument feels rather anecdotic. Moreover, topic2vec still depends on LDA, as the topic assignments for each word in the corpus are required to train the topic vectors. When it comes to word2vec-like topic embeddings, I’m still to be convinced.
+&lt;/p&gt;
+
+&lt;p&gt;
+After their conquest of classic NLP tasks, it’s no surprise embedding methods have also found their way to specialized disciplines where large volumes of text abound. One good example is &lt;a href=&quot;https://arxiv.org/abs/1602.05568&quot;&gt;med2vec&lt;/a&gt;, an adaptation of word2vec to the medical domain. Choi and colleagues present a neural network that learns embeddings for medical codes (diagnoses, medications and procedures) and patient visits. Their method differs from word2vec in two crucial respects: it is explicitly modified to produce interpretable dimensions, and it is sensitive to the order of the patient visits. While the quality of the code embeddings in the evaluation is mixed, the embedding dimensions are clearly correlated with specific medical conditions. The visit embeddings in their turn prove quite effective at predicting the severity of the clinical risk and future medical codes. Med2vec is not the only example of embeddings in the medical domain: &lt;a href=&quot;http://www.nature.com/articles/srep26094&quot;&gt;Deep Patient&lt;/a&gt; learns unsupervised representations of patients to predict their medical future on the basis of their electronic health records.
+&lt;/p&gt;
+
+&lt;p&gt;
+And the list doesn’t end there. In the domain of scientific literature, &lt;a href=&quot;https://researchweb.iiit.ac.in/~soumyajit.ganguly/papers/A2v_1.pdf&quot;&gt;author2vec&lt;/a&gt; learns 
+representations for authors by capturing both paper content and co-authorship, while &lt;a href=&quot;https://arxiv.org/pdf/1703.06587.pdf&quot;&gt;citation2vec&lt;/a&gt; embeds papers 
+by looking at their citations. And if we leave language for a moment, word2vec-like approaches have been applied to 
+&lt;a href=&quot;https://www.scribd.com/document/334578710/Person-2-Vec&quot;&gt;people in a social network&lt;/a&gt;, &lt;a href=&quot;https://github.com/mattdennewitz/playlist-to-vec&quot;&gt;playlists on Spotify&lt;/a&gt;, 
+&lt;a href=&quot;https://github.com/warchildmd/game2vec&quot;&gt;video games&lt;/a&gt; and &lt;a href=&quot;https://github.com/airalcorn2/batter-pitcher-2vec&quot;&gt;Major League Baseball Players&lt;/a&gt;. 
+Not all of these applications are equally serious, but they all attest to the success of the word2vec paradigm.
+&lt;/p&gt;
+
+&lt;p&gt;It’s clear word2vec embeddings are here to stay. Whether the framework is used to embed words or other linguistic units, the resulting vectors have played a huge role in the success of deep learning methods. At the same time, they still have clear limitations. Simple tokens may be relatively easy to embed, but word senses and topics are a different matter. How do we make the embedding dimensions more interpretable? And what can we gain from adding explicit linguistic information beyond word order? In these respects, embeddings are still in their infancy.&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 10 Apr 2017 14:00:00 +0200</pubDate>
+        <link>http://localhost:4000/blog/2017/04/10/anything2vec/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2017/04/10/anything2vec/</guid>
+        
+        <category>NLP</category>
+        
+        <category>AI</category>
+        
+        <category>deep</category>
+        
+        <category>learning</category>
+        
+        <category>word</category>
+        
+        <category>embeddings</category>
+        
+        <category>paragraph</category>
+        
+        <category>topic</category>
+        
+        <category>document</category>
+        
+        <category>tweet2vec</category>
+        
+        <category>med2vec</category>
+        
+        <category>lda2vec</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>Understanding Deep Learning Models in NLP</title>
+        <description>&lt;p class=&quot;first&quot;&gt;
+Deep learning methods have taken Artificial Intelligence by storm. As their dominance grows, one inconvenient truth
+ is slowly emerging: we don’t actually understand these complex models very well. Our lack of understanding leads to some uncomfortable questions.
+Do we want to travel in self-driving cars whose inner workings no one really comprehends? Can we base important decisions
+in business or healthcare on models whose reasoning we don’t grasp? It’s problematic, to say the least.&lt;/p&gt;
+
+&lt;p&gt;In line with the general evolutions in AI, applications of deep learning in Natural Language Processing suffer from this lack of understanding as well. 
+It already starts with the word embeddings that often form the first hidden layer of the
+network: we typically don’t know what their dimensions stand for. The more hidden layers a model has, the more serious this problem becomes. How do neural networks combine the meanings of
+single words? How do they bring together information from different parts of a sentence or text? 
+And how do they use all these various sources of information to arrive at their final decision? The complex network
+architectures often leave us groping in the dark. Luckily more and more researchers are starting to address exactly these questions,
+and a number of recent articles have put forward methods
+for improving our understanding of the decisions deep learning models make.&lt;/p&gt;
+
+&lt;p&gt;Of course, neural networks aren’t the only machine learning models that are difficult to comprehend. Explaining a complex
+decision by a Support Vector Machine (SVM), for example, is not exactly child’s play. For precisely this reason, 
+&lt;a href=&quot;https://arxiv.org/abs/1602.04938&quot;&gt;Riberi, Singh and Guestrin&lt;/a&gt; have developed &lt;a href=&quot;https://github.com/marcotcr/lime&quot;&gt;LIME&lt;/a&gt;,
+an explanatory technique that can be applied to a variety of machine learning methods. As it explains how a classifier has come
+to a given decision, LIME aims to combine interpretability
+with local fidelity. Its explanations are interpretable because they account for the model’s decision with a small number of single words that
+have influenced it. They are locally faithful because they correspond well to how the model behaves in the vicinity
+of the instance under investigation. This is achieved by basing the explanation on sampled instances that are weighted by their similarity to the target example.&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;550&quot; src=&quot;https://www.dropbox.com/s/x1seyfxawrta7id/Screenshot%202017-01-24%2023.27.46.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;Ribeiro et al. use a small set of words to explain a classifier’s decision.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Ribeiro and colleagues show that LIME can help expose models whose high accuracy on a test set is due 
+to peculiarities of the data rather than their ability to generalize well. This can happen, for example, when a text classifier bases
+its decision on irrelevant words (such as &lt;em&gt;posting&lt;/em&gt; or &lt;em&gt;re&lt;/em&gt;) that happen to occur predominantly in one text class,
+but that are not actually related to that class. Explanations like the one above can also help people discover noisy features,
+and improve the model by removing them. LIME clearly demonstrates how a deeper understanding of the models can lead to a better
+application of machine learning.&lt;/p&gt;
+
+&lt;p&gt;Although neural networks are often viewed as black boxes, &lt;a href=&quot;https://arxiv.org/abs/1612.07843&quot;&gt;Leila Arras and colleagues&lt;/a&gt; argue
+ that their decisions may actually be easier to interpret than those by some competing approaches. 
+To underpin their argument, they apply a technique called layer-wise relevance propagation (LRP). LRP measures how much each individual word in a text
+contributes to the decision of a neural network classifier by backward-propagating its output. Step by step, LRP allocates
+relevance values for a specific class to all cells in the intermediate
+layers. When it reaches the embedding layer, it pools the relevances over all dimensions to obtain word-level relevance scores.
+&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/3kyr078p4s1j8bh/Screenshot%202017-01-22%2012.29.16.png?raw=1&quot; /&gt;
+&lt;figcaption width=&quot;500&quot;&gt;Arras et al. show that a CNN classifier focuses on fewer, more meaningful words than an SVM.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;
+A comparison of these word-level relevance scores between a convolutional neural 
+network (CNN) and a support vector machine (SVM) in a document classification task shows that the decisions of the CNN 
+are based on fewer, more semantically meaningful
+words. 
+Thanks to its word embeddings, the neural network deals much better with words that are not present in the
+training data, and it is less affected by the peculiarities of word frequency. Moreover, its relevance
+scores can be used to compute document-level summary vectors that make much more semantic sense
+than those obtained with other weighting schemes, such as tf-idf. In short, neural networks may not only have the quantitative,
+but also the qualitative edge over their competitors.
+&lt;/p&gt;
+
+&lt;p&gt;Like Arras et al, &lt;a href=&quot;https://arxiv.org/abs/1506.01066&quot;&gt;Li, Chen, Hovy and Jurafsky&lt;/a&gt; try to demystify neural
+networks by taking their cue from back-propagation. To find out which words in a sentence make the most significant contribution to the network’s choice
+of class label, they look at the first-order derivatives of the loss function with respect to the word
+embeddings of the words in the sentence. The higher the absolute values of this derivative, the more a word is responsible
+for the decision. With their method, Li and colleagues show that the gating structure of Long Short-Term Memory (LSTM)
+networks, and bidirectional LSTMs in particular, allows the network to focus better on the important keywords than standard Recurrent
+Neural Networks (RNNs).
+ In the sentence “I hate the movie”, 
+all three models correctly recognize the negative sentiment mostly because of the word “hate”, but the LSTMs give much less
+attention to the other words than the RNN. Other examples, however, indicate that the obtained first-order derivatives are
+only a rough approximation of the individual contributions of the words, so they should be interpreted with caution.&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/l0esdr7ouqdo0pz/Screenshot%202017-01-24%2022.18.01.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;Li et al. visualize the more focused attention of LSTM networks.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Luckily, there are more direct ways of measuring word salience. 
+&lt;a href=&quot;https://arxiv.org/abs/1602.08952&quot;&gt;Kádár, Chrupała and Alishahi&lt;/a&gt; explore an erasure technique for RNNs: they 
+compare the activation vector produced by the neural network after reading a full sentence with the activation
+vector for the sentence with the word removed. The more these two vectors differ, the more
+importance the network assigns to the word in question. For example, in the phrase “a pizza sitting
+next to a bowl of salad”, an RNN typically assigns a lot of importance to the words “pizza” and “salad”, but 
+not to “a” or “of”.&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;550&quot; src=&quot;https://www.dropbox.com/s/kr4y1g9euh43y58/Screenshot%202017-01-22%2011.44.41.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;Kádár et al. identify important words by erasing them from the input.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;To demonstrate the full potential of this method, Kádár et al. apply it to one specific RNN architecture: 
+the &lt;a href=&quot;https://arxiv.org/abs/1506.03694&quot;&gt;Imaginet&lt;/a&gt; model they introduced in 2015. 
+ImageNet consists of two separate Gated Recurrent Unit (GRU) pathways. 
+One of these predicts image vectors given image descriptions; the other is a straightforward language
+model. They show that the visual pathway focuses most of its attention on a small
+number of elements (mostly nouns), while the textual pathway distributes its attention more equally across
+all words and assigns more importance to purely grammatical words (such as prepositions).
+The visual pathway focuses more on the first part of the sentence (where the central entity is usually
+introduced), whereas the textual pathway is more sensitive to the end of the sentence. Some of these observations
+confirm well-known intuitions, while others are more surprising.
+&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;550&quot; src=&quot;https://www.dropbox.com/s/2b79rjo9klun4vy/Screenshot%202017-01-22%2011.45.05.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;Kádár et al. show how visual and textual tasks make neural networks focus on different parts of the sentence.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1612.08220&quot;&gt;Li, Monroe and Jurafsky&lt;/a&gt; also
+investigate the behaviour of a neural network by feeding two inputs to the model: first the original input, and then the input without
+the word or dimension of interest. Instead of looking at the full activation vector, however, they focus on the 
+final (log-)likelihoods that the model assigns to the correct label for the two inputs. The larger the difference
+between the two output values, the more important the word or dimension is for that particular decision.&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;550&quot; src=&quot;https://www.dropbox.com/s/ish18zzaqdhinys/Screenshot%202017-01-21%2020.43.00.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;Li et al. investigate the influence of individual word embedding dimensions on a variety of NLP tasks.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;With this erasure technique, Li and colleagues discover that some dimensions in &lt;a href=&quot;https://arxiv.org/pdf/1301.3781.pdf&quot;&gt;word2vec&lt;/a&gt; embeddings correlate
+with specific NLP tasks, such as part-of-speech tagging and named entity recognition. &lt;a href=&quot;http://www-nlp.stanford.edu/pubs/glove.pdf&quot;&gt;Glove embeddings&lt;/a&gt;, 
+by contrast, have one dimension that dominates for almost all tasks they investigate. This dimension
+likely contains information about word frequency. When dropout is applied in training, information gets spread out more equally
+across the dimensions. The higher layers of the neural model, too, are characterized by more scattered
+information, and the final decision of the network is more robust to changes at these levels.
+&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;550&quot; src=&quot;https://www.dropbox.com/s/0szthtqa87rbaj9/Screenshot%202017-01-21%2020.43.27.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;Li et al. show that LSTM networks focus more on sentiment words than RNNs in sentiment analysis.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;
+Finally, an application of Li et al.’s technique to sentiment analysis confirms some of their earlier findings.
+It again shows that LSTM-based models attach a higher
+importance to sentiment words (such as &lt;em&gt;masterpiece&lt;/em&gt; or &lt;em&gt;dreadful&lt;/em&gt;) than standard RNNs. 
+Moreover, it illustrates how data scientists can perform error analyses on their models by looking at the words with negative importance
+scores for the correct class: the negative scores of these words indicate that their removal improves the decision of the model.&lt;/p&gt;
+
+&lt;p&gt;It’s clear neural networks don’t have to be black boxes. All the studies above show that with the right techniques, we can gain a better
+understanding of how deep learning works, and what factors motivate its decisions. This blog post has only scratched
+the surface of the many interpretative methods researchers are developing. I for one hope that 
+in future applications their efforts will lead to model choices that are not only motivated by higher accuracies, but
+also by a deeper grasp of what neural models actually do.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 26 Jan 2017 13:00:00 +0100</pubDate>
+        <link>http://localhost:4000/blog/2017/01/26/understanding-deeplearning-models-nlp/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/2017/01/26/understanding-deeplearning-models-nlp/</guid>
+        
+        <category>NLP</category>
+        
+        <category>AI</category>
+        
+        <category>deep</category>
+        
+        <category>learning</category>
+        
+        <category>understanding</category>
+        
+        <category>decisions</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
     
   </channel>
 </rss>

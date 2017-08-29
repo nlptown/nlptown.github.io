@@ -1,0 +1,77 @@
+/*****************************************************************************/
+/*
+/* Common
+/*
+/*****************************************************************************/
+
+p { line-height: 1.5; 
+    margin-bottom: 40px; }
+ul { line-height: 1.5
+}
+p.first { font-weight:bold; }
+p.nomargin { margin-bottom: 0px; }
+p.noindent { text-indent: 0px; }
+p.indent { text-indent: 25px; }
+blockquote { line-height: 1.5; }
+h1 { line-height: 1.3; }
+div.addthis_sharing_toolbox {
+    width: 125px;
+    margin: 0 auto;
+}
+
+img.centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
+
+img.padded {
+    padding-top: -1.5em;
+    padding-bottom: 2em;
+}
+
+img.padded2 {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    text-align:center;
+    display:block;
+}
+
+figure.padded2 {
+    padding-bottom: 1em;
+    text-align:center;
+    font-style: italic;
+    display:block;
+}
+
+img.bio-photo {
+    padding-top: 25px;
+}
+
+iframe {    
+ border:0 none;
+}
+
+blockquote.nomargin {
+    display: block;
+    margin-top: -1.5em;
+    margin-bottom: 1em;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+ul.nomargin {
+    margin-top: -1.5em;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 15px;
+}
+
+.highlight {
+    margin-top: -1.5em;
+    padding: 15px;
+}

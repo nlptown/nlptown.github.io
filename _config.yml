@@ -11,6 +11,15 @@ color:
   secondary: fec503  
   secondary-dark: 333
 
+# Owner/author information
+owner:
+  name:           Yves Peirsman
+  avatar:         yves
+  bio:            Natural Language Processing Enthusiast at <a href="http://www.nlp.town">NLP Town</a>.
+  # Social networking links are used in author-bio sidebar. Update and remove as you like.
+  twitter:        yvespeirsman
+  linkedin:     yvespeirsman
+
 # Team names, titles and social links
 people:
 - name: Yves Peirsman
