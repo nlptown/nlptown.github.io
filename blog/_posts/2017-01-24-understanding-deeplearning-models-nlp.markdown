@@ -1,9 +1,11 @@
 ---
-layout: post2
+layout: post
 title:  Understanding Deep Learning Models in NLP
 date:   2017-01-26 12:00:00
 tags: NLP AI deep learning understanding decisions
 comments: true
+author: Yves Peirsman
+image: understanding-dl.png
 ---
 
 <p class="first">

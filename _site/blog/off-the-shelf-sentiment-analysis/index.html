@@ -1,0 +1,323 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Off-the-shelf methods for sentiment analysis</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="This is the website and blog of Yves Peirsman, Natural Language Processing Consultant.">
+    <link rel="canonical" href="http://localhost:4000/blog/off-the-shelf-sentiment-analysis/">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+    <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/vendor/icon-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/vendor/icon-line/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/assets/vendor/icon-line-pro/style.css">
+    <link rel="stylesheet" href="/assets/vendor/icon-hs/style.css">
+    <link rel="stylesheet" href="/assets/vendor/animate.css">
+    <link rel="stylesheet" href="/assets/vendor/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="/assets/vendor/typedjs/typed.css">
+    <link rel="stylesheet" href="/assets/vendor/hs-megamenu/src/hs.megamenu.css">
+    <link rel="stylesheet" href="/assets/vendor/hamburgers/hamburgers.min.css">
+
+    <!-- CSS Unify -->
+    <link rel="stylesheet" href="/assets/css/unify.css">
+
+    <!-- CSS Customization -->
+    <!-- <link rel="stylesheet" href="/assets/css/main.min.css"> -->
+    <link rel="stylesheet" href="/css/yves.css">
+    <!--<link rel="stylesheet" href="/css/agency.css">-->
+
+</head>
+
+<link rel="stylesheet" href="/css/yves.css">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+<body>
+  <main>
+
+   <!-- Navigation -->
+      <header id="js-header" class="u-header u-header--sticky-top">
+        <div class="u-header__section u-header__section--light g-transition-0_3">
+          <nav class="js-mega-menu navbar navbar-toggleable-md">
+            <div class="container">
+              <!-- Logo -->
+              <a href="http://www.nlp.town" class="navbar-brand">
+                <img width=100 src="/images/nlp-town.png" alt="Image Description">
+              </a>
+              <!-- End Logo -->
+
+              <!-- Navigation -->
+              <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg g-mr-40--lg" id="navBar">
+                <ul class="navbar-nav text-uppercase g-pos-rel g-font-weight-600 ml-auto">
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/#about">About</a>
+                  </li>
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/#blog">Blog</a>
+                  </li>
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/#team">Team</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <!-- End Header -->
+
+
+      <section class="container g-pt-100 g-pb-60">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <div class="g-mb-60">
+              <h2 class="add-space g-color-black g-font-weight-600 text-center g-mb-30">Off-the-shelf methods for sentiment analysis</h2>
+            </div>
+
+            <div class="row">
+               <p class="first">
+Sentiment analysis is one of the most popular applications of Natural Language Processing. Many companies run software that automatically classifies a text as positive, negative or neutral to monitor how their products are received online. 
+Other people use sentiment analysis to conduct political analyses: they <a href="http://tarsier.monkeylearn.com/">track the average sentiment in tweets that mention the US presidential candidates</a>, or show that <a href="http://varianceexplained.org/r/trump-tweets/">Donald Trump’s tweets are much more negative than those posted by his staff</a>. There are even companies that <a href="http://www.stockfluence.com/">rely on sentiment analysis to try and predict the stock markets</a>. But how good is sentiment analysis exactly? And what approach should you take when you’re faced with a sentiment analysis task yourself?</p>
+
+<p>
+In line with the rising popularity of machine learning and artificial intelligence in recent years, the landscape of NLP software has grown increasingly complex. On the one hand, there are cloud APIs that offer off-the-shelf models for many common NLP tasks, such as sentiment analysis, named entity recognition, keyword extraction, etc. Some good examples are <a href="https://indico.io/">Indico</a> and <a href="https://cloud.google.com/natural-language/">Google’s Natural Language API</a>. On the other hand, there are software libraries for machine learning that allow you to build your own custom model, such as <a href="http://scikit-learn.org/">Scikit-learn</a> for Python. In between those two options, you have cloud APIs that allow you to train your own model (<a href="http://monkeylearn.com/">Monkeylearn</a>, for example), and there are software libraries that ship with pre-trained models for some popular tasks (<a href="http://textblob.readthedocs.io/en/dev/">Textblob</a>, or <a href="http://stanfordnlp.github.io/CoreNLP/">Stanford CoreNLP</a>). In this first blog post of two I’ll evaluate a wide range of available off-the-shelf methods for sentiment analysis. I’d like to find out if we can just take an existing API, apply it to a data set, and trust its results. In other words: is it OK to be lazy?
+</p>
+
+<p><img class="padded" src="https://www.dropbox.com/s/rgg7gesfc7iorci/Screenshot%202016-11-17%2022.09.08.png?raw=1" /></p>
+
+<p>
+This is the full list of systems I tested:<sup><a href="#fn1" id="ref1">1</a></sup> 
+<ul class="nomargin">
+    <li>The <a href="http://textblob.readthedocs.io/en/dev/advanced_usage.html#sentiment-analyzers">Naive Bayes</a> and <a href="http://textblob.readthedocs.io/en/dev/advanced_usage.html#sentiment-analyzers">Pattern-based</a> sentiment analyzers in <a href="https://textblob.readthedocs.io/en/dev/">TextBlob</a></li>
+    <li>The <a href="http://nlp.stanford.edu/sentiment/">neural sentiment classifier</a> in <a href="http://stanfordnlp.github.io/CoreNLP/">Stanford CoreNLP</a></li>
+    <li>The sentiment API at <a href="http://sentiment.vivekn.com">sentiment.vivekn.com</a></li>
+    <li>The <a href="https://cloud.google.com/natural-language/docs/sentiment-tutorial">sentiment analyzer</a> of the <a href="https://cloud.google.com/natural-language/">Google Cloud Natural Language API</a></li>
+    <li>The <a href="https://developer.aylien.com/text-api-demo?text=&amp;language=en&amp;tab=sentiment&amp;mode=document">document-level sentiment analysis</a> from <a href="http://aylien.com/">Aylien</a></li>
+    <li>The <a href="https://indico.io/product">Sentiment Analysis Text Api</a> from <a href="https://indico.io/">Indico</a></li>
+    <li>The Sentiment Analysis API from <a href="http://sentigem.com">Sentigem</a></li>
+    <li>The <a href="https://developer.rosette.com/features-and-functions#introduction">Sentiment endpoint</a> of <a href="https://developer.rosette.com/">Rosette API</a></li>
+    <li>The <a href="https://dev.havenondemand.com/apis/analyzesentiment#overview">Sentiment Analysis API</a> from <a href="https://www.havenondemand.com/">Haven OnDemand</a></li>
+    <li>The <a href="http://text-processing.com/docs/sentiment.html">Sentiment Analysis API</a> from <a href="http://text-processing.com/">text-processing.com</a></li>
+    <li>The pre-trained hotel, restaurant and product sentiment classifiers from <a href="http://monkeylearn.com/">MonkeyLearn</a></li>
+</ul>
+</p>
+
+<p>It’s a well-known fact that the performance of an NLP model depends on the similarity between its training data and the data you’re testing it on. To get an idea of this variation in performance, I evaluated the available models on user reviews from four very different domains: movies, baby products, Android apps and tourism. In each of these domains, I compared the performance of the model with a <em>baseline</em> that always labels a text as positive. Obviously, we’d like to do better than that baseline.</p>
+
+<p><img class="padded" src="https://www.dropbox.com/s/6kj5kd9vwwjm9qj/Screenshot 2016-11-17 21.51.47.png?raw=1" /></p>
+
+<p>Three examples will show you what the test data looks like. The following texts should get the labels positive, neutral and negative, respectively: 
+<ul class="nomargin">
+  <li><em>If you’re looking for something scary, this is the first great horror film of the spooky season.</em></li>
+  <li><em>Avernum is a series of demoware role-playing video games by Jeff Vogel of Spiderweb Software available for Macintosh and Windows-based computers. Several are available for iPad and Android tablet.</em></li>
+  <li><em>It’s Starbucks only with bad customer service. Baristas with attitude that don’t know their own product. If I'm paying $7.00 for a coffee at least drop the ‘tude.</em></li>
+</ul>
+</p>
+
+<p>
+There’s no more classic application of sentiment analysis than movie reviews. In order to make sure none of the models was trained on our data, I collected a balanced set of 500 positive and 500 negative sentences from <a href="https://www.rottentomatoes.com/">www.rottentomatoes.com</a>. As its baseline of 50% is pretty low, it’s no surprise that most of the pre-trained models outperform this threshold. Still, there’s a huge difference in performance between the best model (76.8%) and the worst (45.6%). The best three off-the-shelf systems are Indico (76.8%), IBM AlchemyAPI (73.4%) and Stanford CoreNLP (71.9%). I won’t name and shame the worst ones, since their low performance may say more about the appropriateness of their models for this data set than about their inherent quality.
+
+<iframe width="600" height="371" seamless="" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=567243840&amp;format=interactive"></iframe>
+</p>
+
+<p>
+When we move to baby product reviews, the picture becomes much less positive. This 
+time only two off-the-shelf models beat the baseline comfortably: Indico (92.6%) and the pre-trained product model in Monkeylearn (87.5%). Textblob’s Pattern-based classifier comes in third, with 82.5% accuracy. Granted, the baseline of 81.5% positive reviews for this data set is much higher than before, but these disappointing figures put the performance of the off-the-shelf methods in perspective.
+
+<iframe width="600" height="371" seamless="" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=1616059214&amp;format=interactive"></iframe>
+</p>
+
+<p>
+Clearly, the pre-trained models are more at home with the hotel and restaurant reviews from Yelp: most systems beat the baseline on this data set. The best API is again Indico (92.9%), followed closely by Google’s Natural Language API (91.0%), and IBM’s AlchemyAPI (90.4%). Monkeylearn’s pre-trained restaurant and hotel classifiers are in fourth and fifth position, which highlights the importance of choosing the right training data for your application.
+
+<iframe width="600" height="371" seamless="" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=1047884806&amp;format=interactive"></iframe>
+</p>
+
+<p>Finally, the Android apps do not bring any big surprises. When we look at the data set with only positive and negative examples, three models clearly outperform the baseline: Indico (90.6%), Google (90.5%) and Monkeylearn’s pre-trained product model (87.1%). When we replace 300 random texts by a neutral paragraph from Wikipedia that contains the word Android, and test how well the systems recognize neutral examples, the top three changes: it’s now Indico (80.0%), Haven On Demand (79.1%) and Google (77.8%).
+<sup><a href="#fn2" id="ref2">2</a></sup>
+
+<iframe width="600" height="371" seamless="" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=722567687&amp;format=interactive"></iframe>
+
+<iframe width="600" height="371" seamless="" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=844180096&amp;format=interactive"></iframe>
+</p>
+
+<p>In short, the results of our experiments show enormous variation <em>between</em> and <em>within</em> the available off-the-shelf solutions for sentiment analysis. There is huge variation <em>between</em> the models: some of them perform really well, while others tend to struggle. The names that most often returned among the best systems are Indico, which came out top for all five data sets, and Google and IBM, the big players in this field. In addition, we see considerable variation <em>within</em> the models: some of them do very well on one data set, but poorly on another. High quality is possible, but it is far from guaranteed.</p>
+
+<p>
+It’s definitely not OK to be lazy when you need to attack your own sentiment analysis task. To make sure you’re getting the best results possible, it’s crucial you evaluate a variety of models on your specific data.
+Given our mixed results, and the effort of comparing the available models, you’d be right to ask yourself whether you’d be better off ignoring the available off-the-shelf solutions, and building your own custom model. That’s a question I’ll answer in my next blog post.
+</p>
+<hr />
+
+<p><sup id="fn1">1. Some of these APIs offer more than one model for sentiment analysis, for example one in the form of a classifier with discrete labels (positive, negative, neutral) and another in the form of a regression model with continuous sentiment values.<a href="#ref1" title="Jump back to footnote 1 in the text.">↩</a></sup></p>
+
+<p><sup id="fn2">2. Note that I tuned the models with continuous variables on 500 different examples, in order to determine the most appropriate cut-off between negative, neutral and positive values.<a href="#ref2" title="Jump back to footnote 2 in the text.">↩</a></sup></p>
+                
+            </div>
+        <!-- End Blog Single Item Info -->
+
+        <div class="addthis_sharing_toolbox"></div> <br/>
+                        <!-- Author -->
+            <div class="g-brd-top g-brd-gray-light-v3 g-pt-10 g-pb-10">
+              <div class="row justify-content-center">
+                <div class="media">
+                  <img class="d-flex g-width-100 g-height-100 rounded-circle g-mr-30" src="/images/team/yves.jpg" alt="Yves Peirsman">
+                  <div class="media-body">
+                    <h4 class="h5 g-color-black g-font-weight-600">Yves Peirsman</h4>
+                    <p class="g-color-gray-dark-v5 mb-4">Yves discovered Natural Language Processing 13 years ago as an MSc student at the University of Edinburgh, and has never looked back.
+                    With a background as a researcher and developer in academia (University of Leuven, Stanford University) and industry (Textkernel, Wolters Kluwer), he founded NLP Town
+                    to further indulge and spread his love for NLP.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Author -->
+
+        </footer>
+        
+              <div class="g-pb-30" id="disqus_thread"></div><!-- /#disqus_thread -->
+        
+
+<div class="footer-wrap">
+  <div class="related-articles">
+  <h4>You might also enjoy <small class="pull-right">(<a href="http://localhost:4000/blog/">View all posts</a>)</small></h4>
+    <ul>
+    
+      <li><a href="http://localhost:4000/blog/song-of-ngrams-and-lms/" title="Perplexed by Game of Thrones. A Song of N-Grams and Language Models">Perplexed by Game of Thrones. A Song of N-Grams and Language Models</a></li>
+    
+      <li><a href="http://localhost:4000/blog/anything2vec/" title="Anything2Vec, or How Word2Vec Conquered NLP">Anything2Vec, or How Word2Vec Conquered NLP</a></li>
+    
+      <li><a href="http://localhost:4000/blog/understanding-deeplearning-models-nlp/" title="Understanding Deep Learning Models in NLP">Understanding Deep Learning Models in NLP</a></li>
+    
+    </ul>
+    <hr />
+  </div><!-- /.related-articles -->
+</div><!-- /.footer-wrap -->
+    </div>
+    </div>
+</section>
+
+      <!-- Copyright Footer -->
+      <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 g-py-20">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 text-center text-md-left g-mb-15 g-mb-0--md">
+              <div class="d-lg-flex">
+                <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2017 © NLP Town</small>
+              </div>
+            </div>
+
+            <div class="col-md-6 text-center g-mb-15 g-mb-0--md">
+                <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">
+                Tervuursevest 21/1103, 3001 Leuven, +32 485 02 43 34</small>
+            </div>
+
+            <div class="col-md-3 align-self-center">
+              <ul class="list-inline text-center text-md-right mb-0">
+                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                  <a href="https://www.linkedin.com/company/nlp-town" class="g-color-white-opacity-0_5 g-color-white--hover">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Twitter">
+                  <a href="https://twitter.com/nlptown" class="g-color-white-opacity-0_5 g-color-white--hover">
+                    <i class="fa fa-twitter"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- End Copyright Footer -->
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://localhost:4000/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://localhost:4000/assets/js/scripts.min.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53268217-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53fb5daa449762bb"></script>
+  
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yvespeirsman'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+	        
+
+</main>
+</body>
+</html>

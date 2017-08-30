@@ -15,54 +15,33 @@ MathJax.Hub.Config({
 </script>
 </head>
 
-<body class="post">
+<body>
+  <main>
 
-{% if page.image.feature %}
-  <div class="image-wrap">
-  <img src=
-    {% if page.image.feature contains 'http://' %}
-      "{{ page.image.feature }}"
-    {% elsif page.image.feature contains 'https://' %}
-      "{{ page.image.feature }}"
-    {% else %}
-      "{{ site.url }}/images/{{ page.image.feature }}"
-    {% endif %}
-  alt="{{ page.title }} feature image">
-  {% if page.image.credit %}
-    <span class="image-credit">Photo Credit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>
-  {% endif %}
-  </div><!-- /.image-wrap -->
-{% endif %}
+{% include nav.html %}
 
-<div id="main" role="main">
-  <article>
-    <div class="headline-wrap">
-      {% if page.link %}
-        <h1><a href="{{ page.link }}">{{ page.title }}</a></h1>
-      {% else %}
-        <h1><a href="{{ site.url }}{{ page.url }}" rel="bookmark" title="{{ page.title }}">{{ page.title }}</a></h1>
-      {% endif %}
-    </div><!--/ .headline-wrap -->
-    <div class="article-wrap">
-      {{ content }}
-      <div class="addthis_sharing_toolbox"></div>
-      <hr />
-      <footer role="contentinfo">
-        <div class="article-author-bottom">
-          {% include _author-bio.html %}
-        </div>
-        <p class="byline"><strong>{{ page.title }}</strong> was published on <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>{% if page.modified %} and last modified on <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%B %d, %Y" }}</time>{% endif %} by <a href="{{ site.url }}/about" title="About {{ site.owner.name }}">{{ site.owner.name }}</a>.</p>
-      </footer>
-    </div><!-- /.article-wrap -->
-  {% if site.disqus_shortname and page.comments %}
-    <section id="disqus_thread"></section><!-- /#disqus_thread -->
-  {% endif %}
-  </article>
-</div><!-- /#main -->
+      <section class="container g-pt-100 g-pb-60">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <div class="g-mb-60">
+              <h2 class="add-space g-color-black g-font-weight-600 text-center g-mb-30">{{ page.title }}</h2>
+            </div>
+
+            <div class="row">
+               {{ content }}                
+            </div>
+        <!-- End Blog Single Item Info -->
+
+        <div class="addthis_sharing_toolbox"></div> <br/>
+            {% include author-bio.html %}
+        </footer>
+        {% if site.disqus_shortname and page.comments %}
+              <div class="g-pb-30" id="disqus_thread"></div><!-- /#disqus_thread -->
+        {% endif %}
 
 <div class="footer-wrap">
   <div class="related-articles">
-  <h4>You might also enjoy <small class="pull-right">(<a href="{{ site.url }}/posts/">View all posts</a>)</small></h4>
+  <h4>You might also enjoy <small class="pull-right">(<a href="{{ site.url }}/blog/">View all posts</a>)</small></h4>
     <ul>
     {% for post in site.related_posts limit:3 %}
       <li><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
@@ -70,10 +49,15 @@ MathJax.Hub.Config({
     </ul>
     <hr />
   </div><!-- /.related-articles -->
-  <footer>
-    {% include footer.html %}
-  </footer>
 </div><!-- /.footer-wrap -->
+    </div>
+    </div>
+</section>
 
+{% include footer.html %}
+
+{% include _scripts.html %}	        
+
+</main>
 </body>
 </html>

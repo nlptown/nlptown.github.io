@@ -1,0 +1,282 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DIY methods for sentiment analysis</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="This is the website and blog of Yves Peirsman, Natural Language Processing Consultant.">
+    <link rel="canonical" href="http://localhost:4000/blog/diy-sentiment-analysis/">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+    <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/vendor/icon-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/vendor/icon-line/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/assets/vendor/icon-line-pro/style.css">
+    <link rel="stylesheet" href="/assets/vendor/icon-hs/style.css">
+    <link rel="stylesheet" href="/assets/vendor/animate.css">
+    <link rel="stylesheet" href="/assets/vendor/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="/assets/vendor/typedjs/typed.css">
+    <link rel="stylesheet" href="/assets/vendor/hs-megamenu/src/hs.megamenu.css">
+    <link rel="stylesheet" href="/assets/vendor/hamburgers/hamburgers.min.css">
+
+    <!-- CSS Unify -->
+    <link rel="stylesheet" href="/assets/css/unify.css">
+
+    <!-- CSS Customization -->
+    <!-- <link rel="stylesheet" href="/assets/css/main.min.css"> -->
+    <link rel="stylesheet" href="/css/yves.css">
+    <!--<link rel="stylesheet" href="/css/agency.css">-->
+
+</head>
+
+<link rel="stylesheet" href="/css/yves.css">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+<body>
+  <main>
+
+   <!-- Navigation -->
+      <header id="js-header" class="u-header u-header--sticky-top">
+        <div class="u-header__section u-header__section--light g-transition-0_3">
+          <nav class="js-mega-menu navbar navbar-toggleable-md">
+            <div class="container">
+              <!-- Logo -->
+              <a href="http://www.nlp.town" class="navbar-brand">
+                <img width=100 src="/images/nlp-town.png" alt="Image Description">
+              </a>
+              <!-- End Logo -->
+
+              <!-- Navigation -->
+              <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg g-mr-40--lg" id="navBar">
+                <ul class="navbar-nav text-uppercase g-pos-rel g-font-weight-600 ml-auto">
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/#about">About</a>
+                  </li>
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/#blog">Blog</a>
+                  </li>
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/#team">Team</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <!-- End Header -->
+
+
+      <section class="container g-pt-100 g-pb-60">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <div class="g-mb-60">
+              <h2 class="add-space g-color-black g-font-weight-600 text-center g-mb-30">DIY methods for sentiment analysis</h2>
+            </div>
+
+            <div class="row">
+               <p class="first">
+In <a href="http://nlp.yvespeirsman.be/blog/off-the-shelf-sentiment-analysis/">my previous blog post</a>, I explored the wide variety of off-the-shelf solutions that are available for sentiment analysis. The variation in accuracy, both within and between models, led to the question whether you’re better off building your own model instead of trusting a pre-trained solution. I’ll address that dilemma in this blog post.
+</p>
+
+<p>Training your own sentiment analysis model obviously brings with it its own challenges. First, 
+you need a large number of relevant texts that have been labelled with one of the target categories: positive, negative or neutral. If you don’t have such a labelled training set, there may be quick and cheap ways of collecting one &mdash; by scraping it from an online source or crowdsourcing annotations from sites such as Amazon’s <a href="https://www.mturk.com/mturk/welcome">Mechanical Turk</a>. Second, you need to pick a machine learning library to implement your solution. Most generic machine learning libraries usually fit the bill, unless you’re aiming to train a non-standard model. I’m a big fan of <a href="http://scikit-learn.org/">Scikit-learn</a>, which I’ve used for all my experiments here. Third, you need to pick the model that is most appropriate for your task and tune its parameter settings. I’ll evaluate two popular models for sentiment analysis, a Naive Bayes Classifier and a Support Vector Machine. Like in <a href="http://nlp.yvespeirsman.be/blog/simple-text-classification/">my blog post about text classification</a>, I’ll use both unigrams and bigrams as features, and set the maximum number of features to 10,000. I’ll evaluate the models on the data sets from <a href="http://nlp.yvespeirsman.be/blog/off-the-shelf-sentiment-analysis/">my previous blog post</a> for which I have sufficient training data: Amazon reviews about baby products, Amazon reviews about Android apps, and Yelp reviews about hotels, restaurants and other tourist attractions. 
+</p>
+
+<p>
+The results on the set of baby product reviews show a mixed picture. The newly trained SVM (the green line in the graph below) beats the best off-the-shelf model, but only by 0.8%. The Naive Bayes Classifier (the orange line) gives comparable performance to the second-best off-the-shelf model, around 6% behind the best one.  
+
+<iframe width="600" height="371" seamless="" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=1783830508&amp;format=interactive"></iframe>
+</p>
+
+<p>
+The results for the Android apps are a bit more outspoken. Our new SVM again outperforms the best off-the-shelf model, and this time it does so by a healthy margin of 2.5%. The Naive Bayes model scores 90.3%, similar to the best two off-the-shelf APIs.
+
+<iframe width="600" height="371" seamless="" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=1100154712&amp;format=interactive"></iframe>
+</p>
+
+<p>
+The results on the Yelp reviews confirm these trends. At 95.6%, the SVM performs 2.7% better than Indico; at 89.3%, the Naive Bayes Classifier is outshone by the top three off-the-shelf solutions.
+
+<iframe width="600" height="371" seamless="" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=1397300606&amp;format=interactive"></iframe>
+</p>
+
+<p>
+These figures look pretty convincing: if you have your own data, the right model will typically outperform even the best off-the-shelf method. However, to put this conclusion into perspective, we need to determine how much labelled data we need to achieve these results. It turns out we need a considerable amount. The blue line in the figures below shows the average accuracy across nine training runs as the training set grows. Obviously, our model gets better as we give it more and more labelled data to learn from. On the Android app reviews, the SVM catches up with the best off-the-shelf method at around 20,000 examples. On the baby product reviews, however, the SVM only starts beating the best off-the-shelf method after it has seen around 80,000 labelled examples. In many applications, that amount of data might be really hard to come by. Whether or not the increased accuracy compared to pre-trained solutions is worth the effort will depend on your specific challenge and needs.
+
+<iframe width="600" height="371" seamless="" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=223762019&amp;format=interactive"></iframe>
+
+<iframe width="600" height="371" seamless="" frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=1382234680&amp;format=interactive"></iframe>
+</p>
+
+<p>In conclusion, there’s often no easy way to choose between an off-the-shelf solution or a custom-built model for your particular NLP task. Off-the-shelf solutions require no data and little effort. They can give you good quality, but this is far from guaranteed. Moreover, you have no control over the model: you cannot improve it through time, or tweak its parameters to perform better on your data. Custom-built models require considerably more data and effort, but if you have those resources available, they will typically give you a superior model over which you have full control. It’s important to remember that no model is perfect. In fact, in George Box’s words, “all models are wrong, but some are useful”. You just have to figure out which ones are which.
+</p>
+                
+            </div>
+        <!-- End Blog Single Item Info -->
+
+        <div class="addthis_sharing_toolbox"></div> <br/>
+                        <!-- Author -->
+            <div class="g-brd-top g-brd-gray-light-v3 g-pt-10 g-pb-10">
+              <div class="row justify-content-center">
+                <div class="media">
+                  <img class="d-flex g-width-100 g-height-100 rounded-circle g-mr-30" src="/images/team/yves.jpg" alt="Yves Peirsman">
+                  <div class="media-body">
+                    <h4 class="h5 g-color-black g-font-weight-600">Yves Peirsman</h4>
+                    <p class="g-color-gray-dark-v5 mb-4">Yves discovered Natural Language Processing 13 years ago as an MSc student at the University of Edinburgh, and has never looked back.
+                    With a background as a researcher and developer in academia (University of Leuven, Stanford University) and industry (Textkernel, Wolters Kluwer), he founded NLP Town
+                    to further indulge and spread his love for NLP.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Author -->
+
+        </footer>
+        
+              <div class="g-pb-30" id="disqus_thread"></div><!-- /#disqus_thread -->
+        
+
+<div class="footer-wrap">
+  <div class="related-articles">
+  <h4>You might also enjoy <small class="pull-right">(<a href="http://localhost:4000/blog/">View all posts</a>)</small></h4>
+    <ul>
+    
+      <li><a href="http://localhost:4000/blog/song-of-ngrams-and-lms/" title="Perplexed by Game of Thrones. A Song of N-Grams and Language Models">Perplexed by Game of Thrones. A Song of N-Grams and Language Models</a></li>
+    
+      <li><a href="http://localhost:4000/blog/anything2vec/" title="Anything2Vec, or How Word2Vec Conquered NLP">Anything2Vec, or How Word2Vec Conquered NLP</a></li>
+    
+      <li><a href="http://localhost:4000/blog/understanding-deeplearning-models-nlp/" title="Understanding Deep Learning Models in NLP">Understanding Deep Learning Models in NLP</a></li>
+    
+    </ul>
+    <hr />
+  </div><!-- /.related-articles -->
+</div><!-- /.footer-wrap -->
+    </div>
+    </div>
+</section>
+
+      <!-- Copyright Footer -->
+      <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 g-py-20">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 text-center text-md-left g-mb-15 g-mb-0--md">
+              <div class="d-lg-flex">
+                <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2017 © NLP Town</small>
+              </div>
+            </div>
+
+            <div class="col-md-6 text-center g-mb-15 g-mb-0--md">
+                <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">
+                Tervuursevest 21/1103, 3001 Leuven, +32 485 02 43 34</small>
+            </div>
+
+            <div class="col-md-3 align-self-center">
+              <ul class="list-inline text-center text-md-right mb-0">
+                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                  <a href="https://www.linkedin.com/company/nlp-town" class="g-color-white-opacity-0_5 g-color-white--hover">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Twitter">
+                  <a href="https://twitter.com/nlptown" class="g-color-white-opacity-0_5 g-color-white--hover">
+                    <i class="fa fa-twitter"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- End Copyright Footer -->
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://localhost:4000/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://localhost:4000/assets/js/scripts.min.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53268217-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53fb5daa449762bb"></script>
+  
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yvespeirsman'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+	        
+
+</main>
+</body>
+</html>

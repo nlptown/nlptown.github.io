@@ -1,17 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>NLP Town - NLP Consultancy and Software Development</title>
-    <description>NLP Town provides Natural Language Processing consultancy and development.</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 29 Aug 2017 08:32:45 +0200</pubDate>
-    <lastBuildDate>Tue, 29 Aug 2017 08:32:45 +0200</lastBuildDate>
-    <generator>Jekyll v3.4.3</generator>
-    
-      <item>
-        <title>Perplexed by Game of Thrones. A Song of N-Grams and Language Models</title>
-        <description>&lt;p class=&quot;first&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<title type="text">NLP Town</title>
+<generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
+<link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml" />
+<link rel="alternate" type="text/html" href="http://localhost:4000" />
+<updated>2017-08-30T14:11:18-04:00</updated>
+<id>http://localhost:4000/</id>
+<author>
+  <name>Yves Peirsman</name>
+  <uri>http://localhost:4000/</uri>
+  <email></email>
+</author>
+
+
+<entry>
+  <title type="html"><![CDATA[Perplexed by Game of Thrones. A Song of N-Grams and Language Models]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/song-of-ngrams-and-lms/" />
+  <id>http://localhost:4000/blog/song-of-ngrams-and-lms</id>
+  <published>2017-07-05T08:00:00-04:00</published>
+  <updated>2017-07-05T08:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://localhost:4000</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;
 N-grams have long been part of the arsenal of every NLPer. These fixed-length word sequences are not only ubiquitous 
 as features in NLP tasks such as text classification, but also formed the basis of the language models underlying machine translation 
 and speech recognition. However, with the advent of recurrent neural networks and the diminishing role of feature selection in 
@@ -38,35 +51,36 @@ series 2 covers the events in &lt;em&gt;A Clash of Kings&lt;/em&gt;, series 3 an
 6 mix events from &lt;em&gt;A Feast for Crows&lt;/em&gt; and &lt;em&gt;A Dance of Dragons&lt;/em&gt;. It turns out we can induce this mapping 
 pretty well on the basis of the dialogues in the episodes.&lt;/p&gt;
 
-&lt;figure class=&quot;padded2&quot;&gt;
+&lt;div class=&quot;g-py-30 text-center&quot;&gt;
+&lt;figure&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;https://www.gstatic.com/charts/loader.js&quot;&gt;&lt;/script&gt;
 &lt;div id=&quot;sankey_basic&quot; style=&quot;width: 900px; height: 300px;&quot;&gt;&lt;/div&gt;
 &lt;script async=&quot;&quot; type=&quot;text/javascript&quot;&gt;
-      google.charts.load('current', {
-        'packages': ['sankey']
+      google.charts.load(&#39;current&#39;, {
+        &#39;packages&#39;: [&#39;sankey&#39;]
       });
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'From');
-        data.addColumn('string', 'To');
-        data.addColumn('number', 'Weight');
+        data.addColumn(&#39;string&#39;, &#39;From&#39;);
+        data.addColumn(&#39;string&#39;, &#39;To&#39;);
+        data.addColumn(&#39;number&#39;, &#39;Weight&#39;);
         data.addRows([
-          ['Series 1', 'A Game of Thrones', 10],
-          ['Series 2', 'A Clash of Kings', 10],
-          ['Series 3', 'A Storm of Swords', 1],
-          ['Series 3', 'A Storm of Swords', 9],
-          ['Series 4', 'A Storm of Swords', 9],
-          ['Series 4', 'A Feast for Crows', 0],
-          ['Series 4', 'A Dance with Dragons', 1],
-          ['Series 5', 'A Storm of Swords', 2],
-          ['Series 5', 'A Feast for Crows', 3],
-          ['Series 5', 'A Dance with Dragons', 5],
-          ['Series 6', 'A Feast for Crows', 2],
-          ['Series 6', 'A Clash of Kings', 1],
-          ['Series 6', 'A Storm of Swords', 3],
-          ['Series 6', 'A Dance with Dragons', 4]
+          [&#39;Series 1&#39;, &#39;A Game of Thrones&#39;, 10],
+          [&#39;Series 2&#39;, &#39;A Clash of Kings&#39;, 10],
+          [&#39;Series 3&#39;, &#39;A Storm of Swords&#39;, 1],
+          [&#39;Series 3&#39;, &#39;A Storm of Swords&#39;, 9],
+          [&#39;Series 4&#39;, &#39;A Storm of Swords&#39;, 9],
+          [&#39;Series 4&#39;, &#39;A Feast for Crows&#39;, 0],
+          [&#39;Series 4&#39;, &#39;A Dance with Dragons&#39;, 1],
+          [&#39;Series 5&#39;, &#39;A Storm of Swords&#39;, 2],
+          [&#39;Series 5&#39;, &#39;A Feast for Crows&#39;, 3],
+          [&#39;Series 5&#39;, &#39;A Dance with Dragons&#39;, 5],
+          [&#39;Series 6&#39;, &#39;A Feast for Crows&#39;, 2],
+          [&#39;Series 6&#39;, &#39;A Clash of Kings&#39;, 1],
+          [&#39;Series 6&#39;, &#39;A Storm of Swords&#39;, 3],
+          [&#39;Series 6&#39;, &#39;A Dance with Dragons&#39;, 4]
         ]);
 
         // Sets chart options.
@@ -78,11 +92,12 @@ pretty well on the basis of the dialogues in the episodes.&lt;/p&gt;
         };
 
         // Instantiates and draws our chart, passing in some options.
-        var chart = new google.visualization.Sankey(document.getElementById('sankey_basic'));
+        var chart = new google.visualization.Sankey(document.getElementById(&#39;sankey_basic&#39;));
         chart.draw(data, options);
       }
 &lt;/script&gt;
 &lt;/figure&gt;
+&lt;/div&gt;
 
 &lt;p&gt;For each episode and book, I collected the n-grams in a feature vector. I used Tf-Idf to weight the n-gram
 frequencies and applied L2-normalization. For each episode, I then picked the book whose feature vector had the
@@ -165,9 +180,9 @@ and other places seem to have got
 caught up in a race for ever-lower perplexities. 
 &lt;/p&gt;
 
-&lt;figure&gt;
-&lt;img width=&quot;500&quot; src=&quot;https://www.dropbox.com/s/0z4jq6jo20io24g/Screenshot%202017-07-04%2023.38.09.png?raw=1&quot; /&gt;
-&lt;figcaption&gt;RNN-based language models learn word embeddings to make predictions. Adapted from the &lt;a href=&quot;http://web.stanford.edu/class/cs224n/lectures/cs224n-2017-lecture8.pdf&quot;&gt;Stanford CS224n course slides&lt;/a&gt;.&lt;/figcaption&gt;
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;500&quot; src=&quot;https://www.dropbox.com/s/5n4dn24x1vcb4ag/Screenshot%202017-07-04%2023.30.05.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;RNN-based language models learn word embeddings to make predictions. Adapted from the Stanford CS224n course slides.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;There are quite a few toolkits for training and testing neural language models. &lt;a href=&quot;https://nlg.isi.edu/software/nplm/&quot;&gt;NPLM&lt;/a&gt;
@@ -199,41 +214,23 @@ their ability to model semantic similarity and long-distance dependencies.
 These days both types of model should be in your toolkit when you’re doing text classification, need to predict the most likely
 word in a sentence, or are just having a bit of fun with books and television series.
 &lt;/p&gt;
-</description>
-        <pubDate>Wed, 05 Jul 2017 14:00:00 +0200</pubDate>
-        <link>http://localhost:4000/blog/2017/07/05/song-of-ngrams-and-lms/</link>
-        <guid isPermaLink="true">http://localhost:4000/blog/2017/07/05/song-of-ngrams-and-lms/</guid>
-        
-        <category>NLP</category>
-        
-        <category>AI</category>
-        
-        <category>deep</category>
-        
-        <category>learning</category>
-        
-        <category>word</category>
-        
-        <category>embeddings</category>
-        
-        <category>n-grams</category>
-        
-        <category>language</category>
-        
-        <category>models</category>
-        
-        <category>neural</category>
-        
-        <category>networks</category>
-        
-        
-        <category>blog</category>
-        
-      </item>
-    
-      <item>
-        <title>Anything2Vec, or How Word2Vec Conquered NLP</title>
-        <description>&lt;p class=&quot;first&quot;&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/song-of-ngrams-and-lms/&quot;&gt;Perplexed by Game of Thrones. A Song of N-Grams and Language Models&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on July 05, 2017.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Anything2Vec, or How Word2Vec Conquered NLP]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/anything2vec/" />
+  <id>http://localhost:4000/blog/anything2vec</id>
+  <published>2017-04-10T08:00:00-04:00</published>
+  <updated>2017-04-10T08:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://localhost:4000</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;
 Word embeddings are one of the main drivers behind the success of deep learning in Natural Language Processing. Even technical 
 people outside of NLP have often heard of word2vec and its uncanny ability to model the semantic relationship between 
 a noun and its gender or the names of countries and their capitals. But the success of word2vec extends far beyond the 
@@ -316,7 +313,7 @@ But why stop at paragraphs or documents? The next victim that has fallen prey to
 &lt;/figure&gt;
 
 &lt;p&gt;
-&lt;a href=&quot;https://arxiv.org/abs/1506.08422&quot;&gt;Niu and Dai's topic2vec&lt;/a&gt; is even more similar to word2vec. In the CBOW setting, the context words are used to predict both a word and topic vector; in the skip-gram setting, these two vectors themselves predict the context words. Niu and Dai argue that their topics are more semantically coherent than those produced by LDA, but because they only give a few examples, their argument feels rather anecdotic. Moreover, topic2vec still depends on LDA, as the topic assignments for each word in the corpus are required to train the topic vectors. When it comes to word2vec-like topic embeddings, I’m still to be convinced.
+&lt;a href=&quot;https://arxiv.org/abs/1506.08422&quot;&gt;Niu and Dai&#39;s topic2vec&lt;/a&gt; is even more similar to word2vec. In the CBOW setting, the context words are used to predict both a word and topic vector; in the skip-gram setting, these two vectors themselves predict the context words. Niu and Dai argue that their topics are more semantically coherent than those produced by LDA, but because they only give a few examples, their argument feels rather anecdotic. Moreover, topic2vec still depends on LDA, as the topic assignments for each word in the corpus are required to train the topic vectors. When it comes to word2vec-like topic embeddings, I’m still to be convinced.
 &lt;/p&gt;
 
 &lt;p&gt;
@@ -334,43 +331,23 @@ Not all of these applications are equally serious, but they all attest to the su
 
 &lt;p&gt;It’s clear word2vec embeddings are here to stay. Whether the framework is used to embed words or other linguistic units, the resulting vectors have played a huge role in the success of deep learning methods. At the same time, they still have clear limitations. Simple tokens may be relatively easy to embed, but word senses and topics are a different matter. How do we make the embedding dimensions more interpretable? And what can we gain from adding explicit linguistic information beyond word order? In these respects, embeddings are still in their infancy.&lt;/p&gt;
 
-</description>
-        <pubDate>Mon, 10 Apr 2017 14:00:00 +0200</pubDate>
-        <link>http://localhost:4000/blog/2017/04/10/anything2vec/</link>
-        <guid isPermaLink="true">http://localhost:4000/blog/2017/04/10/anything2vec/</guid>
-        
-        <category>NLP</category>
-        
-        <category>AI</category>
-        
-        <category>deep</category>
-        
-        <category>learning</category>
-        
-        <category>word</category>
-        
-        <category>embeddings</category>
-        
-        <category>paragraph</category>
-        
-        <category>topic</category>
-        
-        <category>document</category>
-        
-        <category>tweet2vec</category>
-        
-        <category>med2vec</category>
-        
-        <category>lda2vec</category>
-        
-        
-        <category>blog</category>
-        
-      </item>
-    
-      <item>
-        <title>Understanding Deep Learning Models in NLP</title>
-        <description>&lt;p class=&quot;first&quot;&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/anything2vec/&quot;&gt;Anything2Vec, or How Word2Vec Conquered NLP&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on April 10, 2017.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Understanding Deep Learning Models in NLP]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/understanding-deeplearning-models-nlp/" />
+  <id>http://localhost:4000/blog/understanding-deeplearning-models-nlp</id>
+  <published>2017-01-26T07:00:00-05:00</published>
+  <updated>2017-01-26T07:00:00-05:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://localhost:4000</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;
 Deep learning methods have taken Artificial Intelligence by storm. As their dominance grows, one inconvenient truth
  is slowly emerging: we don’t actually understand these complex models very well. Our lack of understanding leads to some uncomfortable questions.
 Do we want to travel in self-driving cars whose inner workings no one really comprehends? Can we base important decisions
@@ -514,27 +491,669 @@ understanding of how deep learning works, and what factors motivate its decision
 the surface of the many interpretative methods researchers are developing. I for one hope that 
 in future applications their efforts will lead to model choices that are not only motivated by higher accuracies, but
 also by a deeper grasp of what neural models actually do.&lt;/p&gt;
-</description>
-        <pubDate>Thu, 26 Jan 2017 13:00:00 +0100</pubDate>
-        <link>http://localhost:4000/blog/2017/01/26/understanding-deeplearning-models-nlp/</link>
-        <guid isPermaLink="true">http://localhost:4000/blog/2017/01/26/understanding-deeplearning-models-nlp/</guid>
-        
-        <category>NLP</category>
-        
-        <category>AI</category>
-        
-        <category>deep</category>
-        
-        <category>learning</category>
-        
-        <category>understanding</category>
-        
-        <category>decisions</category>
-        
-        
-        <category>blog</category>
-        
-      </item>
-    
-  </channel>
-</rss>
+
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/understanding-deeplearning-models-nlp/&quot;&gt;Understanding Deep Learning Models in NLP&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on January 26, 2017.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[DIY methods for sentiment analysis]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/diy-sentiment-analysis/" />
+  <id>http://localhost:4000/blog/diy-sentiment-analysis</id>
+  <published>2016-12-10T07:00:00-05:00</published>
+  <updated>2016-12-10T07:00:00-05:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://localhost:4000</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;
+In &lt;a href=&quot;http://nlp.yvespeirsman.be/blog/off-the-shelf-sentiment-analysis/&quot;&gt;my previous blog post&lt;/a&gt;, I explored the wide variety of off-the-shelf solutions that are available for sentiment analysis. The variation in accuracy, both within and between models, led to the question whether you’re better off building your own model instead of trusting a pre-trained solution. I’ll address that dilemma in this blog post.
+&lt;/p&gt;
+
+&lt;p&gt;Training your own sentiment analysis model obviously brings with it its own challenges. First, 
+you need a large number of relevant texts that have been labelled with one of the target categories: positive, negative or neutral. If you don’t have such a labelled training set, there may be quick and cheap ways of collecting one &amp;mdash; by scraping it from an online source or crowdsourcing annotations from sites such as Amazon’s &lt;a href=&quot;https://www.mturk.com/mturk/welcome&quot;&gt;Mechanical Turk&lt;/a&gt;. Second, you need to pick a machine learning library to implement your solution. Most generic machine learning libraries usually fit the bill, unless you’re aiming to train a non-standard model. I’m a big fan of &lt;a href=&quot;http://scikit-learn.org/&quot;&gt;Scikit-learn&lt;/a&gt;, which I’ve used for all my experiments here. Third, you need to pick the model that is most appropriate for your task and tune its parameter settings. I’ll evaluate two popular models for sentiment analysis, a Naive Bayes Classifier and a Support Vector Machine. Like in &lt;a href=&quot;http://nlp.yvespeirsman.be/blog/simple-text-classification/&quot;&gt;my blog post about text classification&lt;/a&gt;, I’ll use both unigrams and bigrams as features, and set the maximum number of features to 10,000. I’ll evaluate the models on the data sets from &lt;a href=&quot;http://nlp.yvespeirsman.be/blog/off-the-shelf-sentiment-analysis/&quot;&gt;my previous blog post&lt;/a&gt; for which I have sufficient training data: Amazon reviews about baby products, Amazon reviews about Android apps, and Yelp reviews about hotels, restaurants and other tourist attractions. 
+&lt;/p&gt;
+
+&lt;p&gt;
+The results on the set of baby product reviews show a mixed picture. The newly trained SVM (the green line in the graph below) beats the best off-the-shelf model, but only by 0.8%. The Naive Bayes Classifier (the orange line) gives comparable performance to the second-best off-the-shelf model, around 6% behind the best one.  
+
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=1783830508&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+The results for the Android apps are a bit more outspoken. Our new SVM again outperforms the best off-the-shelf model, and this time it does so by a healthy margin of 2.5%. The Naive Bayes model scores 90.3%, similar to the best two off-the-shelf APIs.
+
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=1100154712&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+The results on the Yelp reviews confirm these trends. At 95.6%, the SVM performs 2.7% better than Indico; at 89.3%, the Naive Bayes Classifier is outshone by the top three off-the-shelf solutions.
+
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=1397300606&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+These figures look pretty convincing: if you have your own data, the right model will typically outperform even the best off-the-shelf method. However, to put this conclusion into perspective, we need to determine how much labelled data we need to achieve these results. It turns out we need a considerable amount. The blue line in the figures below shows the average accuracy across nine training runs as the training set grows. Obviously, our model gets better as we give it more and more labelled data to learn from. On the Android app reviews, the SVM catches up with the best off-the-shelf method at around 20,000 examples. On the baby product reviews, however, the SVM only starts beating the best off-the-shelf method after it has seen around 80,000 labelled examples. In many applications, that amount of data might be really hard to come by. Whether or not the increased accuracy compared to pre-trained solutions is worth the effort will depend on your specific challenge and needs.
+
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=223762019&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=1382234680&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In conclusion, there’s often no easy way to choose between an off-the-shelf solution or a custom-built model for your particular NLP task. Off-the-shelf solutions require no data and little effort. They can give you good quality, but this is far from guaranteed. Moreover, you have no control over the model: you cannot improve it through time, or tweak its parameters to perform better on your data. Custom-built models require considerably more data and effort, but if you have those resources available, they will typically give you a superior model over which you have full control. It’s important to remember that no model is perfect. In fact, in George Box’s words, “all models are wrong, but some are useful”. You just have to figure out which ones are which.
+&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/diy-sentiment-analysis/&quot;&gt;DIY methods for sentiment analysis&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on December 10, 2016.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Off-the-shelf methods for sentiment analysis]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/off-the-shelf-sentiment-analysis/" />
+  <id>http://localhost:4000/blog/off-the-shelf-sentiment-analysis</id>
+  <published>2016-11-23T09:00:00-05:00</published>
+  <updated>2016-11-23T09:00:00-05:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://localhost:4000</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;
+Sentiment analysis is one of the most popular applications of Natural Language Processing. Many companies run software that automatically classifies a text as positive, negative or neutral to monitor how their products are received online. 
+Other people use sentiment analysis to conduct political analyses: they &lt;a href=&quot;http://tarsier.monkeylearn.com/&quot;&gt;track the average sentiment in tweets that mention the US presidential candidates&lt;/a&gt;, or show that &lt;a href=&quot;http://varianceexplained.org/r/trump-tweets/&quot;&gt;Donald Trump’s tweets are much more negative than those posted by his staff&lt;/a&gt;. There are even companies that &lt;a href=&quot;http://www.stockfluence.com/&quot;&gt;rely on sentiment analysis to try and predict the stock markets&lt;/a&gt;. But how good is sentiment analysis exactly? And what approach should you take when you’re faced with a sentiment analysis task yourself?&lt;/p&gt;
+
+&lt;p&gt;
+In line with the rising popularity of machine learning and artificial intelligence in recent years, the landscape of NLP software has grown increasingly complex. On the one hand, there are cloud APIs that offer off-the-shelf models for many common NLP tasks, such as sentiment analysis, named entity recognition, keyword extraction, etc. Some good examples are &lt;a href=&quot;https://indico.io/&quot;&gt;Indico&lt;/a&gt; and &lt;a href=&quot;https://cloud.google.com/natural-language/&quot;&gt;Google’s Natural Language API&lt;/a&gt;. On the other hand, there are software libraries for machine learning that allow you to build your own custom model, such as &lt;a href=&quot;http://scikit-learn.org/&quot;&gt;Scikit-learn&lt;/a&gt; for Python. In between those two options, you have cloud APIs that allow you to train your own model (&lt;a href=&quot;http://monkeylearn.com/&quot;&gt;Monkeylearn&lt;/a&gt;, for example), and there are software libraries that ship with pre-trained models for some popular tasks (&lt;a href=&quot;http://textblob.readthedocs.io/en/dev/&quot;&gt;Textblob&lt;/a&gt;, or &lt;a href=&quot;http://stanfordnlp.github.io/CoreNLP/&quot;&gt;Stanford CoreNLP&lt;/a&gt;). In this first blog post of two I’ll evaluate a wide range of available off-the-shelf methods for sentiment analysis. I’d like to find out if we can just take an existing API, apply it to a data set, and trust its results. In other words: is it OK to be lazy?
+&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;padded&quot; src=&quot;https://www.dropbox.com/s/rgg7gesfc7iorci/Screenshot%202016-11-17%2022.09.08.png?raw=1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;
+This is the full list of systems I tested:&lt;sup&gt;&lt;a href=&quot;#fn1&quot; id=&quot;ref1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 
+&lt;ul class=&quot;nomargin&quot;&gt;
+    &lt;li&gt;The &lt;a href=&quot;http://textblob.readthedocs.io/en/dev/advanced_usage.html#sentiment-analyzers&quot;&gt;Naive Bayes&lt;/a&gt; and &lt;a href=&quot;http://textblob.readthedocs.io/en/dev/advanced_usage.html#sentiment-analyzers&quot;&gt;Pattern-based&lt;/a&gt; sentiment analyzers in &lt;a href=&quot;https://textblob.readthedocs.io/en/dev/&quot;&gt;TextBlob&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;The &lt;a href=&quot;http://nlp.stanford.edu/sentiment/&quot;&gt;neural sentiment classifier&lt;/a&gt; in &lt;a href=&quot;http://stanfordnlp.github.io/CoreNLP/&quot;&gt;Stanford CoreNLP&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;The sentiment API at &lt;a href=&quot;http://sentiment.vivekn.com&quot;&gt;sentiment.vivekn.com&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;The &lt;a href=&quot;https://cloud.google.com/natural-language/docs/sentiment-tutorial&quot;&gt;sentiment analyzer&lt;/a&gt; of the &lt;a href=&quot;https://cloud.google.com/natural-language/&quot;&gt;Google Cloud Natural Language API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;The &lt;a href=&quot;https://developer.aylien.com/text-api-demo?text=&amp;amp;language=en&amp;amp;tab=sentiment&amp;amp;mode=document&quot;&gt;document-level sentiment analysis&lt;/a&gt; from &lt;a href=&quot;http://aylien.com/&quot;&gt;Aylien&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;The &lt;a href=&quot;https://indico.io/product&quot;&gt;Sentiment Analysis Text Api&lt;/a&gt; from &lt;a href=&quot;https://indico.io/&quot;&gt;Indico&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;The Sentiment Analysis API from &lt;a href=&quot;http://sentigem.com&quot;&gt;Sentigem&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;The &lt;a href=&quot;https://developer.rosette.com/features-and-functions#introduction&quot;&gt;Sentiment endpoint&lt;/a&gt; of &lt;a href=&quot;https://developer.rosette.com/&quot;&gt;Rosette API&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;The &lt;a href=&quot;https://dev.havenondemand.com/apis/analyzesentiment#overview&quot;&gt;Sentiment Analysis API&lt;/a&gt; from &lt;a href=&quot;https://www.havenondemand.com/&quot;&gt;Haven OnDemand&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;The &lt;a href=&quot;http://text-processing.com/docs/sentiment.html&quot;&gt;Sentiment Analysis API&lt;/a&gt; from &lt;a href=&quot;http://text-processing.com/&quot;&gt;text-processing.com&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;The pre-trained hotel, restaurant and product sentiment classifiers from &lt;a href=&quot;http://monkeylearn.com/&quot;&gt;MonkeyLearn&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;
+
+&lt;p&gt;It’s a well-known fact that the performance of an NLP model depends on the similarity between its training data and the data you’re testing it on. To get an idea of this variation in performance, I evaluated the available models on user reviews from four very different domains: movies, baby products, Android apps and tourism. In each of these domains, I compared the performance of the model with a &lt;em&gt;baseline&lt;/em&gt; that always labels a text as positive. Obviously, we’d like to do better than that baseline.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;padded&quot; src=&quot;https://www.dropbox.com/s/6kj5kd9vwwjm9qj/Screenshot 2016-11-17 21.51.47.png?raw=1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Three examples will show you what the test data looks like. The following texts should get the labels positive, neutral and negative, respectively: 
+&lt;ul class=&quot;nomargin&quot;&gt;
+  &lt;li&gt;&lt;em&gt;If you’re looking for something scary, this is the first great horror film of the spooky season.&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Avernum is a series of demoware role-playing video games by Jeff Vogel of Spiderweb Software available for Macintosh and Windows-based computers. Several are available for iPad and Android tablet.&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;It’s Starbucks only with bad customer service. Baristas with attitude that don’t know their own product. If I&#39;m paying $7.00 for a coffee at least drop the ‘tude.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+There’s no more classic application of sentiment analysis than movie reviews. In order to make sure none of the models was trained on our data, I collected a balanced set of 500 positive and 500 negative sentences from &lt;a href=&quot;https://www.rottentomatoes.com/&quot;&gt;www.rottentomatoes.com&lt;/a&gt;. As its baseline of 50% is pretty low, it’s no surprise that most of the pre-trained models outperform this threshold. Still, there’s a huge difference in performance between the best model (76.8%) and the worst (45.6%). The best three off-the-shelf systems are Indico (76.8%), IBM AlchemyAPI (73.4%) and Stanford CoreNLP (71.9%). I won’t name and shame the worst ones, since their low performance may say more about the appropriateness of their models for this data set than about their inherent quality.
+
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=567243840&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+When we move to baby product reviews, the picture becomes much less positive. This 
+time only two off-the-shelf models beat the baseline comfortably: Indico (92.6%) and the pre-trained product model in Monkeylearn (87.5%). Textblob’s Pattern-based classifier comes in third, with 82.5% accuracy. Granted, the baseline of 81.5% positive reviews for this data set is much higher than before, but these disappointing figures put the performance of the off-the-shelf methods in perspective.
+
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=1616059214&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Clearly, the pre-trained models are more at home with the hotel and restaurant reviews from Yelp: most systems beat the baseline on this data set. The best API is again Indico (92.9%), followed closely by Google’s Natural Language API (91.0%), and IBM’s AlchemyAPI (90.4%). Monkeylearn’s pre-trained restaurant and hotel classifiers are in fourth and fifth position, which highlights the importance of choosing the right training data for your application.
+
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=1047884806&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Finally, the Android apps do not bring any big surprises. When we look at the data set with only positive and negative examples, three models clearly outperform the baseline: Indico (90.6%), Google (90.5%) and Monkeylearn’s pre-trained product model (87.1%). When we replace 300 random texts by a neutral paragraph from Wikipedia that contains the word Android, and test how well the systems recognize neutral examples, the top three changes: it’s now Indico (80.0%), Haven On Demand (79.1%) and Google (77.8%).
+&lt;sup&gt;&lt;a href=&quot;#fn2&quot; id=&quot;ref2&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;
+
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=722567687&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/1c7x9AbxqYblyerp5vC7tMsdzTvDyYbNIJ5h3Oduuduc/pubchart?oid=844180096&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In short, the results of our experiments show enormous variation &lt;em&gt;between&lt;/em&gt; and &lt;em&gt;within&lt;/em&gt; the available off-the-shelf solutions for sentiment analysis. There is huge variation &lt;em&gt;between&lt;/em&gt; the models: some of them perform really well, while others tend to struggle. The names that most often returned among the best systems are Indico, which came out top for all five data sets, and Google and IBM, the big players in this field. In addition, we see considerable variation &lt;em&gt;within&lt;/em&gt; the models: some of them do very well on one data set, but poorly on another. High quality is possible, but it is far from guaranteed.&lt;/p&gt;
+
+&lt;p&gt;
+It’s definitely not OK to be lazy when you need to attack your own sentiment analysis task. To make sure you’re getting the best results possible, it’s crucial you evaluate a variety of models on your specific data.
+Given our mixed results, and the effort of comparing the available models, you’d be right to ask yourself whether you’d be better off ignoring the available off-the-shelf solutions, and building your own custom model. That’s a question I’ll answer in my next blog post.
+&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;sup id=&quot;fn1&quot;&gt;1. Some of these APIs offer more than one model for sentiment analysis, for example one in the form of a classifier with discrete labels (positive, negative, neutral) and another in the form of a regression model with continuous sentiment values.&lt;a href=&quot;#ref1&quot; title=&quot;Jump back to footnote 1 in the text.&quot;&gt;↩&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;sup id=&quot;fn2&quot;&gt;2. Note that I tuned the models with continuous variables on 500 different examples, in order to determine the most appropriate cut-off between negative, neutral and positive values.&lt;a href=&quot;#ref2&quot; title=&quot;Jump back to footnote 2 in the text.&quot;&gt;↩&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/off-the-shelf-sentiment-analysis/&quot;&gt;Off-the-shelf methods for sentiment analysis&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on November 23, 2016.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Text Classification Made Simple&nbsp;&nbsp;]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/simple-text-classification/" />
+  <id>http://localhost:4000/blog/simple-text-classification</id>
+  <published>2016-09-21T08:00:00-04:00</published>
+  <updated>2016-09-21T08:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://localhost:4000</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;
+When you need to tackle an NLP task &amp;mdash; say, text classification or sentiment 
+analysis &amp;mdash; the sheer number of available software options can be overwhelming. 
+Task-specific packages, generic libraries and cloud APIs 
+all claim to offer the best solution to your problem, and it can be hard to decide 
+which one to use. In this blog post we’ll take a look at some of the available options for a text classification task, and discover their main advantages
+and disadvantages.
+&lt;p /&gt;
+
+&lt;p&gt; The NLP task in this blog post is a classic instance of text classification: 
+we’ll teach the computer to detect the topic in a news article. The task itself is 
+pretty straightforward: the topics (sports, finance, entertainment, etc.) are very 
+general, and their number is limited to four or five. We’ll use &lt;a href=&quot;http://goo.gl/JyCnZq&quot;&gt;two freely available data sets&lt;/a&gt; to train and test 
+our classifiers: the AG News dataset and the Sogou News dataset. Our focus is
+on three available solutions:
+FastText, a command-line tool, Scikit-learn, a 
+machine learning library for Python, and MonkeyLearn, a cloud service. We’ll keep 
+parameter optimization to a minimum and evaluate the off-the-shelf models that the 
+various solutions offer.&lt;/p&gt;
+
+&lt;h3&gt;The command-line tool: FastText&lt;/h3&gt;
+
+&lt;p&gt;In July, Facebook’s AI lab released &lt;a href=&quot;https://github.com/facebookresearch/fastText&quot;&gt;FastText&lt;/a&gt;, a command-line tool for building 
+word embeddings and classifying text. The open-source software package has been
+available on Github since early August. Reactions to the release were mixed. One news source claimed &lt;a href=&quot;https://www.inverse.com/article/19878-facebook-fasttext-natural-language-processing-artificial-intelligence&quot;&gt;“Facebook’s 
+FastText AI is the Tesla of Natural Language Processing”&lt;/a&gt;, and “researchers just supercharged 
+autonomous artificial intelligence”. &lt;a href=&quot;https://twitter.com/yoavgo/status/751178795323908096&quot;&gt;Other people were less 
+enthusiastic&lt;/a&gt;, and pointed out FastText is merely a re-implementation of existing techniques. 
+&lt;/p&gt;
+
+&lt;p&gt;Revolutionary or not, FastText is extremely easy to use. When you’ve prepared your training data correctly (one
+piece of text per line, with the class of the text prefixed by “__label__”), you 
+can train a classifier with a single command:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;
+&amp;gt; ./fasttext supervised -input data_train -output model
+&lt;/div&gt;
+
+&lt;p&gt;Testing your trained classifier on a set of held-out test data is also a breeze:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;
+&amp;gt; ./fasttext test model.bin data_test
+&lt;/div&gt;
+
+&lt;p&gt;FastText surely lives up to its name. On my laptop, it takes 3 to 4 seconds to train a 
+classifier on the single words of the 120,000 AG training texts. The 450,000 
+training samples in the Sogou corpus keep it busy for about 2 minutes. With one optional 
+parameter setting, the model takes both single words and bigrams (2-word sequences) as features. 
+This doubles the training time to 7 seconds for the AG corpus and 4 minutes for Sogou. That’s impressive.&lt;/p&gt;
+
+&lt;p&gt;The trained classifiers are also pretty accurate. In my experiments, the unigram model with the 
+standard settings achieved an accuracy of 91.5% on the AG test set, and 93.2% on the Sogou test 
+set. Adding bigrams as features led to an increase in accuracy of 0.2% for AG (91.7%), and 2.3% for 
+Sogou (95.5%). These figures are slightly lower than those reported in &lt;a href=&quot;https://arxiv.org/pdf/1607.01759v2.pdf&quot;&gt;the paper that accompanied the release of 
+FastText&lt;/a&gt;, possibly due to slight differences in tokenization or parameter settings. The paper 
+further demonstrates that this accuracy is state-of-the-art, not only on the AG and Sogou corpora, 
+but also on other “sentiment” datasets (although, contrary to what the authors suggest, AG and 
+Sogou are topical rather than sentiment data).&lt;/p&gt;
+
+&lt;p&gt;This state-of-the-art performance may be due to FastText’s reliance on neural networks rather 
+than more traditional, linear models, where parameters cannot be shared among features. Its 
+networks learn low-dimensional representations for all features in a text, and then average these 
+to a low-dimensional representation of the full text. The resulting models are therefore able to represent 
+similarities between different features. For example, the model might learn that &lt;em&gt;big&lt;/em&gt; and 
+&lt;em&gt;large&lt;/em&gt; are near-synonyms, and should be treated in a similar manner. That can be really useful, particularly when you’re classifying short texts.&lt;/p&gt;
+
+&lt;p&gt;It’s clear FastText is a neat little software package that deals with large
+volumes of data easily and produces high-quality classifiers. Let’s find out how it compares 
+to the competition.&lt;/p&gt;
+
+&lt;h3&gt;The software library: Scikit-learn&lt;/h3&gt;
+
+&lt;p&gt;While FastText only has neural networks to learn a classifier, it can often be worthwhile to 
+explore some alternative approaches. That’s where more generic machine learning software libraries 
+come in. One great example of such a library is &lt;a href=&quot;http://scikit-learn.org/stable/&quot;&gt;Scikit-learn&lt;/a&gt; for Python. Scikit-learn offers a wealth of 
+machine learning approaches and makes it really easy to experiment with various models and parameter 
+settings. When you’re doing text classification, its Multinomial Naive Bayes classifier is a simple 
+baseline to try out, while its Support Vector Machines can help you achieve state-of-the-art 
+accuracy.&lt;/p&gt;
+
+&lt;p&gt;Training and testing a model with Scikit-learn is more involved than with FastText, but not very 
+much so. The tutorial &lt;a href=&quot;http://scikit-learn.org/stable/tutorial/text_analytics/working_with_text_data.html&quot;&gt;Working 
+with Text Data&lt;/a&gt; summarizes the most important steps. Basically, what we need is a pipeline with 
+three components: a vectorizer that extracts the features from our texts, a transformer that 
+weights these features correctly, and finally, our classifier. In my code below, the 
+&lt;code&gt;CountVectorizer&lt;/code&gt; tokenizes our texts and models each text as a vector with the 
+frequencies of its tokens. The &lt;code&gt;TfidfTransformer&lt;/code&gt; converts these frequencies to the more 
+informative tf-idf weights, before the classifier builds a classification model. Training an SVM 
+instead of a Multinomial Naive Bayes model is as simple as replacing &lt;code&gt;MultinomialNB&lt;/code&gt; with 
+&lt;code&gt;LinearSVC&lt;/code&gt; on line three; extending the features with bigrams can be done by setting 
+the &lt;code&gt;CountVectorizer&lt;/code&gt;&#39;s &lt;code&gt;ngram_range&lt;/code&gt; to &lt;code&gt;(1, 2)&lt;/code&gt;. The 
+&lt;code&gt;fit&lt;/code&gt; command on line four trains a model by sending the training data through the 
+pipeline; the &lt;code&gt;predict&lt;/code&gt; command uses the trained model to classify the test data. Finally, we measure 
+the accuracy by checking how often the predicted label is the same as the test label.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;
+text_clf = Pipeline([(&#39;vectorizer&#39;, CountVectorizer()),&lt;br /&gt;
+                   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;(&#39;transformer&#39;, TfidfTransformer()),&lt;br /&gt;
+                   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;(&#39;classifier&#39;, MultinomialNB())])&lt;br /&gt;
+text_clf.fit(data[&quot;train&quot;][&quot;texts&quot;],data[&quot;train&quot;][&quot;labels&quot;])&lt;br /&gt;
+predicted_labels = text_clf.predict(data[&quot;test&quot;][&quot;texts&quot;])&lt;br /&gt;
+print(np.mean(predicted_labels == data[&quot;test&quot;][&quot;labels&quot;]))&lt;br /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Compared to FastText, Scikit-learn is painfully slow. For example, training an SVM on the 
+unigrams and bigrams of the Sogou corpus takes about 17 minutes on my laptop, compared to 4 minutes 
+for FastText. It also requires several times more memory. The models can be made significantly 
+smaller and faster by setting a minimum frequency for their features, but when you’re dealing with 
+lots of data, speed and memory usage can become a concern.&lt;/p&gt;
+
+&lt;p&gt;In terms of accuracy, however, there is much less difference between the two solutions. In fact, 
+I obtained a slightly higher accuracy with Scikit-learn than with FastText: when it is trained on 
+unigrams and bigrams, its SVM classifies 92.8% of the AG test examples correctly (FastText: 91.7%, 
+92.5% in the paper), and 97.1% of the Sogou examples (FastText: 95.5%, 96.8% in the paper). As 
+expected, the Naive Bayes classifier does less well, with an accuracy of 90.8% for AG, and 90.2% 
+for Sogou.&lt;/p&gt;
+
+&lt;p&gt;In summary, Scikit-learn is a really versatile library that allows you to quickly experiment 
+with many different models and parameter settings. The more advanced of these often obtain a very 
+good performance. However, out of the box it’s less suitable for modelling large data sets than 
+FastText.&lt;/p&gt;
+
+&lt;h3&gt;The cloud solution: MonkeyLearn&lt;/h3&gt;
+
+&lt;p&gt;A third simple approach to text classification is to use an online API. While 
+most available services have pre-trained models for traditional NLP tasks such as named
+entity recognition, sentiment analysis, and general text classification, some of them
+allow people to train their own models and hopefully achieve a better accuracy on
+domain-specific data. One of these is &lt;a href=&quot;http://www.monkeylearn.com/&quot;&gt;MonkeyLearn&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;One of the main selling points of MonkeyLearn is its user-friendliness. Three dialogue windows 
+help us set up a text classification model. During this process, we tell the system we would like to 
+train a classifier, that this classifier should categorize texts by topic, and that our texts are 
+news articles in English (or Chinese for Sogou). These settings help Monkeylearn choose the best 
+pre-processing steps (filtering, emoticon normalization, etc.) and select the best combination of 
+parameters for its models. When this is done, it creates an environment where we can 
+manipulate the parameters of our model, train it and explore its performance.&lt;/p&gt;
+
+&lt;img class=&quot;padded&quot; src=&quot;https://www.dropbox.com/s/ydxzd31qjc30i8e/Screenshot%202016-08-23%2010.10.38.png?raw=1&quot; /&gt;
+
+&lt;p&gt;Before we can train our model, we need to upload the training data, either as a csv or Excel 
+file, or as text data, through a simple API call. Unfortunately, there’s a pretty strict limit on the 
+number of training data MonkeyLearn accepts. The free plan allows for 3,000 training examples, the 
+Ultra Gorilla for 40,000, and the Enterprise plan is made to measure. These limits may not be an issue when 
+there is little tagged data for your problem, but in this age of big data they do feel a bit 
+restrictive. Luckily the folks behind MonkeyLearn were friendly enough to give me access to the Ultra 
+Gorilla plan for a few weeks. As a result, I chose to work with 40,000 training examples for the AG corpus,
+and 20,000 for Sogou.&lt;/p&gt;
+
+&lt;p&gt;While the MonkeyLearn user interface is particularly attractive for newcomers to NLP, more 
+experienced users still have the possibility to tweak the main parameters of their classifier. 
+These include the type of model (Naive Bayes or SVM), the type of features (unigrams, bigrams, 
+trigrams, or a combination of these), the maximum number of features (the default is 10,000), 
+the stopwords, etc. There’s also a reference page that explains what these 
+parameters mean.&lt;/p&gt;
+
+&lt;img class=&quot;padded&quot; src=&quot;https://www.dropbox.com/s/45p69ndljdfea3t/Screenshot%202016-09-18%2010.47.17.png?raw=1&quot; /&gt;
+
+&lt;p&gt;Building a classifier takes a considerable amount of time. For example, MonkeyLearn needs around
+20 minutes to train an SVM on the unigrams and bigrams in 20,000 Sogou news texts. Scikit-learn does
+that in just 41 seconds on my laptop. However, our patience is rewarded with a
+nice overview of our model and its performance: its accuracy, the keywords in our text data, and a 
+really useful confusion matrix that helps us analyze what mistakes the classifier tends to make. 
+These statistics are based on 4-fold cross-validation on the training data, which explains the longer 
+training times at least partially.&lt;/p&gt;
+
+&lt;img class=&quot;padded&quot; src=&quot;https://www.dropbox.com/s/1ardbntka29w46l/Screenshot%202016-08-27%2015.42.19.png?raw=1&quot; /&gt;
+
+&lt;p&gt;In order to test the trained model on our test set, we can make use of another of 
+MonkeyLearn’s distinguishing features: all trained classifiers are immediately available for 
+production, through an API. As with Scikit-learn, we experimented with a Naive Bayes classifier 
+and an SVM, both with and without bigrams. On the AG corpus, there is very little difference 
+between these settings: all models achieve an accuracy between 87.7% and 88.0%. With the same 
+training examples, our Scikit-learn models gave an accuracy of 89.3% (SVM, unigrams only), while
+FastText achieved 88.6% (unigrams only). The Sogou corpus shows bigger differences. The 
+best-performing MonkeyLearn model is the SVM with unigrams and bigrams, with an accuracy of 
+94.2%. This is about the same as a Scikit-learn SVM trained on the same examples (94.8%), and 
+considerably better than FastText, which scores 89.1% with unigrams, and 86.8% with ungirams and 
+bigrams.&lt;/p&gt;
+
+&lt;p&gt;MonkeyLearn takes away some of the pains of developing a classifier: it assists users in the 
+training process, helps them evaluate their models, and immediately exposes their classifiers through 
+an API. In terms of accuracy, it’s in the same ballpark as the other approaches we’ve tested
+here, but training takes a while and using large data sets can become expensive.&lt;/p&gt;
+
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;As machine learning and AI grow in popularity, tackling basic NLP tasks is getting easier and 
+easier. The wealth of available options means NLP practitioners are now often spoilt for choice. 
+While comparing the accuracy of the models may be a logical first step, it did not reveal a clear 
+winner among the three approaches to text classification I tested here. This is true in particular because 
+I didn’t do any parameter optimization, and some approaches may have performed better with other 
+parameter settings.&lt;/p&gt;
+
+&lt;p&gt;This means other factors will be decisive when you weigh up the different software options. If 
+you’re working with big data sets, and speed and low memory usage are crucial, FastText looks 
+like a good choice. The figures I obtained with 20,000 examples do suggest it works less well with small data sets, however. If 
+you need a flexible framework that allows you to compare a wide range of machine learning models 
+quickly, Scikit-learn will help you out. Its best classifiers can give great performance on both 
+small and large data sets, but training large models can take some time. If you’re relatively new 
+to NLP and looking for a text classifier that’s easy to build and integrate, MonkeyLearn is worth 
+checking out. Keep in mind it’s less suitable for big-data problems and you give up some control.&lt;/p&gt;
+
+&lt;p&gt;There’s no doubt there are many more possibilities than the three 
+frameworks I’ve explored here. As new options come along frequently,
+we’ll be faced with the agony of choice for quite some time to come.	 
+Still, a few simple experiments can go a long way to help you take your 
+pick.&lt;/p&gt;
+
+&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/simple-text-classification/&quot;&gt;Text Classification Made Simple&nbsp;&nbsp;&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on September 21, 2016.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[NLP in the Cloud: Measuring the Quality of NLP APIs]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/nlp-api-ner/" />
+  <id>http://localhost:4000/blog/nlp-api-ner</id>
+  <published>2016-06-27T08:00:00-04:00</published>
+  <updated>2016-06-27T08:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://localhost:4000</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;
+Natural Language Processing seems to have become somewhat of a commodity in recent years. More than a few companies have sprung 
+up that offer basic NLP capabilities through a cloud API. If you’d like to know whether a text carries a positive or negative 
+message, or what people or companies it mentions, you can just send it to one of these black boxes, and receive the answer 
+in less than a second. Superficially, all these NLP APIs look more or less the same. 
+&lt;a href=&quot;https://www.textrazor.com/&quot;&gt;Textrazor&lt;/a&gt;,
+&lt;a href=&quot;http://www.alchemyapi.com/&quot;&gt;AlchemyAPI&lt;/a&gt;,
+&lt;a href=&quot;http://aylien.com/&quot;&gt;Aylien&lt;/a&gt;,
+&lt;a href=&quot;https://www.meaningcloud.com/&quot;&gt;MeaningCloud&lt;/a&gt; and
+&lt;a href=&quot;https://www.lexalytics.com/&quot;&gt;Lexalytics&lt;/a&gt; all offer similar services (named entity recognition, 
+sentiment analysis, keyword extraction, topic identification, etc.), and do so through similar interfaces. However, this surface 
+conceals huge differences in quality.   
+&lt;/p&gt;
+
+&lt;p&gt;
+In this article, I evaluate five NLP APIs on one specific, seemingly simple task: 
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Named-entity_recognition&quot;&gt;named entity recognition&lt;/a&gt; (NER) for English. 
+In named entity recognition, the goal is to identify so-called named entities, such as locations, people and organizations. 
+This is useful for many applications in information extraction, such as search engines or question answering software. 
+Most APIs offer more entity types than the three main categories 
+(for example, dates or events), but since locations, people and organizations are the most widely accepted and available, 
+they are the ones I will focus on. 
+&lt;/p&gt;
+
+&lt;p&gt;
+To evaluate the output of these APIs, I collected one hundred sentences from a range of news websites, including 
+&lt;a href=&quot;http://www.theguardian.com/international&quot;&gt;the Guardian&lt;/a&gt;, 
+&lt;a href=&quot;http://www.bbc.co.uk/news&quot;&gt;BBC&lt;/a&gt;, 
+&lt;a href=&quot;http://edition.cnn.com/&quot;&gt;CNN&lt;/a&gt;, etc. 
+All of these sentences contain at least one entity. They are well-written sentences in grammatical English, so they 
+should pose fewer problems than, say, tweets. They cover news facts from different corners of the world and various 
+domains (politics, sports, science, etc.), 
+so the entities in them are pretty varied. To give an example of the output I expect, take the sentence
+&lt;blockquote class=&quot;nomargin&quot;&gt;
+A diplomatic fight, usually kept behind closed doors, exploded in public Thursday as U.N. Secretary-General Ban Ki-Moon accused Saudi Arabia and its military allies of placing &quot;undue pressure&quot; on the international organization.
+&lt;/blockquote&gt;
+&lt;/p&gt;
+&lt;p class=&quot;noindent&quot;&gt;Good NER software should identify &lt;em&gt;U.N.&lt;/em&gt; as an organization, &lt;em&gt;Ban Ki-Moon&lt;/em&gt; as a person, 
+and &lt;em&gt;Saudi Arabia&lt;/em&gt; as a location. 
+&lt;/p&gt;
+
+&lt;h3&gt;Technical details&lt;/h3&gt;
+
+&lt;p&gt;
+I used this test set of sentences to evaluate the five APIs that are discussed in Robert Dale’s article 
+&lt;a href=&quot;http://web.science.mq.edu.au/~rdale/publications/industrywatch/2015-V21-4.pdf&quot;&gt;NLP meets the cloud&lt;/a&gt;: 
+&lt;a href=&quot;https://www.textrazor.com/&quot;&gt;Textrazor&lt;/a&gt;, 
+&lt;a href=&quot;http://www.alchemyapi.com/&quot;&gt;AlchemyAPI&lt;/a&gt; (which is now part of 
+&lt;a href=&quot;http://www.ibm.com/cloud-computing/bluemix/watson/&quot;&gt;IBM Watson&lt;/a&gt;), 
+&lt;a href=&quot;http://aylien.com/&quot;&gt;Aylien&lt;/a&gt;, 
+&lt;a href=&quot;https://www.meaningcloud.com/&quot;&gt;MeaningCloud&lt;/a&gt; and 
+&lt;a href=&quot;https://www.lexalytics.com/&quot;&gt;Lexalytics&lt;/a&gt;. These all offer a free account with a limited number 
+of calls that more than suffices for a thorough evaluation of their output.
+Interfacing with the API happens through manual REST calls or a custom library in your favorite programming language. 
+Some interfaces are more confusing than others (looking at you, Lexalytics), but in general, setting this up is simple enough. 
+&lt;/p&gt;
+
+&lt;p&gt;
+Per entity type, I use three standard metrics to measure the quality of the API:
+&lt;ul class=&quot;nomargin&quot;&gt;
+&lt;li&gt;Precision: If an API identifies a word or word sequence as an entity, how likely is this to be correct?&lt;/li&gt;
+&lt;li&gt;Recall: What percentage of entities in the text does the API identify correctly?&lt;/li&gt;
+&lt;li&gt;F-score: the (harmonic) mean of precision and recall captures the quality of the API for each entity type 
+in one single figure.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;
+
+&lt;p class=&quot;noindent&quot;&gt;
+Here are some additional rules of the game:
+&lt;ul class=&quot;nomargin&quot;&gt;
+&lt;li&gt;I use the available APIs as off-the-shelf services, without tweaking the results. Some APIs give a confidence score for every entity, which would allow users to filter out entities with a low confidence. This is potentially interesting, but it also takes quite some effort, so I just evaluate the output as-is.&lt;/li&gt;
+&lt;li&gt;When an API misclassifies a location as an organization, or vice versa, I don’t penalize it and just follow the 
+classification of the API. Place names are often ambiguous (as in &lt;em&gt;Iran said …&lt;/em&gt;), so let’s not be too strict.&lt;/li&gt;
+&lt;li&gt;When an API identifies an entity but does not classify it as a person, location or organization, I ignore it.&lt;/li&gt;
+&lt;li&gt;Some APIs are able to identify adjectives (such as &lt;em&gt;Chinese&lt;/em&gt;) as locations (&lt;em&gt;China&lt;/em&gt;), others are not. If they do so, I count these entities as correct, but if they don’t, I don’t penalize them. Again, let’s not be too strict.&lt;/li&gt;
+&lt;li&gt;Some APIs not only identify entities in a sentence, but also try to determine the real-world entity that it refers to, 
+and give a link to the relevant Wikipedia page. Because not all APIs provide it, I ignore this reference, whether
+it is correct or not.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+TextRazor’s offering is pretty complex, because it classifies entities as both &lt;a href=&quot;http://wiki.dbpedia.org/&quot;&gt;DBPedia&lt;/a&gt;
+ categories and &lt;a href=&quot;http://wiki.freebase.com/wiki/Main_Page&quot;&gt;Freebase&lt;/a&gt; types. 
+Not only do these two sources have completely different lists of categories, sometimes the Textrazor classifications do not agree. 
+In a sentence such as &lt;em&gt;Iraqi troops begin operation to seize Falluja from Isis&lt;/em&gt;, &lt;em&gt;Isis&lt;/em&gt; is classified 
+as a Freebase Organization (correct), but a DBPedia Place (incorrect). In this exercise, I chose to work with the Freebase types.
+Additionally, Textrazor tends to give long lists of 
+categories for every entity, most of which are really specific and frankly, irrelevant. Are you interested in the fact that 
+&lt;em&gt;the United States&lt;/em&gt; is not only a &lt;em&gt;/location/location&lt;/em&gt;, but also a 
+&lt;em&gt;/meteorology/cyclone_affected_area&lt;/em&gt;, &lt;em&gt;/fictional_universe/fictional_setting&lt;/em&gt; or 
+&lt;em&gt;/travel/travel_destination&lt;/em&gt;, wherever it occurs? I know I’m not.
+&lt;/p&gt;
+
+&lt;p&gt;Aylien’s API, too, is rather confusing, but in a different way: the API has two endpoints that can be used for entity extraction 
+(Entity and Concept extraction), and their results can be very different. Aylien’s Concept extraction makes use of an external knowledge
+base (e.g. DBPedia), whereas its Entity extraction is purely self-contained. Concept extraction makes use of rather specific DBPedia entity types (e.g. Scientist,
+OfficeHolder, TennisPlayer, etc. are all types of Person), whereas Entity extraction has just the three main categories (Location, 
+Person, Organization). Concept extraction can also return several entity types per entity, whereas Entity extraction sticks to one.&lt;/p&gt;
+
+&lt;p&gt;
+The remaining APIs are simpler, and return just one category per identified entity. The table below shows how I mapped them to the three
+main entity types.
+
+ &lt;table style=&quot;width:100%&quot;&gt;
+  &lt;tr&gt;
+    &lt;th&gt;&lt;/th&gt;
+    &lt;th&gt;Location&lt;/th&gt;
+    &lt;th&gt;Person&lt;/th&gt;
+    &lt;th&gt;Organization&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Textrazor&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;/location/location&lt;/em&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;/people/person&lt;/em&gt;, &lt;em&gt;/royalty/noble_title&lt;/em&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;organization/organization&lt;/em&gt;, &lt;em&gt;internet/website&lt;/em&gt;, &lt;em&gt;sports/sports_team&lt;/em&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;AlchemyAPI&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;City&lt;/em&gt;, &lt;em&gt;Country&lt;/em&gt;, &lt;em&gt;StateOrCountry&lt;/em&gt;,
+&lt;em&gt;Region&lt;/em&gt;, &lt;em&gt;Facility&lt;/em&gt;, &lt;em&gt;GeographicFeature&lt;/em&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;Person&lt;/em&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;Company&lt;/em&gt;, &lt;em&gt;Organization&lt;/em&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Aylien&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;Location&lt;/em&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;Person&lt;/em&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;Organization&lt;/em&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Lexalytics&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;Place&lt;/em&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;Person&lt;/em&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;Company&lt;/em&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;MeaningCloud&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;Top&amp;gt;Location&lt;/em&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;Top&amp;gt;Person&lt;/em&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;em&gt;Top&amp;gt;Organization&lt;/em&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt; 
+
+&lt;/p&gt;
+
+&lt;h3&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;
+Let’s now take a look at the results, starting with locations. Locations are generally the easiest type of entity to identify. 
+Four of the five APIs in this evaluation exercise are best at identifying locations, when compared to organizations or people. 
+Still, the differences in quality between the APIs are enormous. Textrazor does a great job, with an F-score of 95.9%.
+It finds 99% of all locations in the test sentences (recall), and when it identifies a word or word sequence as a location,
+this is correct in 93% of the cases (precision). AlchemyAPI is in second position, with an F-score of 90.8%. Its entities
+are also correct in 93% of the cases (precision), but it only finds 89% of all locations.
+Likewise, the other three APIs all achieve a precision of 93% and above, but their recall suffers greatly: 
+MeaningCloud finds 76% of all locations, Aylien&#39;s Concept extraction 72%, its Entity extraction 68%, and Lexalytics a meagre 53%. 
+&lt;/p&gt;
+
+&lt;p&gt;Let me give two examples to
+show what this means in practice. In the following sentence, Aylien’s Concept Extraction 
+finds &lt;em&gt;Belgium&lt;/em&gt;, but fails to classify it as a person, location or organization.
+Its Entity extraction does not identify it at all. Both endpoints miss all four people:
+&lt;blockquote class=&quot;nomargin&quot;&gt;
+Belgium created the game’s first opening when Lukaku and Fellaini
+combined to tee up Nainggolan for a 25-yard drive that Buffon pushed away
+&lt;/blockquote&gt;
+&lt;p class=&quot;noindent&quot;&gt;And in&lt;/p&gt;
+&lt;blockquote class=&quot;nomargin&quot;&gt;
+Indian president Pranab Mukherjee arrived in Ivory Coast capital Abidjan on Tuesday for a two-day state visit, the first visit of an Indian president since the establishment of diplomatic relations between the two countries in 1960.
+&lt;/blockquote&gt;
+&lt;p class=&quot;noindent&quot;&gt;Lexalytics misses both locations (&lt;em&gt;Ivory Coast&lt;/em&gt; and &lt;em&gt;Abidjan&lt;/em&gt;), as well as &lt;em&gt;Pranab Mukherjee&lt;/em&gt; (person).
+That’s pretty disappointing.&lt;/p&gt;
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/16EIiMRHZHqy6mE9kbMtK4nGSMa-XbqtC7A_nRd2TOJ4/pubchart?oid=2010346884&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+
+&lt;/p&gt;
+&lt;p&gt;
+The results for organizations and people follow a similar pattern. Again, Textrazor and AlchemyAPI are in first and second 
+position, respectively. Textrazor is particularly strong at identifying many entities (recall), AlchemyAPI wants to get them right (precision). 
+MeaningCloud is a solid third place, while the performance of Aylien depends on the endpoint you use: the Concepts endpoint is better at identifying
+well-known people, places and organizations, while for lesser known entities and surnames without a first name, the Entities endpoint mostly does
+a better job. Lexalytics achieves a very high precision, but its recall is really low. It’s possible its recall and F-score 
+can be improved by setting a lower confidence threshold for the entities.
+&lt;iframe width=&quot;599.4557377049182&quot; height=&quot;370.61469858156033&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/16EIiMRHZHqy6mE9kbMtK4nGSMa-XbqtC7A_nRd2TOJ4/pubchart?oid=494995784&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+&lt;iframe width=&quot;602&quot; height=&quot;372.10226424361497&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/16EIiMRHZHqy6mE9kbMtK4nGSMa-XbqtC7A_nRd2TOJ4/pubchart?oid=1492503240&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+Some of the more striking results can help illustrate the differences between the APIs. In the sentence 
+&lt;blockquote class=&quot;nomargin&quot;&gt;
+Jenson Button was an encouraging seventh for McLaren, matching the time of Williams&#39; Valtteri Bottas in sixth.
+&lt;/blockquote&gt;
+&lt;/p&gt;
+&lt;p class=&quot;noindent&quot;&gt;both Lexalytics and Aylien’s Entity extraction fail to identify a single entity, although there are two people (&lt;em&gt;Jenson Button&lt;/em&gt; and 
+&lt;em&gt;Valtteri Bottas&lt;/em&gt;) and two organizations (&lt;em&gt;McLaren&lt;/em&gt; and &lt;em&gt;Williams&lt;/em&gt;). Textrazor and MeaningCloud find all four 
+entities correctly. Aylien’s Concept extraction finds three entities, but fails to identify Williams as an organization. 
+AlchemyAPI finds &lt;em&gt;Valtteri Bottas&lt;/em&gt;, but it misses &lt;em&gt;Jenson Button&lt;/em&gt; and misclassifies 
+&lt;em&gt;McLaren&lt;/em&gt; and &lt;em&gt;Williams&lt;/em&gt; as people. 
+&lt;/p&gt;
+&lt;p&gt;
+In the sentence
+&lt;blockquote class=&quot;nomargin&quot;&gt;
+This statement by the vice president of the NFF, Seyi Akinwunmi, is a repeat of homophobic statements made by football officials in the country in the past which were strongly condemned by FIFA.
+&lt;/blockquote&gt;
+&lt;/p&gt;
+&lt;p class=&quot;noindent&quot;&gt;Aylien’s endpoints do not classify a single entity as person, location or organization. MeaningCloud and Lexalytics both find &lt;em&gt;FIFA&lt;/em&gt; (organization), but miss 
+&lt;em&gt;NFF&lt;/em&gt; (organization) and &lt;em&gt;Seyi Akinwunmi&lt;/em&gt; (person). Textrazor and AlchemyAPI find all three entities, 
+although they both map &lt;em&gt;NFF&lt;/em&gt; to the Norwegian Football Federation, and not the Nigerian one. 
+&lt;/p&gt;
+
+&lt;p&gt;
+Named entity recognition is a harder task than it might seem at first glance. Even the best APIs occasionally make mistakes. 
+In many ways, I’ve tested only the most basic features of named entity recognition here. Things get considerably 
+harder when the identified entities have to be linked to their correct real-world counterpart (such as &lt;em&gt;NFF&lt;/em&gt; 
+in the sentence above), or when several mentions of the same entity (&lt;em&gt;Donald Trump … Trump … he&lt;/em&gt;) have to be 
+mapped to one and the same referent. Similarly, even the best APIs struggle when they have to disambiguate an entity 
+and infer, for example, that &lt;em&gt;Southwest&lt;/em&gt; in a context such as &lt;em&gt;drier than normal conditions in the Southwest&lt;/em&gt; 
+refers to a location rather than a company. Kudos to AlchemyAPI, which was the only one in this test to get this example right. 
+There’s no way this can be done without the basic entity recognition 
+that I’ve tested here. 
+&lt;/p&gt;
+
+&lt;p&gt;
+It is certainly true that the NLP APIs in this article have made basic NLP tasks available
+to the masses. However, while the offerings may look similar on the outside, their differences become very clear 
+when we measure their performance. In my NER test, Textrazor outperformed all others, but it did so with long 
+and often confusing lists of possible entity types. AlchemyAPI’s results were much more straightforward, but 
+it found considerably fewer entities. MeaningCloud performed reasonably well on simple examples, but failed to perform
+on the more complex ones. Aylien has two endpoints that both struggle at times, and its plans to merge them
+should really pay off. Lexalytics has its work cut out. Of course, it is important 
+to bear in mind that my evaluation
+exercise is rather informal and only looked at 100 sentences typical of one 
+linguistic style and domain. It’s always possible that other domains may give different results.
+Still, it clearly pays off to compare the various APIs available, so buyer beware!
+&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/nlp-api-ner/&quot;&gt;NLP in the Cloud: Measuring the Quality of NLP APIs&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on June 27, 2016.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[NLP People: the 2016 NLP job market analysis]]></title>
+  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/nlppeople-jobmarket-analysis/" />
+  <id>http://localhost:4000/blog/nlppeople-jobmarket-analysis</id>
+  <published>2016-05-29T16:00:00-04:00</published>
+  <updated>2016-05-29T16:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://localhost:4000</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;When the University of Leuven asked me to give a guest lecture in their &lt;a href=&quot;http://www.mai.kuleuven.be/&quot;&gt;Master of Artificial Intelligence&lt;/a&gt; earlier this year, 
+one thing I set out to do was to give students an idea of the opportunities in the NLP job market. I contacted Alex and Maxim from &lt;a href=&quot;http://www.nlppeople.com&quot;&gt;NLP People&lt;/a&gt;, 
+and they were so kind to give me access to their database of job ads. My analysis of their data brought to light some interesting patterns, 
+and was posted on the &lt;a href=&quot;https://nlppeople.com/nlp-job-market-analysis-2016/&quot;&gt;NLPPeople blog&lt;/a&gt; earlier this month. I&#39;m reposting the article here below.&lt;/p&gt;
+
+&lt;p&gt;One year after its launch, &lt;a href=&quot;https://nlppeople.com&quot;&gt;NLPPeople&lt;/a&gt; analysed the hundreds of job ads that had been published on the website during that time. In a &lt;a href=&quot;https://nlppeople.com/nlp-people-job-statistics-one-year-after-the-launch/&quot; target=&quot;_blank&quot;&gt;blog post &lt;/a&gt;we discussed the supremacy of the US in NLP jobs, the imbalance between industry and academia, among other other striking patterns. Almost three years later it’s time to take a fresh look at all the job ads we’ve collected so far, to try and determine how the NLP job market has evolved.&lt;/p&gt;
+&lt;p&gt;Some things don’t change, of course: like three years ago, most of the jobs that are advertised on NLPPeople are located in the US or the EU. However, the power balance between these two regions seems to have shifted. In 2012, the US was responsible for over 50% of all job ads. Since then this figure has dropped every year, and in 2015 the US represented only 34% of all jobs. The EU, by contrast, has seen the opposite evolution: starting from 29% in 2012, it represented 50% of all job ads in 2015. Obviously, because the job ads on NLPPeople are not selected from all available jobs at random, the shift that we see here need not reflect the real situation. It may simply mean that NLPPeople has become much more popular in the EU than in the US in recent years. At the very least, however, the strong performance of Europe points to a wealth of available &lt;a href=&quot;https://nlppeople.com/job-tag/nlp/&quot;&gt;NLP&lt;/a&gt; jobs in that part of the world.&lt;/p&gt;
+&lt;p&gt;Figure:&lt;br /&gt;
+&lt;iframe style=&quot;width: 100%; height: 460px;&quot; src=&quot;https://docs.google.com/spreadsheets/d/1oC5Vlh4ItMBISqWuy5Pu2hENxfOPVjaDhvJZql0efD0/pubchart?oid=1098995564&amp;amp;format=interactive&quot; width=&quot;300&quot; height=&quot;150&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;When we zoom in on individual countries, some additional patterns emerge. Within the EU, the &lt;a href=&quot;https://nlppeople.com/job-tag/united-kingdom/&quot;&gt;United Kingdom&lt;/a&gt; is the clear frontrunner with 800 job ads. That’s more than the next three countries, &lt;a href=&quot;https://nlppeople.com/job-tag/germany/&quot;&gt;Germany&lt;/a&gt; (328), &lt;a href=&quot;https://nlppeople.com/job-tag/ireland/&quot;&gt;Ireland&lt;/a&gt; (228) and &lt;a href=&quot;https://nlppeople.com/job-tag/france/&quot;&gt;France&lt;/a&gt; (208), combined. Relative to country size, Ireland in particular has been very successful at attracting multinationals, creating academic NLP jobs at universities and research centres, and founding startups and spin-offs. Outside of the US and the EU, &lt;a href=&quot;https://nlppeople.com/job-tag/india&quot;&gt;India&lt;/a&gt; is an NLP powerhouse with 238 postings, followed by &lt;a href=&quot;https://nlppeople.com/job-tag/israel/&quot;&gt;Israel&lt;/a&gt; (111), &lt;a href=&quot;https://nlppeople.com/job-tag/canada/&quot;&gt;Canada&lt;/a&gt; (89), &lt;a href=&quot;https://nlppeople.com/job-tag/singapore/&quot;&gt;Singapore&lt;/a&gt; (60) and &lt;a href=&quot;https://nlppeople.com/job-tag/japan/&quot;&gt;Japan&lt;/a&gt; (46).&lt;/p&gt;
+&lt;p&gt;&lt;iframe style=&quot;width: 100%;&quot; src=&quot;https://docs.google.com/spreadsheets/d/1oC5Vlh4ItMBISqWuy5Pu2hENxfOPVjaDhvJZql0efD0/pubchart?oid=721334263&amp;amp;format=interactive&quot; width=&quot;300&quot; height=&quot;400&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;Another interesting power balance is that between &lt;a href=&quot;https://nlppeople.com/job-tag/industry/&quot;&gt;industry&lt;/a&gt; and &lt;a href=&quot;https://nlppeople.com/job-tag/academia/&quot;&gt;academia&lt;/a&gt;. NLP has always been a promising domain for practical applications, so it’s no surprise the majority of the jobs advertised on NLPPeople are in industry. However, since 2012 the proportion of jobs in academia has increased steadily. Whereas academia accounted for less than 10% of the jobs in 2012, this share has grown to 32% in 2015. These numbers should again be interpreted with caution, but it’s clear academic interest in NLP is pretty strong indeed.&lt;/p&gt;
+&lt;p&gt;&lt;iframe style=&quot;width: 100%;&quot; src=&quot;https://docs.google.com/spreadsheets/d/1oC5Vlh4ItMBISqWuy5Pu2hENxfOPVjaDhvJZql0efD0/pubchart?oid=1130604328&amp;amp;format=interactive&quot; width=&quot;300&quot; height=&quot;375&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;Still, the balance between industry and academia varies considerably between different regions. While academic job postings take up almost 35% of all postings from the EU, in the US fewer than 10% of the jobs are academic. This difference was already obvious in 2012, when we attributed it to the available EU funding for research into language technologies on the one hand, and the strength of the US industrial market on the other. Nevertheless, the proportion of academic jobs has increased in both regions year after year: from 23% to 41% in Europe, and from 4% to 16% in the US.&lt;/p&gt;
+&lt;p&gt;&lt;iframe style=&quot;width: 100%;&quot; src=&quot;https://docs.google.com/spreadsheets/d/1oC5Vlh4ItMBISqWuy5Pu2hENxfOPVjaDhvJZql0efD0/pubchart?oid=1074338101&amp;amp;format=interactive&quot; width=&quot;300&quot; height=&quot;375&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;When we focus exclusively on industry, it’s obvious NLP plays an important role in various types of corporations. The companies with the most job ads on NLPPeople can be classified into five broad groups. First, there are the big software firms that use &lt;a href=&quot;https://nlppeople.com/job-tag/natural-language-processing/&quot;&gt;Natural Language Processing&lt;/a&gt; to support their diverse product offering: &lt;a href=&quot;https://nlppeople.com/company/Amazon/&quot;&gt;Amazon&lt;/a&gt;, &lt;a href=&quot;https://nlppeople.com/company/Google/&quot;&gt;Google&lt;/a&gt;, &lt;a href=&quot;https://nlppeople.com/company/Microsoft&quot;&gt;Microsoft&lt;/a&gt;, &lt;a href=&quot;https://nlppeople.com/company/IBM&quot;&gt;IBM&lt;/a&gt;, &lt;a href=&quot;https://nlppeople.com/company/eBay/&quot;&gt;eBay&lt;/a&gt;, &lt;a href=&quot;https://nlppeople.com/company/Intel/&quot;&gt;Intel&lt;/a&gt;, &lt;a href=&quot;https://nlppeople.com/company/Oracle&quot;&gt;Oracle&lt;/a&gt;, &lt;a href=&quot;https://nlppeople.com/company/LinkedIn/&quot;&gt;LinkedIn&lt;/a&gt;, &lt;a href=&quot;https://nlppeople.com/company/Facebook/&quot;&gt;Facebook&lt;/a&gt; and &lt;a href=&quot;https://nlppeople.com/company/Apple/&quot;&gt;Apple&lt;/a&gt;. Then there are four translation and localisation companies: &lt;a href=&quot;https://nlppeople.com/company/Appen/&quot;&gt;Appen&lt;/a&gt;, &lt;a href=&quot;https://nlppeople.com/company/Lionbridge/&quot;&gt;Lionbridge&lt;/a&gt;, &lt;a href=&quot;https://nlppeople.com/company/SDL+plc/&quot;&gt;SDL&lt;/a&gt; and &lt;a href=&quot;https://nlppeople.com/company/VistaTEC/&quot;&gt;VistaTEC&lt;/a&gt;. These typically rely on multilingual language technologies. Next, three companies produce full-fledged NLP software: &lt;a href=&quot;https://nlppeople.com/company/Nuance+Communications/&quot;&gt;Nuance&lt;/a&gt; (speech technology), &lt;a href=&quot;https://nlppeople.com/company/Artificial+Solutions/&quot;&gt;Artificial Solutions&lt;/a&gt; (virtual assistants) and &lt;a href=&quot;https://nlppeople.com/company/Systran/&quot;&gt;Systran&lt;/a&gt; (Machine Translation). Finally, there are two media companies, Bloomberg and Thomson Reuters, and one consultancy company: KPMG. It’s clear most of the companies that post repeatedly on NLPPeople do not focus on NLP exclusively, but use it as a technology to support their products or services. The real NLP firms, which develop a product with NLP at its core, are very active relative to their size, but tend to be rather small.&lt;/p&gt;
+&lt;p&gt;&lt;iframe style=&quot;width: 100%;&quot; src=&quot;https://docs.google.com/spreadsheets/d/1oC5Vlh4ItMBISqWuy5Pu2hENxfOPVjaDhvJZql0efD0/pubchart?oid=120905950&amp;amp;format=interactive&quot; width=&quot;300&quot; height=&quot;545&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;A similar ranking of the most active institutions in academia reveals the main NLP hubs in the world. &lt;a href=&quot;https://nlppeople.com/company/University+of+Amsterdam/&quot;&gt;The University of Amsterdam&lt;/a&gt; has published no fewer than 40 job ads, followed by &lt;a href=&quot;https://nlppeople.com/company/Saarland+University/&quot;&gt;Saarland University&lt;/a&gt; (32), the &lt;a href=&quot;https://nlppeople.com/company/The+University+of+Edinburgh/&quot;&gt;University of Edinburgh&lt;/a&gt; (28) and the &lt;a href=&quot;https://nlppeople.com/company/University+of+Sheffield/&quot;&gt;University of Sheffield &lt;/a&gt;(27). NLPPeople appears particularly popular at research institutions in the EU. With the exception of &lt;a href=&quot;https://nlppeople.com/company/Nanyang+Technological+University%2C+Singapore/&quot;&gt;Nanyang Technological University&lt;/a&gt; (Singapore), &lt;a href=&quot;https://nlppeople.com/company/Nanyang+Technological+University%2C+Singapore/&quot;&gt;RMIT University&lt;/a&gt; (Australia), &lt;a href=&quot;https://nlppeople.com/company/National+University+of+Singapore/&quot;&gt;the National University of Singapore&lt;/a&gt; (Singapore) and &lt;a href=&quot;https://nlppeople.com/company/Johns+Hopkins+University/&quot;&gt;Johns Hopkins University&lt;/a&gt; (US), all of the most active institutions are based in Europe. The UK in particular is extremely well-represented.&lt;/p&gt;
+&lt;p&gt;&lt;iframe style=&quot;width: 100%;&quot; src=&quot;https://docs.google.com/spreadsheets/d/1oC5Vlh4ItMBISqWuy5Pu2hENxfOPVjaDhvJZql0efD0/pubchart?oid=1845518763&amp;amp;format=interactive&quot; width=&quot;300&quot; height=&quot;580&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;In addition to the regions and institutions, we took a look at the programming languages that are mentioned in the job ads. Three languages stand out: Java (193 mentions), Python (146) and C++ (114). Of these three, the popularity of Java has been fairly stable, while that of Python is growing strongly. In 2015 it even replaced Java at the top of the leaderboard. Matlab (49) and Perl (35) follow at a respectable distance, with the latter in a downward trend. For people interested in landing a job in NLP, this ranking can serve as a guide to discover the most useful programming languages in this field.&lt;/p&gt;
+&lt;p&gt;&lt;iframe style=&quot;width: 100%;&quot; src=&quot;https://docs.google.com/spreadsheets/d/1oC5Vlh4ItMBISqWuy5Pu2hENxfOPVjaDhvJZql0efD0/pubchart?oid=1889354055&amp;amp;format=interactive&quot; width=&quot;300&quot; height=&quot;400&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;
+&lt;p&gt;If we take all these findings together, our fresh analysis of the job ads in the &lt;a href=&quot;https://nlppeople.com&quot;&gt;NLPPeople&lt;/a&gt; database suggests that the NLP job market has become significantly more diverse in recent years. From a US- and industry-dominated domain, NLP has evolved to a field that is attractive to both industry and academia, in various parts of the world. There appears to be no shortage of opportunities for job seekers in NLP, whatever their particular ambitions or interests.&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/nlppeople-jobmarket-analysis/&quot;&gt;NLP People: the 2016 NLP job market analysis&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on May 29, 2016.&lt;/p&gt;</content>
+</entry>
+
+</feed>

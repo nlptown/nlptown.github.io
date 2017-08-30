@@ -1,38 +1,22 @@
 <!-- Team Section -->
-    <section id="team" class="bg-light-gray">
+      <section class="g-py-100 text-center" id="team">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Our Team</h2>
-                    <h3 class="section-subheading text-muted"></h3>
-                </div>
+          <header class="text-center g-width-60x--md mx-auto g-mb-60">
+            <div class="u-heading-v2-3--bottom g-brd-primary g-mb-20">
+              <h2 class="h3 u-heading-v2__title g-color-gray-dark-v2 text-uppercase g-font-weight-600">Meet our team</h2>
             </div>
+          </header>
             <div class="row">
                 <!-- <div class="col-sm-1"></div> -->
                 {% for member in site.people %}
                 <div class="col-sm-4">
                     <div class="team-member">
-                        <img src="img/team/{{ member.pic }}.jpg" class="img-responsive img-circle" alt="" width=145>
-                        <h4>{{ member.name }}</h4>
-                        <p class="text-muted">{{ member.position }}</p>
-                        <ul class="list-inline social-buttons">
-                            {% for network in member.social %}
-                            <li>
-                                <a href="{{ network.url }}">
-                                    <i class="fa fa-{{ network.title }}"></i>
-                                </a>
-                            </li>
-                            {% endfor %}
-
-                        </ul>
+                        <img src="images/team/{{ member.pic }}.jpg" class="img-responsive img-circle" alt="" width=145>
+                        <h2 class="h5 g-color-black g-font-weight-600 g-line-height-1_8"><br/>{{ member.name }}</h4>
+                        <p class="g-color-gray-dark-v4">{{ member.position }}</p>
                     </div>
                 </div>
                 {% endfor %}
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <p class="large text-muted"></p>
-                </div>
             </div>
         </div>
     </section>

@@ -4,6 +4,8 @@ title:  Anything2Vec, or How Word2Vec Conquered NLP
 date:   2017-04-10 12:00:00
 tags: NLP AI deep learning word embeddings paragraph topic document tweet2vec med2vec lda2vec
 comments: true
+author: Yves Peirsman
+image: sense2vec.png
 ---
 
 <p class="first">

@@ -5,6 +5,8 @@ shorttitle: A Song of N-Grams and Language Models
 date:   2017-07-05 12:00:00
 tags: NLP AI deep learning word embeddings n-grams language models neural networks
 comments: true
+author: Yves Peirsman
+image: song-of-ngrams-and-lms.png
 ---
 
 <p class="first">
@@ -34,7 +36,8 @@ series 2 covers the events in <em>A Clash of Kings</em>, series 3 and 4 are adap
 6 mix events from <em>A Feast for Crows</em> and <em>A Dance of Dragons</em>. It turns out we can induce this mapping 
 pretty well on the basis of the dialogues in the episodes.</p>
 
-<figure class="padded2">
+<div class="g-py-30 text-center">
+<figure>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <div id="sankey_basic" style="width: 900px; height: 300px;"></div>
 <script async type="text/javascript">
@@ -79,6 +82,7 @@ pretty well on the basis of the dialogues in the episodes.</p>
       }
 </script>
 </figure>
+</div>
 
 <p>For each episode and book, I collected the n-grams in a feature vector. I used Tf-Idf to weight the n-gram
 frequencies and applied L2-normalization. For each episode, I then picked the book whose feature vector had the
@@ -161,9 +165,9 @@ and other places seem to have got
 caught up in a race for ever-lower perplexities. 
 </p>
 
-<figure>
-<img width="500" src="https://www.dropbox.com/s/0z4jq6jo20io24g/Screenshot%202017-07-04%2023.38.09.png?raw=1">
-<figcaption>RNN-based language models learn word embeddings to make predictions. Adapted from the <a href="http://web.stanford.edu/class/cs224n/lectures/cs224n-2017-lecture8.pdf">Stanford CS224n course slides</a>.</figcaption>
+<figure class="padded2">
+<img width="500" src="https://www.dropbox.com/s/5n4dn24x1vcb4ag/Screenshot%202017-07-04%2023.30.05.png?raw=1">
+<figcaption>RNN-based language models learn word embeddings to make predictions. Adapted from the Stanford CS224n course slides.</figcaption>
 </figure>
 
 <p>There are quite a few toolkits for training and testing neural language models. <a href="https://nlg.isi.edu/software/nplm/">NPLM</a>

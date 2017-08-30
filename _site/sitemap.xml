@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>http://localhost:4000</loc>
+    </url>
+    
+    
+    <url>
+        <loc>http://localhost:4000/blog/</loc>
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/feed.xml</loc>
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/index.html</loc>
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/sitemap.xml</loc>
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/style.css</loc>
+    </url>
+    
+
+    
+    <url>
+        <loc>http://localhost:4000/blog/song-of-ngrams-and-lms/</loc>
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/blog/anything2vec/</loc>
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/blog/understanding-deeplearning-models-nlp/</loc>
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/blog/diy-sentiment-analysis/</loc>
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/blog/off-the-shelf-sentiment-analysis/</loc>
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/blog/simple-text-classification/</loc>
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/blog/nlp-api-ner/</loc>
+    </url>
+    
+    <url>
+        <loc>http://localhost:4000/blog/nlppeople-jobmarket-analysis/</loc>
+    </url>
+    
+
+</urlset>

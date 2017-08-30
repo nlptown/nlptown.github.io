@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)http://alignedleft.com/content/03-tutorials/01-d3/140-making-a-scatterplot/1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>D3 Demo: Making a scatterplot with SVG</title>
+		<script type="text/javascript" src="./assets/js/d3.v3.min.js"></script><style type="text/css"></style>
+		<style type="text/css">
+			/* No style rules here yet */		
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+
+			//Width and height
+			var w = 2000;
+			var h = 2000;
+			
+			var dataset = [];
+			d3.csv("glove_2dims_2000.csv", function(data) {
+  	 			dataset = data.map(function(d) { return [ d["word"], parseFloat(d["x"]), parseFloat(d["y"])]; });
+				console.log(dataset);
+
+			   //Create SVG element
+			   var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+			   var xScale = d3.scale.linear()
+                     		.domain([d3.min(dataset, function(d) { return d[1]; }), d3.max(dataset, function(d) { return d[1]; })])
+                     		.range([0, w]);
+
+                           var yScale = d3.scale.linear()
+                                .domain([d3.min(dataset, function(d) { return d[2]; }), d3.max(dataset, function(d) { return d[2]; })])
+                                .range([0, h]);
+
+			   svg.selectAll("text")
+   				.data(dataset)
+   				.enter()
+   				.append("text")
+				.text(function(d) {
+        				return d[0] ;
+   				})
+				.attr("x", function(d) {
+        				return xScale(d[1]);
+   				})
+   				.attr("y", function(d) {
+        				return yScale(d[2]);
+   				})
+                                .attr("font-family", "sans-serif")
+                                .attr("font-size", "5px")
+                        });
+		</script>
+</body></html>

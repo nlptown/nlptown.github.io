@@ -1,60 +1,102 @@
-<!doctype html>
-<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
-<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
-<head>
-{% include _head.html %}
-</head>
-
-<body class="home">
-
-{% include _browser-upgrade.html %}
-
-{% if page.image.feature %}
-  <div class="image-wrap">
-  <img src=
-    {% if page.image.feature contains 'http://' %}
-      "{{ page.image.feature }}"
-    {% elsif page.image.feature contains 'https://' %}
-      "{{ page.image.feature }}"
-    {% else %}
-      "{{ site.url }}/images/{{ page.image.feature }}"
-    {% endif %}
-  alt="{{ page.title }} feature image">
-  {% if page.image.credit %}
-    <span class="image-credit">Photo Credit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>
-  {% endif %}
-  </div><!-- /.image-wrap -->
-{% endif %}
-
-<div class="article-author-side">
-  {% include _author-bio.html %}
-</div>
-
-<div id="index">
-  <h3><a href="{{ site.url}}/posts/">Recent Posts</a></h3>
-  {% for post in site.categories.blog limit:5 %}    
-    {% if post.tags contains 'Coursera' %}
-    <article>
-      {% if post.link %}
-        <h2 class="link-post"><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a> <a href="{{ post.link }}" target="_blank" title="{{ post.title }}"><i class="fa fa-link"></i></h2>
-      {% else %}
-        <h2><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
-        <p>{% if post.description %}{{ post.description }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 120 }}{% endif %}</p>
-      {% endif %}
-    </article>
-    {% endif %}
-  {% endfor %}
-</div> <!--/#index -->
-
-<div class="footer-wrap">
-  <footer>
-    {% include _footer.html %}
-  </footer>
-</div><!-- /.footer-wrap -->
-
-{% include _scripts.html %}
+<!DOCTYPE html>
+<html lang="en">
+  {% include head.html %}
   
-</body>
+  <body>
+    <main>
+      {% include nav.html %}
+
+      <!-- Breadcrumbs -->
+      <section class="g-bg-gray-light-v5 g-py-150">
+        <div class="container text-center">
+          <h2 class="h2 g-color-black g-font-weight-600">NLP Town Blog</h2>
+        </div>
+      </section>
+      <!-- End Breadcrumbs -->
+
+      <!-- Blog Minimal Blocks -->
+      <div class="container g-py-100">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <!-- Blog Minimal Blocks -->
+           {% for post in site.categories.blog %}     
+           <article class="g-mb-100">
+              <div class="g-mb-30">
+                <span class="d-block g-color-gray-dark-v4 g-font-weight-700 g-font-size-12 text-uppercase mb-2"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span>
+                <h2 class="h4 g-color-black g-font-weight-600 mb-3"><a class="u-link-v5 g-color-black g-color-primary--hover" href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h2>
+                <p class="g-color-gray-dark-v4 g-line-height-1_8">{% if post.description %}{{ post.description }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 300 }}{% endif %}</p>
+                <a class="g-font-size-13 g-color-primary" href="{{ site.url }}{{ post.url }}">Read more...</a>
+              </div>
+            </article>
+            {% endfor %}    
+            <!-- End Blog Minimal Blocks -->
+          </div>
+        </div>
+      </div>
+      <!-- End Blog Minimal Blocks -->
+
+      {% include footer.html %}
+
+      <a class="js-go-to u-go-to-v1" href="#"
+         data-type="fixed"
+         data-position='{
+           "bottom": 15,
+           "right": 15
+         }'
+         data-offset-top="400"
+         data-compensation="#js-header"
+         data-show-effect="zoomIn">
+        <i class="hs-icon hs-icon-arrow-top"></i>
+      </a>
+    </main>
+
+    <!-- JS Global Compulsory -->
+    <script src="../../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../../assets/vendor/jquery-migrate/jquery-migrate.min.js"></script>
+    <script src="../../assets/vendor/tether.min.js"></script>
+    <script src="../../assets/vendor/bootstrap/bootstrap.min.js"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script src="../../assets/vendor/hs-megamenu/src/hs.megamenu.js"></script>
+
+    <!-- JS Unify -->
+    <script src="../../assets/js/hs.core.js"></script>
+    <script src="../../assets/js/components/hs.header.js"></script>
+    <script src="../../assets/js/helpers/hs.hamburgers.js"></script>
+    <script src="../../assets/js/components/hs.tabs.js"></script>
+    <script src="../../assets/js/components/hs.go-to.js"></script>
+
+    <!-- JS Customization -->
+    <script src="../../assets/js/custom.js"></script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+      $(document).on('ready', function () {
+        // initialization of tabs
+        $.HSCore.components.HSTabs.init('[role="tablist"]');
+
+        // initialization of go to
+        $.HSCore.components.HSGoTo.init('.js-go-to');
+      });
+
+      $(window).on('load', function () {
+        // initialization of header
+        $.HSCore.components.HSHeader.init($('#js-header'));
+        $.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+        // initialization of HSMegaMenu component
+        $('.js-mega-menu').HSMegaMenu({
+          event: 'hover',
+          pageContainer: $('.container'),
+          breakpoint: 991
+        });
+      });
+
+      $(window).on('resize', function () {
+        setTimeout(function () {
+          $.HSCore.components.HSTabs.init('[role="tablist"]');
+        }, 200);
+      });
+    </script>
+  </body>
 </html>

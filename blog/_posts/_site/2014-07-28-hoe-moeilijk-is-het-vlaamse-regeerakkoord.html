@@ -1,0 +1,141 @@
+<p class="first">De publicatie van het Vlaamse regeerakkoord eerder deze week maakte heel 
+wat reacties los, niet enkel op politiek, maar ook op taalkundig vlak. Schrijfster Ann De Craemer hekelde de holle woordenbrij 
+in een <a href="http://www.demorgen.be/dm/nl/30969/Regeringsvorming/article/detail/1957085/2014/07/24/De-lulkoektaal-van-het-Vlaamse-wezelwoordakkoord.dhtml">column in De Morgen</a>, 
+maar kreeg al snel <a href="http://www.demorgen.be/dm/nl/2461/Opinie/article/detail/1958641/2014/07/24/Schrijven-wij-lulkoek-Dat-is-gewoon-de-wereld-van-het-beleid-maken.dhtml">lik op stuk</a> van Maurits Vande Reyde, 
+beleidsmedewerker van Open Vld. “Zaken worden complexer verwoord omdat ze nu eenmaal 
+complexer zijn”, schrijft Vande Reyde over het taalgebruik van onze politici. 
+Maar is dat zo? En is het Vlaamse regeerakkoord inderdaad zo moeilijk?<p>
+
+<p>“Moeilijk” is natuurlijk lastig om te definiëren. Toch hoeven we niet alleen
+op ons gevoel te vertrouwen. Taalkundig onderzoek gebruikt typisch 
+een aantal eenvoudige maten om de complexiteit van een tekst 
+aanschouwelijk te maken: de gemiddelde lengte van een woord, de gemiddelde lengte 
+van een zin, en onze vertrouwdheid met de gebruikte woorden.</p>
+
+<p>Laten we dus het huidige Vlaamse regeerakkoord op deze vlakken eens vergelijken
+met drie andere teksten: 
+de vorige Vlaamse regeerakkoorden uit 2004 en 2010, en een reeks artikelen 
+uit de krant De Standaard. Die laatste dienen als referentiepunt voor een taalgebruik dat 
+tegelijkertijd kwalitatief hoogstaand en begrijpelijk is. Bovendien kozen we met
+opzet artikelen over het meest recente regeerakkoord, wat de vergelijkbaarheid 
+tussen de teksten aanzienlijk verhoogt.</p>
+
+<p>De woorden in het nieuwe regeerakkoord tellen gemiddeld 6.1 letters. 
+Ze zijn nagenoeg even lang als in de vorige regeerakkoorden (telkens 6.1 letters), maar 
+duidelijk langer dan de woorden van De Standaard (5.3 letters).  De recordhouder in het 
+huidige regeerakkoord is “broeikasgasemissiereductiedoelstellingen”, een 
+vondst van maar liefst 40 letters.</p>
+
+<div id="chart1"></div>
+
+<p>Bij de zinslengte zit er iets meer variatie tussen de regeerakkoorden. 
+In 2004 was een gemiddelde zin zo’n 17 woorden lang, in 2010 bijna 20, 
+nu iets minder dan 19. Dat zijn telkens erg hoge gemiddeldes. 
+In de politieke artikelen van De Standaard is een zin 
+gemiddeld minder dan 14 woorden lang.</p>
+
+<div id="chart2"></div>
+
+<p>Naast woordlengte en zinslengte zegt ook onze vertrouwdheid met een woord iets
+over zijn moeilijkheidsgraad: hoe vaker we een woord tegenkomen, hoe makkelijker
+we het kunnen verwerken. Eén manier om “vertrouwdheid" te definiëren is met behulp
+van een grote collectie algemene teksten, zoals Wikipedia. We beschouwen een woord
+als “zeldzaam” wanneer het minder dan 20 keer voorkomt in een collectie van 240.000
+willekeurige Nederlandstalige Wikipedia-artikelen. Opnieuw zien we dat zulke zeldzame
+woorden veel vaker voorkomen in de regeerakkoorden. Met 6,5% à 7% zeldzame woorden
+zijn deze veel moeilijker te begrijpen dan een krant als De Standaard, waar slechts 4,3% 
+van de woorden zeldzaam zijn.</p>
+
+<div id="chart3"></div>
+
+<p>Natuurlijk is geen van deze drie maten een perfect instrument om de complexiteit 
+van een tekst te meten: lange zinnen zijn niet noodzakelijk moeilijker, 
+net zomin als lange of weinig gebruikte woorden dat hoeven te zijn. 
+Toch kunnen ze alledrie, zeker in combinatie, een zinvolle indicatie geven van de moeilijkheidsgraad
+van een tekst. </p>
+<p>Onze metingen bevestigen dat het Vlaamse regeerakkoord in een erg complexe taal is opgesteld, die voor veel kiezers moeilijk te begrijpen zal zijn. Door de jaren heen is op dat vlak weinig verbetering
+te merken. Met uitspraken dat de media deze taal wel naar 
+de bevolking zullen vertalen, zoals Vande Reyde schrijft, ontlopen politici hun verantwoordelijkheid. 
+Ook ongefilterd moeten hun teksten een breed publiek kunnen bereiken. 
+<a href="www.kortom.be">Kortom</a>, de vereniging voor overheidscommunicatie,
+formuleert het zo: “overheidscommunicatie moet voor iedereen toegankelijk zijn” en 
+“overheidscommunicatie wordt in een heldere, duidelijke taal geformuleerd”. Voor het Vlaamse 
+Regeerakkoord is er nog een hele weg te gaan.</p>
+<br />
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+</script>
+
+<script type="text/javascript">
+      function drawVisualization() {
+        // Create and populate the data table.
+        var data = google.visualization.arrayToDataTable([
+          ['tekst','woordlengte',{ role: 'style' }],
+          ['2004',  6.1, 'orange'],
+          ['2010',  6.1, 'orange'],
+          ['2014',  6.1, 'orange'],
+          ['De Standaard',  5.3, 'blue'],
+        ]);
+        
+        // Create and draw the visualization.
+        new google.visualization.ColumnChart(document.getElementById('chart1')).
+            draw(data,
+                 {title:"Gemiddelde woordlengte",
+                  width:600, height:400,
+                  vAxis: {minValue: 0},
+                  legend: { position: "none" }}
+            );
+      }
+      
+      google.setOnLoadCallback(drawVisualization);
+</script>
+
+<script type="text/javascript">
+      function drawVisualization() {
+        // Create and populate the data table.
+        var data = google.visualization.arrayToDataTable([
+          ['tekst','percentage zeldzame woorden',{ role: 'style' }],
+          ['2004',  6.4, 'orange'],
+          ['2010',  6.6, 'orange'],
+          ['2014',  7.1, 'orange'],
+          ['De Standaard',  4.3, 'blue'],
+        ]);
+        
+        // Create and draw the visualization.
+        new google.visualization.ColumnChart(document.getElementById('chart3')).
+            draw(data,
+                 {title:"Percentage zeldzame woorden",
+                  width:600, height:400,
+                  vAxis: {minValue: 0},
+                  legend: { position: "none" }}
+            );
+      }
+      google.setOnLoadCallback(drawVisualization);
+</script>
+
+<script type="text/javascript">
+      function drawVisualization() {
+        // Create and populate the data table.
+        var data = google.visualization.arrayToDataTable([
+          ['tekst','zinslengte',{ role: 'style' }],
+          ['2004',  17.2, 'orange'],
+          ['2010',  19.8, 'orange'],
+          ['2014',  18.8, 'orange'],
+          ['De Standaard',  13.9, 'blue'],
+        ]);
+        
+        // Create and draw the visualization.
+        new google.visualization.ColumnChart(document.getElementById('chart2')).
+            draw(data,
+                 {title:"Gemiddelde zinslengte",
+                  width:600, height:400,
+                  vAxis: {minValue: 0},
+                  legend: { position: "none" }}
+            );
+      }
+      
+      google.setOnLoadCallback(drawVisualization);
+</script>
+</p></p>

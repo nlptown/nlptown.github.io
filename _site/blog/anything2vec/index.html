@@ -1,0 +1,347 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Anything2Vec, or How Word2Vec Conquered NLP</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="This is the website and blog of Yves Peirsman, Natural Language Processing Consultant.">
+    <link rel="canonical" href="http://localhost:4000/blog/anything2vec/">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+    <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/vendor/icon-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/vendor/icon-line/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/assets/vendor/icon-line-pro/style.css">
+    <link rel="stylesheet" href="/assets/vendor/icon-hs/style.css">
+    <link rel="stylesheet" href="/assets/vendor/animate.css">
+    <link rel="stylesheet" href="/assets/vendor/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="/assets/vendor/typedjs/typed.css">
+    <link rel="stylesheet" href="/assets/vendor/hs-megamenu/src/hs.megamenu.css">
+    <link rel="stylesheet" href="/assets/vendor/hamburgers/hamburgers.min.css">
+
+    <!-- CSS Unify -->
+    <link rel="stylesheet" href="/assets/css/unify.css">
+
+    <!-- CSS Customization -->
+    <!-- <link rel="stylesheet" href="/assets/css/main.min.css"> -->
+    <link rel="stylesheet" href="/css/yves.css">
+    <!--<link rel="stylesheet" href="/css/agency.css">-->
+
+</head>
+
+<link rel="stylesheet" href="/css/yves.css">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+
+<body>
+  <main>
+
+   <!-- Navigation -->
+      <header id="js-header" class="u-header u-header--sticky-top">
+        <div class="u-header__section u-header__section--light g-transition-0_3">
+          <nav class="js-mega-menu navbar navbar-toggleable-md">
+            <div class="container">
+              <!-- Logo -->
+              <a href="http://www.nlp.town" class="navbar-brand">
+                <img width=100 src="/images/nlp-town.png" alt="Image Description">
+              </a>
+              <!-- End Logo -->
+
+              <!-- Navigation -->
+              <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg g-mr-40--lg" id="navBar">
+                <ul class="navbar-nav text-uppercase g-pos-rel g-font-weight-600 ml-auto">
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/#about">About</a>
+                  </li>
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/#blog">Blog</a>
+                  </li>
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/#team">Team</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <!-- End Header -->
+
+
+      <section class="container g-pt-100 g-pb-60">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <div class="g-mb-60">
+              <h2 class="add-space g-color-black g-font-weight-600 text-center g-mb-30">Anything2Vec, or How Word2Vec Conquered NLP</h2>
+            </div>
+
+            <div class="row">
+               <p class="first">
+Word embeddings are one of the main drivers behind the success of deep learning in Natural Language Processing. Even technical 
+people outside of NLP have often heard of word2vec and its uncanny ability to model the semantic relationship between 
+a noun and its gender or the names of countries and their capitals. But the success of word2vec extends far beyond the 
+word level. Inspired by <a href="https://github.com/MaxwellRebo/awesome-2vec">this list of word2vec-like models</a>, 
+I set out to explore embedding methods for a broad variety of linguistic units &mdash; from sentences to tweets and medical concepts.
+</p>
+
+<p>
+Although the idea of representing words as continuous vectors has been around for a long time, none of the previous approaches 
+have been as successful as word2vec. Popularized in a <a href="https://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality.pdf">series</a>
+ <a href="http://www.aclweb.org/anthology/N13-1090">of</a>
+ <a href="https://arxiv.org/abs/1301.3781">papers</a> by Mikolov and colleagues, word2vec offers two ways of 
+training word embeddings: in the continuous bag-of-word (CBOW) model, the context words are used to predict the current word; 
+in the skip-gram model, the current word is used to predict its context words. Because semantically similar words occur in 
+similar contexts, the resulting embeddings successfully capture semantic properties of their words. Most famously, high-quality 
+embeddings can (sometimes) answer analogy questions, such as “man is to king as woman is to _”. Indeed, the semantic (and syntactic) 
+information that is captured in pre-trained word2vec embeddings has helped many deep learning models generalize beyond their small 
+data sets. It is not surprising, then, that this framework has been so influential, both at the word level and beyond. While 
+competitors such as <a href="https://nlp.stanford.edu/projects/glove/">GloVe</a> offer alternative ways of training word vectors, 
+other models have tried to extend the word2vec approach to other linguistic units.
+</p>
+
+<figure class="padded2">
+<img width="450" src="https://www.dropbox.com/s/w0faljyphdohs8s/Screenshot%202017-04-08%2020.59.27.png?raw=1" />
+<figcaption>Sense2Vec operates on the level of word “senses” rather than simple words.</figcaption>
+</figure>
+
+<p>
+One problem with the original word2vec model is that it maps every word to a single embedding. If a word has several senses, these 
+are all encoded in the same vector. To address this problem, Trask and colleagues developed <a href="https://arxiv.org/abs/1511.06388">sense2vec</a>, an adaptation of word2vec 
+that uses supervised labels to distinguish between senses. For example, in a corpus that has been labelled with parts of speech, 
+<code>bank/noun</code> and <code>bank/verb</code> are treated as distinct tokens. Trask et al. show that downstream NLP tasks such as dependency parsing can 
+benefit when word2vec operates on this “sense” level rather than the word level. Of course, depending on the type of information you choose
+to model, “sense2vec” may or may not be a fitting name for this approach. Senses are more than just combinations of words and and their
+parts of speech, but in the absence of large sense-tagged corpora, POS-tagged tokens can be a valid approximation.  
+Either way, it is clear that performance on certain NLP tasks can get a boost from working with relevant, finer-grained units than simple words.
+</p>
+
+<p>
+Some tasks require even more specific information about a word. Part-of-speech tagging, for instance, can benefit enormously from intra-word information that is encoded in smaller units such as morphemes. The adverbial suffix <em>-ly</em> in English is a good example. 
+For this reason, many neural-network approaches operate at least partially on the character level. 
+A good example is <a href="http://jmlr.csail.mit.edu/proceedings/papers/v32/santos14.pdf">Dos Santos and Zadrozny’s model for part-of-speech tagging</a>, which uses a convolutional network to extract character-level features.
+However, character embeddings are usually trained in a supervised way. This sets them apart from word2vec embeddings, whose training procedure is fully unsupervised.
+</p>
+
+<figure class="padded2">
+<img width="600" src="https://www.dropbox.com/s/yhelg3l8k43lqum/Screenshot%202017-04-07%2021.47.30.png?raw=1" />
+<figcaption>Skip-thought vectors are trained by having a sentence predict the previous and next sentences in a paragraph.</figcaption>
+</figure>
+
+<p>
+Still, not all NLP tasks need such detailed information, and many of them focus on units larger than single words. <a href="https://arxiv.org/abs/1506.06726">Kiros et al.</a> present a direct way of translating the word2vec model to the sentence level: instead of having a word predict its context, they have a sentence predict the sentences around it. Their so-called skip-thought vectors follow the encoder-decoder pattern that is so pervasive in Machine Translation nowadays. First a recursive neural network (RNN) encoder maps the input sentence to a sentence vector, and then another RNN decodes this vector to produce the next (or previous) sentence. Through a series of eight tasks such as paraphrase detection and text classification, this skip-thought framework proves to be a robust way of modelling the semantic content of sentences. 
+</p>
+
+<figure class="padded2">
+<img width="600" src="https://www.dropbox.com/s/qyjrysvx35ays24/Screenshot%202017-04-07%2022.22.23.png?raw=1" />
+<figcaption width="500">Tweet2Vec produces a character-based embedding of tweets.</figcaption>
+</figure>
+
+<p>
+Unfortunately, sentences are not always as well-behaved as those modelled by Kiros et al. Social media content in particular is a hard beast to tame. Tweets, for example, do not combine into paragraphs and are riddled by slang, misspellings and special characters. That’s why <a href="https://arxiv.org/abs/1605.03481">tweet2vec, a model developed by Dhingra and colleagues</a> uses a character-based rather than a word-based network. First, a bidirectional Gated Recurrent Unit does a forward and backward pass over all the characters in the tweet. Then the two final states combine to a tweet embedding, and this embedding is projected to a softmax output layer. Dhingra et al. train their network to predict hashtags. The idea is that tweets with the same hashtag should have more or less semantically similar content. Their results show that tweet2vec indeed outperforms a word-based model significantly on hashtag prediction, particularly when the tweets in question contain many rare words. 
+</p>
+
+<figure class="padded2">
+<img width="450" src="https://www.dropbox.com/s/1iig0ptbzuona1w/Screenshot%202017-04-08%2008.59.11.png?raw=1" />
+<figcaption width="500">Doc2Vec combines document and word embeddings in a single model.</figcaption>
+</figure>
+
+<p>
+Whether they are word-based or character-based, the sentence-modelling methods above require all input sentences to have the same length (in words or characters). This becomes impractical when you’re dealing with longer paragraphs or documents that vary in length considerably. For this type of data, there is <a href="https://cs.stanford.edu/~quocle/paragraph_vector.pdf">doc2vec, an approach by Le and Mikolov</a> that models variable-length text sequences such as sentences, paragraphs, or full documents. It builds embeddings for both documents and words, and concatenates these embeddings to predict the next word in a sliding-window context. For example, in the sliding window <em>the cat sat on</em>, the document vector would be concatenated with the word vectors for <em>the cat sat</em> to predict the next word <em>on</em>. The document vector is unique to each document; the word vectors are shared between documents. Compared to its competitors, doc2vec has some unique advantages: it takes word order into account, generalizes to longer documents, and can learn from unlabelled data. When the resulting document vectors are used in downstream tasks such as sentiment analysis, they prove very competitive indeed. 
+</p>
+
+<p>
+But why stop at paragraphs or documents? The next victim that has fallen prey to the word2vec framework is topic modelling. Traditional topic models such as Latent Dirichlet Allocation do not take advantage of distributed word representations, which could help them model semantic similarity between words. <a href="https://arxiv.org/abs/1605.02019">Moody’s lda2vec</a> aims to cure this by embedding word, topic and document vectors into the same space. His method owes a lot to word2vec, but in lda2vec the vector for a context word is obtained by summing the word vector with the vector of the document in which the word occurs. In order to obtain LDA-like topic distributions, these document vectors are defined as a weighted sum of topic vectors, where the weights are sparse, non-negative and sum to one. Moody’s experiments show that lda2vec produces semantically coherent topics, but unfortunately his paper does not offer an explicit comparison with LDA topics. 
+</p>
+
+<figure class="padded2">
+<img width="550" src="https://www.dropbox.com/s/36awrn287o6hz15/Screenshot%202017-04-07%2022.04.20.png?raw=1" />
+<figcaption width="500">Topic2Vec produces both word and topic embeddings, based on LDA topic assignments.</figcaption>
+</figure>
+
+<p>
+<a href="https://arxiv.org/abs/1506.08422">Niu and Dai's topic2vec</a> is even more similar to word2vec. In the CBOW setting, the context words are used to predict both a word and topic vector; in the skip-gram setting, these two vectors themselves predict the context words. Niu and Dai argue that their topics are more semantically coherent than those produced by LDA, but because they only give a few examples, their argument feels rather anecdotic. Moreover, topic2vec still depends on LDA, as the topic assignments for each word in the corpus are required to train the topic vectors. When it comes to word2vec-like topic embeddings, I’m still to be convinced.
+</p>
+
+<p>
+After their conquest of classic NLP tasks, it’s no surprise embedding methods have also found their way to specialized disciplines where large volumes of text abound. One good example is <a href="https://arxiv.org/abs/1602.05568">med2vec</a>, an adaptation of word2vec to the medical domain. Choi and colleagues present a neural network that learns embeddings for medical codes (diagnoses, medications and procedures) and patient visits. Their method differs from word2vec in two crucial respects: it is explicitly modified to produce interpretable dimensions, and it is sensitive to the order of the patient visits. While the quality of the code embeddings in the evaluation is mixed, the embedding dimensions are clearly correlated with specific medical conditions. The visit embeddings in their turn prove quite effective at predicting the severity of the clinical risk and future medical codes. Med2vec is not the only example of embeddings in the medical domain: <a href="http://www.nature.com/articles/srep26094">Deep Patient</a> learns unsupervised representations of patients to predict their medical future on the basis of their electronic health records.
+</p>
+
+<p>
+And the list doesn’t end there. In the domain of scientific literature, <a href="https://researchweb.iiit.ac.in/~soumyajit.ganguly/papers/A2v_1.pdf">author2vec</a> learns 
+representations for authors by capturing both paper content and co-authorship, while <a href="https://arxiv.org/pdf/1703.06587.pdf">citation2vec</a> embeds papers 
+by looking at their citations. And if we leave language for a moment, word2vec-like approaches have been applied to 
+<a href="https://www.scribd.com/document/334578710/Person-2-Vec">people in a social network</a>, <a href="https://github.com/mattdennewitz/playlist-to-vec">playlists on Spotify</a>, 
+<a href="https://github.com/warchildmd/game2vec">video games</a> and <a href="https://github.com/airalcorn2/batter-pitcher-2vec">Major League Baseball Players</a>. 
+Not all of these applications are equally serious, but they all attest to the success of the word2vec paradigm.
+</p>
+
+<p>It’s clear word2vec embeddings are here to stay. Whether the framework is used to embed words or other linguistic units, the resulting vectors have played a huge role in the success of deep learning methods. At the same time, they still have clear limitations. Simple tokens may be relatively easy to embed, but word senses and topics are a different matter. How do we make the embedding dimensions more interpretable? And what can we gain from adding explicit linguistic information beyond word order? In these respects, embeddings are still in their infancy.</p>
+
+                
+            </div>
+        <!-- End Blog Single Item Info -->
+
+        <div class="addthis_sharing_toolbox"></div> <br/>
+                        <!-- Author -->
+            <div class="g-brd-top g-brd-gray-light-v3 g-pt-10 g-pb-10">
+              <div class="row justify-content-center">
+                <div class="media">
+                  <img class="d-flex g-width-100 g-height-100 rounded-circle g-mr-30" src="/images/team/yves.jpg" alt="Yves Peirsman">
+                  <div class="media-body">
+                    <h4 class="h5 g-color-black g-font-weight-600">Yves Peirsman</h4>
+                    <p class="g-color-gray-dark-v5 mb-4">Yves discovered Natural Language Processing 13 years ago as an MSc student at the University of Edinburgh, and has never looked back.
+                    With a background as a researcher and developer in academia (University of Leuven, Stanford University) and industry (Textkernel, Wolters Kluwer), he founded NLP Town
+                    to further indulge and spread his love for NLP.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Author -->
+
+        </footer>
+        
+              <div class="g-pb-30" id="disqus_thread"></div><!-- /#disqus_thread -->
+        
+
+<div class="footer-wrap">
+  <div class="related-articles">
+  <h4>You might also enjoy <small class="pull-right">(<a href="http://localhost:4000/blog/">View all posts</a>)</small></h4>
+    <ul>
+    
+      <li><a href="http://localhost:4000/blog/song-of-ngrams-and-lms/" title="Perplexed by Game of Thrones. A Song of N-Grams and Language Models">Perplexed by Game of Thrones. A Song of N-Grams and Language Models</a></li>
+    
+      <li><a href="http://localhost:4000/blog/understanding-deeplearning-models-nlp/" title="Understanding Deep Learning Models in NLP">Understanding Deep Learning Models in NLP</a></li>
+    
+      <li><a href="http://localhost:4000/blog/diy-sentiment-analysis/" title="DIY methods for sentiment analysis">DIY methods for sentiment analysis</a></li>
+    
+    </ul>
+    <hr />
+  </div><!-- /.related-articles -->
+</div><!-- /.footer-wrap -->
+    </div>
+    </div>
+</section>
+
+      <!-- Copyright Footer -->
+      <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 g-py-20">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 text-center text-md-left g-mb-15 g-mb-0--md">
+              <div class="d-lg-flex">
+                <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2017 © NLP Town</small>
+              </div>
+            </div>
+
+            <div class="col-md-6 text-center g-mb-15 g-mb-0--md">
+                <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">
+                Tervuursevest 21/1103, 3001 Leuven, +32 485 02 43 34</small>
+            </div>
+
+            <div class="col-md-3 align-self-center">
+              <ul class="list-inline text-center text-md-right mb-0">
+                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                  <a href="https://www.linkedin.com/company/nlp-town" class="g-color-white-opacity-0_5 g-color-white--hover">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Twitter">
+                  <a href="https://twitter.com/nlptown" class="g-color-white-opacity-0_5 g-color-white--hover">
+                    <i class="fa fa-twitter"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- End Copyright Footer -->
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://localhost:4000/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://localhost:4000/assets/js/scripts.min.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-53268217-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53fb5daa449762bb"></script>
+  
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'yvespeirsman'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+	        
+
+</main>
+</body>
+</html>

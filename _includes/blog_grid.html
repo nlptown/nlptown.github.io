@@ -1,32 +1,34 @@
 
     <!-- Blog Grid Section -->
-    <section id="blog">
+      <section class="g-bg-secondary g-py-100" id="blog">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Blog</h2>
-                    <hr class="star-primary">
-                </div>
+          <header class="text-center g-width-60x--md mx-auto g-mb-60">
+            <div class="u-heading-v2-3--bottom g-brd-primary g-mb-20">
+              <h2 class="h3 u-heading-v2__title g-color-gray-dark-v2 text-uppercase g-font-weight-600">Blog</h2>
             </div>
+          </header>
+
             <div class="row">
-                {% for post in site.categories.blog limit:6 %}
-                    <div class="col-sm-4 blog-item">
-			<a href="{{ site.url }}{{ post.url }}" class="blog-link" title="{{ post.title }}">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <i class="fa fa-search-plus fa-3x"></i>
-                                </div>
+                {% for post in site.categories.blog limit:3 %}
+                    <div class="col-sm-6 col-lg-4 g-mb-30">
+                        <!-- Blog Grid Overlap Blocks -->
+                        <article>
+                            <img class="img-fluid w-100" width=400 height=270 src="/images/blog/{{post.image}}" alt="Image Description">
+                            <div class="g-width-80x g-bg-white g-pos-rel g-z-index-1 g-pa-30 g-mt-minus-50 mx-auto">
+                              <span class="d-block g-color-gray-dark-v4 g-font-weight-600 g-font-size-12 text-uppercase mb-2"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time></span>
+                              <h2 class="h5 g-color-black g-font-weight-600 mb-3">
+                              <a class="u-link-v5 g-color-black g-color-primary--hover g-cursor-pointer" href="{{ site.url }}{{ post.url }}">{%if post.shorttitle %}{{ post.shorttitle }}{% else %}{{ post.title }} {% endif %}</a>
+                              </h2>
+                              <p class="g-color-gray-dark-v4 g-line-height-1_8">{% if post.description %}{{ post.description }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 160 }}{% endif %}</p>
+                              <a class="g-font-size-13 g-color-primary" href="{{ site.url }}{{ post.url }}">Read more...</a>
                             </div>
-				<h4 class="color-ternary">{%if post.shorttitle %}{{ post.shorttitle }}{% else %}{{ post.title }} {% endif %}</h4>
-				<p class="small">{% if post.description %}{{ post.description }}{% else %}{{ post.content | strip_html | strip_newlines | truncate: 170 }}{% endif %}</p>
-                        </a>
+                        </article>
+                        <!-- End Blog Grid Overlap Blocks -->
                     </div>
                 {% endfor %}
             </div>
-            <div class="col-lg-8 col-lg-offset-2 text-center">
-                <a href="{{ site.url }}/blog" class="btn btn-lg btn-outline">
-                    See All Posts
-                </a>
+            <div class="text-center">
+              <a class="btn u-btn-outline-black g-bg-white-opacity-0_1 g-color-gray-dark-v4 g-color-primary--hover g-font-weight-600 text-uppercase g-px-20 g-py-13" href="{{ site.url }}/blog/">See All Posts</a>
             </div>
         </div>
     </section>
