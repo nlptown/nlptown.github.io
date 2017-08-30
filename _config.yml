@@ -1,8 +1,7 @@
 title:            NLP Town
 description:      Natural Language Processing Consultancy and Development.
 # Your site's domain goes here. Leave localhost server or blank when working locally.
-#url:              http://nlp.yvespeirsman.be
-url: 		  http://localhost:4000
+url:              http://www.nlp.town
 disqus_shortname: nlp-town
 
 # Owner/author information
