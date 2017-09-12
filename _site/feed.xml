@@ -2,26 +2,232 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <title type="text">NLP Town</title>
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml" />
-<link rel="alternate" type="text/html" href="http://localhost:4000" />
-<updated>2017-08-30T14:11:18-04:00</updated>
-<id>http://localhost:4000/</id>
+<link rel="self" type="application/atom+xml" href="http://www.nlp.town/feed.xml" />
+<link rel="alternate" type="text/html" href="http://www.nlp.town" />
+<updated>2017-09-12T06:38:56-04:00</updated>
+<id>http://www.nlp.town/</id>
 <author>
   <name>Yves Peirsman</name>
-  <uri>http://localhost:4000/</uri>
+  <uri>http://www.nlp.town/</uri>
   <email></email>
 </author>
 
 
 <entry>
+  <title type="html"><![CDATA[Named Entity Recognition and the Road to Deep Learning]]></title>
+  <link rel="alternate" type="text/html" href="http://www.nlp.town/blog/ner-and-the-road-to-deep-learning/" />
+  <id>http://www.nlp.town/blog/ner-and-the-road-to-deep-learning</id>
+  <published>2017-09-12T08:00:00-04:00</published>
+  <updated>2017-09-12T08:00:00-04:00</updated>
+  <author>
+    <name>Yves Peirsman</name>
+    <uri>http://www.nlp.town</uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p class=&quot;first&quot;&gt;
+Not so very long ago, Natural Language Processing looked very different. In sequence labelling tasks such as 
+Named Entity Recognition, Conditional Random Fields were the go-to model. The main challenge for NLP
+engineers consisted in finding good features that captured their data well. Today, deep learning has replaced
+ CRFs at the forefront of sequence labelling, and the focus has shifted from feature engineering to designing and implementing effective neural network
+architectures. Still, the old and the new-style NLP are not diametrically opposed: just as it is possible
+(and useful!) to incorporate neural-network features into a CRF, CRFs have influenced some of the best 
+deep learning models for sequence labelling.
+&lt;/p&gt;
+
+&lt;p&gt;
+One of the most popular sequence labelling tasks is &lt;a href=&quot;http://nlp.town/blog/nlp-api-ner/&quot;&gt;Named Entity Recognition&lt;/a&gt;, 
+where the goal is to identify the names of entities in a sentence.
+Named entities can be generic proper nouns that refer to locations, people or organizations,
+but they can also be much more domain-specific, such as diseases or genes in biomedical NLP. A seminal task for Named Entity
+Recognition was the &lt;a href=&quot;https://www.clips.uantwerpen.be/conll2003/ner/&quot;&gt;CoNLL-2003 shared task&lt;/a&gt;, 
+whose training, development and testing data are still often used
+to compare the performance of different NER systems. In this blog post, we’ll rely on this data to help us answer a few questions
+about how the standard approach to NER has evolved in the past few years: are neural networks really better than CRFs?
+What components make up an effective deep learning architecture for NER? And in what way can CRFs and neural networks be combined?
+&lt;/p&gt;
+
+&lt;p&gt;
+For a long time, Conditional Random Fields were the standard model for sequence labelling tasks. CRFs take as their
+input a set of features for each token in a sentence, and learn to predict an optimal sequence
+of labels for the full sentence. When you develop a CRF, a lot of time and effort typically goes into finding those
+feature functions that help the model most at predicting the likelihood of every label for a given word.
+Several software libraries exist for developing CRFs: &lt;a href=&quot;http://mallet.cs.umass.edu/&quot;&gt;Mallet&lt;/a&gt;, 
+&lt;a href=&quot;http://www.chokkan.org/software/crfsuite/&quot;&gt;CRFSuite&lt;/a&gt; and &lt;a href=&quot;https://taku910.github.io/crfpp/&quot;&gt;CRF++&lt;/a&gt; are some
+of the most popular ones.
+For this article, I used CRF++ to train a vanilla CRF with some common features for Named Entity Recognition: the token itself, its bigram and trigram prefix and suffix, its part of 
+speech, its chunk type, several pieces of information about the word’s form (Does it start with a capital? Is it uppercase? Is it a digit?),
+and a subset of those features for the surrounding context words. Out of the box, this baseline CRF obtains an F1-score of 81.15% on the b test set
+of the CONLL-2003 data. 
+This puts it in thirteenth place in the original CONLL ranking from 2003. That’s not great, but given
+how quickly we can get this result, it’s not too shabby either. 
+&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/jrx7a906e9ysyek/Screenshot%202017-09-11%2014.46.47.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;The relationship between CRFs, HMMs, Logistic Regression and Naive Bayes. From Sutton &amp;amp; McCallum’s &lt;a href=&quot;http://www.research.ed.ac.uk/portal/files/10482724/crftut_fnt.pdf&quot;&gt;An Introduction to Conditional Random Fields&lt;/a&gt;.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;
+How can we improve this performance? One of the most well-known weaknesses of the previous generation of NLP models is that 
+they are unable to model semantic similarity between two words. For all our CRF knows,
+&lt;em&gt;Paris&lt;/em&gt; and &lt;em&gt;London&lt;/em&gt; differ as much in meaning as &lt;em&gt;Paris&lt;/em&gt; and &lt;em&gt;cat&lt;/em&gt;. To overcome this problem, many CRFs for 
+Named Entity Recognition rely on gazetteers &amp;mdash; lists with names of people, locations and organizations that are known in advance. 
+This is a suboptimal solution, however: gazetteers are inherently limited and can be costly to develop. Also, they’re usually only available for the 
+named entities themselves, so that the semantic similarity between other words in their context goes unnoticed. This is 
+where it can pay off to take the first step on the path to deep learning.&lt;/p&gt;
+
+&lt;p&gt;
+As I’ve &lt;a href=&quot;http://nlp.yvespeirsman.be/blog/anything2vec/&quot;&gt;written before&lt;/a&gt;, word embeddings are 
+one of the main drivers behind the success of deep learning in NLP. The first layer in a neural network
+for text processing is mostly an embedding layer that maps one-hot word vectors to their dense 
+embeddings. Still, this does not mean that the distributional information in word embeddings can only be leveraged 
+in neural networks &amp;mdash; it’s also possible to feed this information to a CRF. One popular way of doing this is to 
+cluster a set of word embeddings by distributional similarity, and provide the CRF with the cluster IDs of a token and its context words. 
+Following the recommendations of &lt;a href=&quot;https://arxiv.org/pdf/1705.01265.pdf&quot;&gt;Balikas et al. (2017)&lt;/a&gt;, I 
+trained a set of 64-dimensional word embeddings on the English Wikipedia for all words that
+appear at least 1000 times in that corpus. I then used K-means to group these embeddings in 500 clusters.
+While it’s easy enough to write the code for this with the help of libraries such as &lt;a href=&quot;https://radimrehurek.com/gensim/&quot;&gt;Gensim&lt;/a&gt;
+or &lt;a href=&quot;http://scikit-learn.org/&quot;&gt;Scikit-learn&lt;/a&gt;, &lt;a href=&quot;https://github.com/dav/word2vec&quot;&gt;Google’s original word2vec code&lt;/a&gt; actually has
+a command that lets us perform all the necessary steps in one go. You can find it in the bash script &lt;code&gt;demo-word.sh&lt;/code&gt;.
+&lt;p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/umrhocphinsh518/Screenshot%202017-09-11%2015.04.12.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;Word embeddings contain useful information for Named Entity Recognition. From &lt;a href=&quot;https://colah.github.io/posts/2015-01-Visualizing-Representations/&quot;&gt;Christopher Olah&#39;s blog&lt;/a&gt;.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;
+The clusters we obtain are a treasure trove for Named Entity Recognition.
+For example, cluster 437 contains many location names, such as &lt;em&gt;München&lt;/em&gt;, &lt;em&gt;Paris&lt;/em&gt;
+and &lt;em&gt;Brussels&lt;/em&gt;. The presence of a target word in this cluster clearly increases the 
+probability that it refers to a location. Similarly, cluster 254 contains verbs such as 
+&lt;em&gt;say&lt;/em&gt;, &lt;em&gt;think&lt;/em&gt; or &lt;em&gt;pray&lt;/em&gt;. When a target word precedes one of the words
+from this cluster, this may indicate that it refers to a person.
+This intuition is backed up by the results of my simple experiment: when we add the cluster
+IDs of these 500 clusters as features to our simple CRF, its F1-score on the named
+entities increases from 81.15% to 84.86%. That puts it somewhere in the middle of the 2003 CONLL 
+rankings. Adding additional features, such as
+gazetteers, or informative feature conjuctions, is certain to take up the F1-score
+further still.&lt;/p&gt;
+
+&lt;p&gt;
+Useful as these embedding clusters may be, there is of course much more to neural networks than shallow word embedding
+models. Let’s therefore leave our CRF behind and build a completely neural model to see how much improvement deep learning can bring.
+As so often in NLP, our model starts with a simple &lt;a href=&quot;http://colah.github.io/posts/2015-08-Understanding-LSTMs/&quot;&gt;LSTM&lt;/a&gt;. 
+LSTMs are a type of &lt;a href=&quot;http://karpathy.github.io/2015/05/21/rnn-effectiveness/&quot;&gt;Recurrent Neural Network&lt;/a&gt;, which means that they are 
+ideal for dealing with sequential data. The great thing about LSTMs is that they are able to learn long-term dependencies, as
+their structure allows the network to pass or block information from one time step to the other.
+Thanks to software libraries such as &lt;a href=&quot;https://www.tensorflow.org/&quot;&gt;Tensorflow&lt;/a&gt;,
+building an LSTM has become pretty straightforward. First we need a so-called embedding layer, which maps the input words to dense word embeddings.
+Then we add the LSTM layer that reads these word embeddings and outputs a new vector at every step. Finally, a dense layer maps these output
+vectors to a n-dimensional vector of logits, where &lt;em&gt;n&lt;/em&gt; is the number of output labels, and a softmax function turns the logits
+into label probabilities. This vanilla neural network is a great introduction to deep learning, but unfortunately it is far from effective. Where our CRF above easily obtained 
+F1-scores of above 80%, you’ll be hard pressed to get above 70% with this simple LSTM.&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/o6d7uncab5s5aec/Screenshot%202017-09-12%2011.16.36.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;A simple LSTM-based neural network for sequence labelling.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;
+The most glaring problem is that our standard LSTM only has access to the left context of a word when it assigns a label.
+Our CRF, by contrast, took both left and right context into account. Luckily there’s a simple solution to this problem:
+bidirectional LSTMs. BiLSTMs process the data with two separate LSTM layers. One of them reads the 
+sentence from left to right, while the other one receives a reversed copy of the sentence to read it from
+right to left. Both layers produce an output vector for every single word, and these two output vectors are concatenated
+to a single vector that now models both the right and the left context. Replacing the simple LSTM layer in
+our model by a biLSTM has an enormous impact on its performance. With a few standard settings &amp;mdash; a dimensionality of 300 for the
+word embeddings and the LSTM, a dropout of 50% after the embedding and the LSTM layer, a batch size of 32, optimization with Adam,
+ an initial learning rate of 0.001 and learning rate decay of 95% &amp;mdash; 
+ its F1-score goes up from 64.9% to 76.1%. This is a
+big leap forward, but we’re still far below the performance of our CRF.
+&lt;/p&gt;
+
+&lt;p&gt;
+Apart from the surrounding context, there’s another area where our current neural network is at a disadvantage to
+our earlier model. Whereas the word embeddings that we clustered for our CRF were trained on all of
+Wikipedia, the CoNLL training data contains only around 200,000 words. This is not nearly enough to train reliable
+word embeddings. To combat this data sparsity, it is common to initialize the embedding layer in a neural network with word embeddings
+that were trained on another, much
+larger corpus. In our experiments, we’ll use the 300-dimensional &lt;a href=&quot;https://nlp.stanford.edu/projects/glove/&quot;&gt;GloVe&lt;/a&gt;
+vectors. Relying on these pre-trained embeddings rather than letting our network learn its own embeddings
+finally makes it competitive with our earlier CRF: we now obtain an F1-score of 85.9%.
+&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/qf1hislhi8lt0d1/Screenshot%202017-09-11%2014.39.41.png?raw=1&quot; /&gt;
+&lt;figcaption&gt;The Tensorboard graph for our final model.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;
+Despite this leap in performance, our current neural network is still handicapped compared to our CRF.
+Remember that we informed the CRF about the prefixes and suffixes of the tokens in the sentence. Many entities
+share informative suffixes, such as the frequent &lt;em&gt;-land&lt;/em&gt; or &lt;em&gt;-stan&lt;/em&gt; for country names. Because 
+it treats all tokens as atomic entities, our neural network currently has no access to this type of information.
+This blindness has given rise to the recent popularity of character-based models in NLP. As these models look
+at the individual characters of a word, they can collect important information present in the character sequences. Character-based networks tend 
+to take one of two forms: Recurrent Neural Networks such as LSTMs or GRUs, or 
+&lt;a href=&quot;http://www.wildml.com/2015/11/understanding-convolutional-neural-networks-for-nlp/&quot;&gt;Convolutional Neural Networks&lt;/a&gt;. 
+The former build a vector representation for every token by reading it character by character and “remembering”
+important information. The latter have a number of filters that treat tokens as chunks of character n-grams, and
+build a character-based representation by combining the outputs of these filters in one vector.
+These character-based vectors can then be concatenated to our earlier word embeddings to obtain two complementary views of the tokens. 
+It is these concatenated vectors that are now fed to the BiLSTM we built earlier. In our
+experiments, both methods achieved fairly similar results, but the character-based biLSTM edged out the CNN by a small
+margin. As a result of this new ability to draw information from the inner structure of a word,
+our neural network now outperforms the CRF quite clearly: its F1-score goes up to 89.3%. This means we’ve left the 2003
+CONLL rankings behind us.&lt;/p&gt;
+
+&lt;p&gt;
+But who can stop when an F1-score of 90% is so tantalizingly close? A final disadvantage of the current method that we’ll discuss here, is that it predicts 
+all labels independently of each other: as it labels a word in a sentence, it does not 
+take into account the labels it predicts for the surrounding words. This
+can be useful information, however: a word is much more likely to carry the label I-PER when 
+the previous word had the label B-PER, for example. As &lt;a href=&quot;https://arxiv.org/pdf/1508.01991.pdf&quot;&gt;Huang et al. (2016)&lt;/a&gt; suggest,
+we can solve this problem by adding a Conditional Random Field layer to our network. Like
+the CRF model we started out with, this CRF layer 
+outputs a matrix of transition scores between two states, and dynamic programming
+can help us find the optimal tag sequence for the sentence. This final addition leaves us with an F1-score
+of 90.3%, about 1% below the current state of the art for this task, and a general feeling of satisfaction .
+If you&#39;d like to experiment around
+with this final model yourself, I recommend taking a look at the code by &lt;a href=&quot;https://github.com/UKPLab/emnlp2017-bilstm-cnn-crf&quot;&gt;
+the Ubiquitous Knowledge Processing Lab&lt;/a&gt; or &lt;a href=&quot;https://github.com/guillaumegenthial/sequence_tagging&quot;&gt;Guillaume Genthial&lt;/a&gt;, who
+also has an excellent 
+&lt;a href=&quot;https://guillaumegenthial.github.io/sequence-tagging-with-tensorflow.html&quot;&gt;blog post&lt;/a&gt; on the subject.
+&lt;/p&gt;
+
+&lt;figure class=&quot;padded2&quot;&gt;
+&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRpybpcEGwT54HBbG9uhWKHGOTDy64LZF1edzChqMRev8AvFisyMsDGHxz1hY7TvnI4Sd0i15Fb0wsp/pubchart?oid=284160483&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+&lt;figcaption&gt;As our models gradually become more complex, their F1-score also goes up.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;
+Countless experiments have shown that neural networks tend to outperform 
+CRFs for the task of Named Entity Recognition on a variety of data. Still, you shouldn’t expect 
+this improvement to come without effort. As you
+move from a CRF or similar model to a deep learning-based solution, the time you used to spend devising good features
+will now typically go to designing an effective network and tuning its many 
+parameters. Before you take the plunge, it can therefore be worthwhile to investigate whether
+word embeddings can improve your CRF. In the end, however, the investment in building a deep learning
+approach is likely to pay off, as you’ll have a superior model that can also be applied more easily
+to related tasks.
+&lt;/p&gt;
+
+&lt;/p&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://www.nlp.town/blog/ner-and-the-road-to-deep-learning/&quot;&gt;Named Entity Recognition and the Road to Deep Learning&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://www.nlp.town&quot;&gt;NLP Town&lt;/a&gt; on September 12, 2017.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
   <title type="html"><![CDATA[Perplexed by Game of Thrones. A Song of N-Grams and Language Models]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/song-of-ngrams-and-lms/" />
-  <id>http://localhost:4000/blog/song-of-ngrams-and-lms</id>
+  <link rel="alternate" type="text/html" href="http://www.nlp.town/blog/song-of-ngrams-and-lms/" />
+  <id>http://www.nlp.town/blog/song-of-ngrams-and-lms</id>
   <published>2017-07-05T08:00:00-04:00</published>
   <updated>2017-07-05T08:00:00-04:00</updated>
   <author>
     <name>Yves Peirsman</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://www.nlp.town</uri>
     <email></email>
   </author>
   <content type="html">&lt;p class=&quot;first&quot;&gt;
@@ -215,19 +421,19 @@ These days both types of model should be in your toolkit when you’re doing tex
 word in a sentence, or are just having a bit of fun with books and television series.
 &lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/song-of-ngrams-and-lms/&quot;&gt;Perplexed by Game of Thrones. A Song of N-Grams and Language Models&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on July 05, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://www.nlp.town/blog/song-of-ngrams-and-lms/&quot;&gt;Perplexed by Game of Thrones. A Song of N-Grams and Language Models&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://www.nlp.town&quot;&gt;NLP Town&lt;/a&gt; on July 05, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Anything2Vec, or How Word2Vec Conquered NLP]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/anything2vec/" />
-  <id>http://localhost:4000/blog/anything2vec</id>
+  <link rel="alternate" type="text/html" href="http://www.nlp.town/blog/anything2vec/" />
+  <id>http://www.nlp.town/blog/anything2vec</id>
   <published>2017-04-10T08:00:00-04:00</published>
   <updated>2017-04-10T08:00:00-04:00</updated>
   <author>
     <name>Yves Peirsman</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://www.nlp.town</uri>
     <email></email>
   </author>
   <content type="html">&lt;p class=&quot;first&quot;&gt;
@@ -332,19 +538,19 @@ Not all of these applications are equally serious, but they all attest to the su
 &lt;p&gt;It’s clear word2vec embeddings are here to stay. Whether the framework is used to embed words or other linguistic units, the resulting vectors have played a huge role in the success of deep learning methods. At the same time, they still have clear limitations. Simple tokens may be relatively easy to embed, but word senses and topics are a different matter. How do we make the embedding dimensions more interpretable? And what can we gain from adding explicit linguistic information beyond word order? In these respects, embeddings are still in their infancy.&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/anything2vec/&quot;&gt;Anything2Vec, or How Word2Vec Conquered NLP&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on April 10, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://www.nlp.town/blog/anything2vec/&quot;&gt;Anything2Vec, or How Word2Vec Conquered NLP&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://www.nlp.town&quot;&gt;NLP Town&lt;/a&gt; on April 10, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Understanding Deep Learning Models in NLP]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/understanding-deeplearning-models-nlp/" />
-  <id>http://localhost:4000/blog/understanding-deeplearning-models-nlp</id>
+  <link rel="alternate" type="text/html" href="http://www.nlp.town/blog/understanding-deeplearning-models-nlp/" />
+  <id>http://www.nlp.town/blog/understanding-deeplearning-models-nlp</id>
   <published>2017-01-26T07:00:00-05:00</published>
   <updated>2017-01-26T07:00:00-05:00</updated>
   <author>
     <name>Yves Peirsman</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://www.nlp.town</uri>
     <email></email>
   </author>
   <content type="html">&lt;p class=&quot;first&quot;&gt;
@@ -492,19 +698,19 @@ the surface of the many interpretative methods researchers are developing. I for
 in future applications their efforts will lead to model choices that are not only motivated by higher accuracies, but
 also by a deeper grasp of what neural models actually do.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/understanding-deeplearning-models-nlp/&quot;&gt;Understanding Deep Learning Models in NLP&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on January 26, 2017.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://www.nlp.town/blog/understanding-deeplearning-models-nlp/&quot;&gt;Understanding Deep Learning Models in NLP&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://www.nlp.town&quot;&gt;NLP Town&lt;/a&gt; on January 26, 2017.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[DIY methods for sentiment analysis]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/diy-sentiment-analysis/" />
-  <id>http://localhost:4000/blog/diy-sentiment-analysis</id>
+  <link rel="alternate" type="text/html" href="http://www.nlp.town/blog/diy-sentiment-analysis/" />
+  <id>http://www.nlp.town/blog/diy-sentiment-analysis</id>
   <published>2016-12-10T07:00:00-05:00</published>
   <updated>2016-12-10T07:00:00-05:00</updated>
   <author>
     <name>Yves Peirsman</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://www.nlp.town</uri>
     <email></email>
   </author>
   <content type="html">&lt;p class=&quot;first&quot;&gt;
@@ -544,19 +750,19 @@ These figures look pretty convincing: if you have your own data, the right model
 &lt;p&gt;In conclusion, there’s often no easy way to choose between an off-the-shelf solution or a custom-built model for your particular NLP task. Off-the-shelf solutions require no data and little effort. They can give you good quality, but this is far from guaranteed. Moreover, you have no control over the model: you cannot improve it through time, or tweak its parameters to perform better on your data. Custom-built models require considerably more data and effort, but if you have those resources available, they will typically give you a superior model over which you have full control. It’s important to remember that no model is perfect. In fact, in George Box’s words, “all models are wrong, but some are useful”. You just have to figure out which ones are which.
 &lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/diy-sentiment-analysis/&quot;&gt;DIY methods for sentiment analysis&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on December 10, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://www.nlp.town/blog/diy-sentiment-analysis/&quot;&gt;DIY methods for sentiment analysis&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://www.nlp.town&quot;&gt;NLP Town&lt;/a&gt; on December 10, 2016.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Off-the-shelf methods for sentiment analysis]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/off-the-shelf-sentiment-analysis/" />
-  <id>http://localhost:4000/blog/off-the-shelf-sentiment-analysis</id>
+  <link rel="alternate" type="text/html" href="http://www.nlp.town/blog/off-the-shelf-sentiment-analysis/" />
+  <id>http://www.nlp.town/blog/off-the-shelf-sentiment-analysis</id>
   <published>2016-11-23T09:00:00-05:00</published>
   <updated>2016-11-23T09:00:00-05:00</updated>
   <author>
     <name>Yves Peirsman</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://www.nlp.town</uri>
     <email></email>
   </author>
   <content type="html">&lt;p class=&quot;first&quot;&gt;
@@ -637,19 +843,19 @@ Given our mixed results, and the effort of comparing the available models, you�
 
 &lt;p&gt;&lt;sup id=&quot;fn2&quot;&gt;2. Note that I tuned the models with continuous variables on 500 different examples, in order to determine the most appropriate cut-off between negative, neutral and positive values.&lt;a href=&quot;#ref2&quot; title=&quot;Jump back to footnote 2 in the text.&quot;&gt;↩&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/off-the-shelf-sentiment-analysis/&quot;&gt;Off-the-shelf methods for sentiment analysis&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on November 23, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://www.nlp.town/blog/off-the-shelf-sentiment-analysis/&quot;&gt;Off-the-shelf methods for sentiment analysis&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://www.nlp.town&quot;&gt;NLP Town&lt;/a&gt; on November 23, 2016.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Text Classification Made Simple&nbsp;&nbsp;]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/simple-text-classification/" />
-  <id>http://localhost:4000/blog/simple-text-classification</id>
+  <link rel="alternate" type="text/html" href="http://www.nlp.town/blog/simple-text-classification/" />
+  <id>http://www.nlp.town/blog/simple-text-classification</id>
   <published>2016-09-21T08:00:00-04:00</published>
   <updated>2016-09-21T08:00:00-04:00</updated>
   <author>
     <name>Yves Peirsman</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://www.nlp.town</uri>
     <email></email>
   </author>
   <content type="html">&lt;p class=&quot;first&quot;&gt;
@@ -863,19 +1069,19 @@ pick.&lt;/p&gt;
 
 &lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/simple-text-classification/&quot;&gt;Text Classification Made Simple&nbsp;&nbsp;&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on September 21, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://www.nlp.town/blog/simple-text-classification/&quot;&gt;Text Classification Made Simple&nbsp;&nbsp;&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://www.nlp.town&quot;&gt;NLP Town&lt;/a&gt; on September 21, 2016.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[NLP in the Cloud: Measuring the Quality of NLP APIs]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/nlp-api-ner/" />
-  <id>http://localhost:4000/blog/nlp-api-ner</id>
+  <link rel="alternate" type="text/html" href="http://www.nlp.town/blog/nlp-api-ner/" />
+  <id>http://www.nlp.town/blog/nlp-api-ner</id>
   <published>2016-06-27T08:00:00-04:00</published>
   <updated>2016-06-27T08:00:00-04:00</updated>
   <author>
     <name>Yves Peirsman</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://www.nlp.town</uri>
     <email></email>
   </author>
   <content type="html">&lt;p class=&quot;first&quot;&gt;
@@ -1114,19 +1320,19 @@ linguistic style and domain. It’s always possible that other domains may give 
 Still, it clearly pays off to compare the various APIs available, so buyer beware!
 &lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/nlp-api-ner/&quot;&gt;NLP in the Cloud: Measuring the Quality of NLP APIs&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on June 27, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://www.nlp.town/blog/nlp-api-ner/&quot;&gt;NLP in the Cloud: Measuring the Quality of NLP APIs&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://www.nlp.town&quot;&gt;NLP Town&lt;/a&gt; on June 27, 2016.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[NLP People: the 2016 NLP job market analysis]]></title>
-  <link rel="alternate" type="text/html" href="http://localhost:4000/blog/nlppeople-jobmarket-analysis/" />
-  <id>http://localhost:4000/blog/nlppeople-jobmarket-analysis</id>
+  <link rel="alternate" type="text/html" href="http://www.nlp.town/blog/nlppeople-jobmarket-analysis/" />
+  <id>http://www.nlp.town/blog/nlppeople-jobmarket-analysis</id>
   <published>2016-05-29T16:00:00-04:00</published>
   <updated>2016-05-29T16:00:00-04:00</updated>
   <author>
     <name>Yves Peirsman</name>
-    <uri>http://localhost:4000</uri>
+    <uri>http://www.nlp.town</uri>
     <email></email>
   </author>
   <content type="html">&lt;p class=&quot;first&quot;&gt;When the University of Leuven asked me to give a guest lecture in their &lt;a href=&quot;http://www.mai.kuleuven.be/&quot;&gt;Master of Artificial Intelligence&lt;/a&gt; earlier this year, 
@@ -1153,7 +1359,7 @@ and was posted on the &lt;a href=&quot;https://nlppeople.com/nlp-job-market-anal
 &lt;p&gt;If we take all these findings together, our fresh analysis of the job ads in the &lt;a href=&quot;https://nlppeople.com&quot;&gt;NLPPeople&lt;/a&gt; database suggests that the NLP job market has become significantly more diverse in recent years. From a US- and industry-dominated domain, NLP has evolved to a field that is attractive to both industry and academia, in various parts of the world. There appears to be no shortage of opportunities for job seekers in NLP, whatever their particular ambitions or interests.&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;http://localhost:4000/blog/nlppeople-jobmarket-analysis/&quot;&gt;NLP People: the 2016 NLP job market analysis&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://localhost:4000&quot;&gt;NLP Town&lt;/a&gt; on May 29, 2016.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://www.nlp.town/blog/nlppeople-jobmarket-analysis/&quot;&gt;NLP People: the 2016 NLP job market analysis&lt;/a&gt; was originally published by Yves Peirsman at &lt;a href=&quot;http://www.nlp.town&quot;&gt;NLP Town&lt;/a&gt; on May 29, 2016.&lt;/p&gt;</content>
 </entry>
 
 </feed>

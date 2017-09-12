@@ -1,62 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>http://localhost:4000</loc>
+        <loc>http://www.nlp.town</loc>
     </url>
     
     
     <url>
-        <loc>http://localhost:4000/blog/</loc>
+        <loc>http://www.nlp.town/blog/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/feed.xml</loc>
+        <loc>http://www.nlp.town/feed.xml</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/index.html</loc>
+        <loc>http://www.nlp.town/index.html</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/sitemap.xml</loc>
+        <loc>http://www.nlp.town/sitemap.xml</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/style.css</loc>
+        <loc>http://www.nlp.town/style.css</loc>
     </url>
     
 
     
     <url>
-        <loc>http://localhost:4000/blog/song-of-ngrams-and-lms/</loc>
+        <loc>http://www.nlp.town/blog/ner-and-the-road-to-deep-learning/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/blog/anything2vec/</loc>
+        <loc>http://www.nlp.town/blog/song-of-ngrams-and-lms/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/blog/understanding-deeplearning-models-nlp/</loc>
+        <loc>http://www.nlp.town/blog/anything2vec/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/blog/diy-sentiment-analysis/</loc>
+        <loc>http://www.nlp.town/blog/understanding-deeplearning-models-nlp/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/blog/off-the-shelf-sentiment-analysis/</loc>
+        <loc>http://www.nlp.town/blog/diy-sentiment-analysis/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/blog/simple-text-classification/</loc>
+        <loc>http://www.nlp.town/blog/off-the-shelf-sentiment-analysis/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/blog/nlp-api-ner/</loc>
+        <loc>http://www.nlp.town/blog/simple-text-classification/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/blog/nlppeople-jobmarket-analysis/</loc>
+        <loc>http://www.nlp.town/blog/nlp-api-ner/</loc>
+    </url>
+    
+    <url>
+        <loc>http://www.nlp.town/blog/nlppeople-jobmarket-analysis/</loc>
     </url>
     
 
