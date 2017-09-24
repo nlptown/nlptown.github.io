@@ -14,50 +14,44 @@ MathJax.Hub.Config({
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 </head>
-
 <body>
   <main>
+  {% include nav.html %}
 
-{% include nav.html %}
+    <section class="container g-pt-100 g-pb-60 g-pl-30 g-pr-30">
+      <div class="row justify-content-center">
+        <div class="col-lg-7 col-sm-10 col-xs-10">
+          <div class="g-mb-60">
+            <h2 class="add-space g-color-black g-font-weight-600 text-center g-mb-30">{{ page.title }}</h2>
+          </div>
 
-      <section class="container g-pt-100 g-pb-60">
-        <div class="row justify-content-center">
-          <div class="col-lg-7">
-            <div class="g-mb-60">
-              <h2 class="add-space g-color-black g-font-weight-600 text-center g-mb-30">{{ page.title }}</h2>
-            </div>
+          <div class="row">
+            {{ content }}                
+          </div>
+          <!-- End Blog Single Item Info -->
 
-            <div class="row">
-               {{ content }}                
-            </div>
-        <!-- End Blog Single Item Info -->
+          <div class="addthis_sharing_toolbox"></div> <br/>
+          {% include author-bio.html %}
+          {% if site.disqus_shortname and page.comments %}
+            <div class="g-pb-30" id="disqus_thread"></div><!-- /#disqus_thread -->
+          {% endif %}
 
-        <div class="addthis_sharing_toolbox"></div> <br/>
-            {% include author-bio.html %}
-        </footer>
-        {% if site.disqus_shortname and page.comments %}
-              <div class="g-pb-30" id="disqus_thread"></div><!-- /#disqus_thread -->
-        {% endif %}
-
-<div class="footer-wrap">
-  <div class="related-articles">
-  <h4>You might also enjoy <small class="pull-right">(<a href="{{ site.url }}/blog/">View all posts</a>)</small></h4>
-    <ul>
-    {% for post in site.related_posts limit:3 %}
-      <li><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
-    {% endfor %}
-    </ul>
-    <hr />
-  </div><!-- /.related-articles -->
-</div><!-- /.footer-wrap -->
-    </div>
-    </div>
-</section>
-
-{% include footer.html %}
-
-{% include _scripts.html %}	        
-
-</main>
+          <div class="footer-wrap">
+            <div class="related-articles">
+              <h4>You might also enjoy <small class="pull-right">(<a href="{{ site.url }}/blog/">View all posts</a>)</small></h4>
+                <ul>
+                {% for post in site.related_posts limit:3 %}
+                  <li><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+                {% endfor %}
+                </ul>
+                <hr />
+            </div><!-- /.related-articles -->
+          </div><!-- /.footer-wrap -->
+        </div><!-- /.col-lg-7 -->
+      </div><!-- /.row -->
+    </section>
+  {% include footer.html %}
+  {% include _scripts.html %}	        
+  </main>
 </body>
 </html>

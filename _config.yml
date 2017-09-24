@@ -63,7 +63,7 @@ links:
 timezone:    America/New_York
 future:      true
 #pygments:    true
-highlighter: pygments
+#highlighter: pygments
 markdown:    kramdown
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks
@@ -85,10 +85,6 @@ kramdown:
 
 include: [".htaccess"]
 exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules", "Gemfile", "Gemfile.lock", "LICENSE", "README.md"]
-
-# Site settings
-email: yves.peirsman@gmail.com
-description: "This is the website and blog of Yves Peirsman, Natural Language Processing Consultant." 
 
 # Contact form: comment the line below if you want to stick with the default PHP contact form
 contact: static
