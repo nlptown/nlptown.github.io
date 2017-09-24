@@ -33,7 +33,7 @@ have influenced it. They are locally faithful because they correspond well to ho
 of the instance under investigation. This is achieved by basing the explanation on sampled instances that are weighted by their similarity to the target example.</p>
 
 <figure class="padded2">
-<img width="550" src="https://www.dropbox.com/s/x1seyfxawrta7id/Screenshot%202017-01-24%2023.27.46.png?raw=1">
+<img class="img-fluid" src="https://www.dropbox.com/s/x1seyfxawrta7id/Screenshot%202017-01-24%2023.27.46.png?raw=1">
 <figcaption>Ribeiro et al. use a small set of words to explain a classifier’s decision.</figcaption>
 </figure>
 
@@ -53,7 +53,7 @@ layers. When it reaches the embedding layer, it pools the relevances over all di
 </p>
 
 <figure class="padded2">
-<img width="600" src="https://www.dropbox.com/s/3kyr078p4s1j8bh/Screenshot%202017-01-22%2012.29.16.png?raw=1">
+<img class="img-fluid" src="https://www.dropbox.com/s/3kyr078p4s1j8bh/Screenshot%202017-01-22%2012.29.16.png?raw=1">
 <figcaption width="500">Arras et al. show that a CNN classifier focuses on fewer, more meaningful words than an SVM.</figcaption>
 </figure>
 
@@ -82,7 +82,7 @@ attention to the other words than the RNN. Other examples, however, indicate tha
 only a rough approximation of the individual contributions of the words, so they should be interpreted with caution.</p>
 
 <figure class="padded2">
-<img width="600" src="https://www.dropbox.com/s/l0esdr7ouqdo0pz/Screenshot%202017-01-24%2022.18.01.png?raw=1">
+<img class="img-fluid" src="https://www.dropbox.com/s/l0esdr7ouqdo0pz/Screenshot%202017-01-24%2022.18.01.png?raw=1">
 <figcaption>Li et al. visualize the more focused attention of LSTM networks.</figcaption>
 </figure>
 
@@ -95,7 +95,7 @@ next to a bowl of salad”, an RNN typically assigns a lot of importance to the 
 not to “a” or “of”.</p>
 
 <figure class="padded2">
-<img width="550" src="https://www.dropbox.com/s/kr4y1g9euh43y58/Screenshot%202017-01-22%2011.44.41.png?raw=1">
+<img class="img-fluid" src="https://www.dropbox.com/s/kr4y1g9euh43y58/Screenshot%202017-01-22%2011.44.41.png?raw=1">
 <figcaption>Kádár et al. identify important words by erasing them from the input.</figcaption>
 </figure>
 
@@ -112,7 +112,7 @@ confirm well-known intuitions, while others are more surprising.
 </p>
 
 <figure class="padded2">
-<img width="550" src="https://www.dropbox.com/s/2b79rjo9klun4vy/Screenshot%202017-01-22%2011.45.05.png?raw=1">
+<img class="img-fluid" src="https://www.dropbox.com/s/2b79rjo9klun4vy/Screenshot%202017-01-22%2011.45.05.png?raw=1">
 <figcaption>Kádár et al. show how visual and textual tasks make neural networks focus on different parts of the sentence.</figcaption>
 </figure>
 
@@ -123,7 +123,7 @@ final (log-)likelihoods that the model assigns to the correct label for the two 
 between the two output values, the more important the word or dimension is for that particular decision.</p>
 
 <figure class="padded2">
-<img width="550" src="https://www.dropbox.com/s/ish18zzaqdhinys/Screenshot%202017-01-21%2020.43.00.png?raw=1">
+<img class="img-fluid" src="https://www.dropbox.com/s/ish18zzaqdhinys/Screenshot%202017-01-21%2020.43.00.png?raw=1">
 <figcaption>Li et al. investigate the influence of individual word embedding dimensions on a variety of NLP tasks.</figcaption>
 </figure>
 
@@ -136,7 +136,7 @@ information, and the final decision of the network is more robust to changes at 
 </p>
 
 <figure class="padded2">
-<img width="550" src="https://www.dropbox.com/s/0szthtqa87rbaj9/Screenshot%202017-01-21%2020.43.27.png?raw=1">
+<img class="img-fluid" src="https://www.dropbox.com/s/0szthtqa87rbaj9/Screenshot%202017-01-21%2020.43.27.png?raw=1">
 <figcaption>Li et al. show that LSTM networks focus more on sentiment words than RNNs in sentiment analysis.</figcaption>
 </figure>
 

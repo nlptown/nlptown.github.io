@@ -48,7 +48,7 @@ how quickly we can get this result, it’s not too shabby either.
 </p>
 
 <figure class="padded2">
-<img width="600" src="https://www.dropbox.com/s/jrx7a906e9ysyek/Screenshot%202017-09-11%2014.46.47.png?raw=1">
+<img class="img-fluid" src="https://www.dropbox.com/s/jrx7a906e9ysyek/Screenshot%202017-09-11%2014.46.47.png?raw=1" />
 <figcaption>The relationship between CRFs, HMMs, Logistic Regression and Naive Bayes. From Sutton & McCallum’s <a href="http://www.research.ed.ac.uk/portal/files/10482724/crftut_fnt.pdf">An Introduction to Conditional Random Fields</a>.</figcaption>
 </figure>
 
@@ -77,7 +77,7 @@ a command that lets us perform all the necessary steps in one go. You can find i
 <p>
 
 <figure class="padded2">
-<img width="600" src="https://www.dropbox.com/s/umrhocphinsh518/Screenshot%202017-09-11%2015.04.12.png?raw=1">
+<img class="img-fluid" src="https://www.dropbox.com/s/umrhocphinsh518/Screenshot%202017-09-11%2015.04.12.png?raw=1">
 <figcaption>Word embeddings contain useful information for Named Entity Recognition. From <a href="https://colah.github.io/posts/2015-01-Visualizing-Representations/">Christopher Olah's blog</a>.</figcaption>
 </figure>
 
@@ -110,7 +110,7 @@ into label probabilities. This vanilla neural network is a great introduction to
 F1-scores of above 80%, you’ll be hard pressed to get above 70% with this simple LSTM.</p>
 
 <figure class="padded2">
-<img width="600" src="https://www.dropbox.com/s/o6d7uncab5s5aec/Screenshot%202017-09-12%2011.16.36.png?raw=1">
+<img class="img-fluid" src="https://www.dropbox.com/s/o6d7uncab5s5aec/Screenshot%202017-09-12%2011.16.36.png?raw=1">
 <figcaption>A simple LSTM-based neural network for sequence labelling.</figcaption>
 </figure>
 
@@ -140,7 +140,7 @@ finally makes it competitive with our earlier CRF: we now obtain an F1-score of 
 </p>
 
 <figure class="padded2">
-<img width="600" src="https://www.dropbox.com/s/qf1hislhi8lt0d1/Screenshot%202017-09-11%2014.39.41.png?raw=1">
+<img class="img-fluid" src="https://www.dropbox.com/s/qf1hislhi8lt0d1/Screenshot%202017-09-11%2014.39.41.png?raw=1">
 <figcaption>The Tensorboard graph for our final model.</figcaption>
 </figure>
 
@@ -182,7 +182,7 @@ also has an excellent
 </p>
 
 <figure class="padded2">
-<iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRpybpcEGwT54HBbG9uhWKHGOTDy64LZF1edzChqMRev8AvFisyMsDGHxz1hY7TvnI4Sd0i15Fb0wsp/pubchart?oid=284160483&amp;format=interactive"></iframe>
+<img class="img-fluid" src="https://www.dropbox.com/s/qht64zx5fyi1mun/Screenshot%202017-09-24%2023.29.44.png?raw=1">
 <figcaption>As our models gradually become more complex, their F1-score also goes up.</figcaption>
 </figure>
 

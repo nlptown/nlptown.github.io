@@ -4,7 +4,7 @@
 <generator uri="https://github.com/jekyll/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://www.nlp.town/feed.xml" />
 <link rel="alternate" type="text/html" href="http://www.nlp.town" />
-<updated>2017-09-24T17:16:03-04:00</updated>
+<updated>2017-09-24T17:35:31-04:00</updated>
 <id>http://www.nlp.town/</id>
 <author>
   <name>Yves Peirsman</name>
@@ -63,7 +63,7 @@ how quickly we can get this result, it’s not too shabby either.
 &lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/jrx7a906e9ysyek/Screenshot%202017-09-11%2014.46.47.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/jrx7a906e9ysyek/Screenshot%202017-09-11%2014.46.47.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;The relationship between CRFs, HMMs, Logistic Regression and Naive Bayes. From Sutton &amp;amp; McCallum’s &lt;a href=&quot;http://www.research.ed.ac.uk/portal/files/10482724/crftut_fnt.pdf&quot;&gt;An Introduction to Conditional Random Fields&lt;/a&gt;.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -92,7 +92,7 @@ a command that lets us perform all the necessary steps in one go. You can find i
 &lt;p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/umrhocphinsh518/Screenshot%202017-09-11%2015.04.12.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/umrhocphinsh518/Screenshot%202017-09-11%2015.04.12.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;Word embeddings contain useful information for Named Entity Recognition. From &lt;a href=&quot;https://colah.github.io/posts/2015-01-Visualizing-Representations/&quot;&gt;Christopher Olah&#39;s blog&lt;/a&gt;.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -125,7 +125,7 @@ into label probabilities. This vanilla neural network is a great introduction to
 F1-scores of above 80%, you’ll be hard pressed to get above 70% with this simple LSTM.&lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/o6d7uncab5s5aec/Screenshot%202017-09-12%2011.16.36.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/o6d7uncab5s5aec/Screenshot%202017-09-12%2011.16.36.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;A simple LSTM-based neural network for sequence labelling.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -155,7 +155,7 @@ finally makes it competitive with our earlier CRF: we now obtain an F1-score of 
 &lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/qf1hislhi8lt0d1/Screenshot%202017-09-11%2014.39.41.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/qf1hislhi8lt0d1/Screenshot%202017-09-11%2014.39.41.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;The Tensorboard graph for our final model.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -197,7 +197,7 @@ also has an excellent
 &lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;iframe width=&quot;600&quot; height=&quot;371&quot; seamless=&quot;&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRpybpcEGwT54HBbG9uhWKHGOTDy64LZF1edzChqMRev8AvFisyMsDGHxz1hY7TvnI4Sd0i15Fb0wsp/pubchart?oid=284160483&amp;amp;format=interactive&quot;&gt;&lt;/iframe&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/qht64zx5fyi1mun/Screenshot%202017-09-24%2023.29.44.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;As our models gradually become more complex, their F1-score also goes up.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -387,7 +387,7 @@ caught up in a race for ever-lower perplexities.
 &lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;500&quot; src=&quot;https://www.dropbox.com/s/5n4dn24x1vcb4ag/Screenshot%202017-07-04%2023.30.05.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/5n4dn24x1vcb4ag/Screenshot%202017-07-04%2023.30.05.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;RNN-based language models learn word embeddings to make predictions. Adapted from the Stanford CS224n course slides.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -460,7 +460,7 @@ other models have tried to extend the word2vec approach to other linguistic unit
 &lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;450&quot; src=&quot;https://www.dropbox.com/s/w0faljyphdohs8s/Screenshot%202017-04-08%2020.59.27.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/w0faljyphdohs8s/Screenshot%202017-04-08%2020.59.27.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;Sense2Vec operates on the level of word “senses” rather than simple words.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -483,7 +483,7 @@ However, character embeddings are usually trained in a supervised way. This sets
 &lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/yhelg3l8k43lqum/Screenshot%202017-04-07%2021.47.30.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/yhelg3l8k43lqum/Screenshot%202017-04-07%2021.47.30.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;Skip-thought vectors are trained by having a sentence predict the previous and next sentences in a paragraph.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -492,7 +492,7 @@ Still, not all NLP tasks need such detailed information, and many of them focus 
 &lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/qyjrysvx35ays24/Screenshot%202017-04-07%2022.22.23.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/qyjrysvx35ays24/Screenshot%202017-04-07%2022.22.23.png?raw=1&quot; /&gt;
 &lt;figcaption width=&quot;500&quot;&gt;Tweet2Vec produces a character-based embedding of tweets.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -501,7 +501,7 @@ Unfortunately, sentences are not always as well-behaved as those modelled by Kir
 &lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;450&quot; src=&quot;https://www.dropbox.com/s/1iig0ptbzuona1w/Screenshot%202017-04-08%2008.59.11.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/1iig0ptbzuona1w/Screenshot%202017-04-08%2008.59.11.png?raw=1&quot; /&gt;
 &lt;figcaption width=&quot;500&quot;&gt;Doc2Vec combines document and word embeddings in a single model.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -514,7 +514,7 @@ But why stop at paragraphs or documents? The next victim that has fallen prey to
 &lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;550&quot; src=&quot;https://www.dropbox.com/s/36awrn287o6hz15/Screenshot%202017-04-07%2022.04.20.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/36awrn287o6hz15/Screenshot%202017-04-07%2022.04.20.png?raw=1&quot; /&gt;
 &lt;figcaption width=&quot;500&quot;&gt;Topic2Vec produces both word and topic embeddings, based on LDA topic assignments.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -578,7 +578,7 @@ have influenced it. They are locally faithful because they correspond well to ho
 of the instance under investigation. This is achieved by basing the explanation on sampled instances that are weighted by their similarity to the target example.&lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;550&quot; src=&quot;https://www.dropbox.com/s/x1seyfxawrta7id/Screenshot%202017-01-24%2023.27.46.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/x1seyfxawrta7id/Screenshot%202017-01-24%2023.27.46.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;Ribeiro et al. use a small set of words to explain a classifier’s decision.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -598,7 +598,7 @@ layers. When it reaches the embedding layer, it pools the relevances over all di
 &lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/3kyr078p4s1j8bh/Screenshot%202017-01-22%2012.29.16.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/3kyr078p4s1j8bh/Screenshot%202017-01-22%2012.29.16.png?raw=1&quot; /&gt;
 &lt;figcaption width=&quot;500&quot;&gt;Arras et al. show that a CNN classifier focuses on fewer, more meaningful words than an SVM.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -627,7 +627,7 @@ attention to the other words than the RNN. Other examples, however, indicate tha
 only a rough approximation of the individual contributions of the words, so they should be interpreted with caution.&lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;600&quot; src=&quot;https://www.dropbox.com/s/l0esdr7ouqdo0pz/Screenshot%202017-01-24%2022.18.01.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/l0esdr7ouqdo0pz/Screenshot%202017-01-24%2022.18.01.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;Li et al. visualize the more focused attention of LSTM networks.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -640,7 +640,7 @@ next to a bowl of salad”, an RNN typically assigns a lot of importance to the 
 not to “a” or “of”.&lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;550&quot; src=&quot;https://www.dropbox.com/s/kr4y1g9euh43y58/Screenshot%202017-01-22%2011.44.41.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/kr4y1g9euh43y58/Screenshot%202017-01-22%2011.44.41.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;Kádár et al. identify important words by erasing them from the input.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -657,7 +657,7 @@ confirm well-known intuitions, while others are more surprising.
 &lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;550&quot; src=&quot;https://www.dropbox.com/s/2b79rjo9klun4vy/Screenshot%202017-01-22%2011.45.05.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/2b79rjo9klun4vy/Screenshot%202017-01-22%2011.45.05.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;Kádár et al. show how visual and textual tasks make neural networks focus on different parts of the sentence.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -668,7 +668,7 @@ final (log-)likelihoods that the model assigns to the correct label for the two 
 between the two output values, the more important the word or dimension is for that particular decision.&lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;550&quot; src=&quot;https://www.dropbox.com/s/ish18zzaqdhinys/Screenshot%202017-01-21%2020.43.00.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/ish18zzaqdhinys/Screenshot%202017-01-21%2020.43.00.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;Li et al. investigate the influence of individual word embedding dimensions on a variety of NLP tasks.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -681,7 +681,7 @@ information, and the final decision of the network is more robust to changes at 
 &lt;/p&gt;
 
 &lt;figure class=&quot;padded2&quot;&gt;
-&lt;img width=&quot;550&quot; src=&quot;https://www.dropbox.com/s/0szthtqa87rbaj9/Screenshot%202017-01-21%2020.43.27.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid&quot; src=&quot;https://www.dropbox.com/s/0szthtqa87rbaj9/Screenshot%202017-01-21%2020.43.27.png?raw=1&quot; /&gt;
 &lt;figcaption&gt;Li et al. show that LSTM networks focus more on sentiment words than RNNs in sentiment analysis.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
@@ -773,7 +773,7 @@ Other people use sentiment analysis to conduct political analyses: they &lt;a hr
 In line with the rising popularity of machine learning and artificial intelligence in recent years, the landscape of NLP software has grown increasingly complex. On the one hand, there are cloud APIs that offer off-the-shelf models for many common NLP tasks, such as sentiment analysis, named entity recognition, keyword extraction, etc. Some good examples are &lt;a href=&quot;https://indico.io/&quot;&gt;Indico&lt;/a&gt; and &lt;a href=&quot;https://cloud.google.com/natural-language/&quot;&gt;Google’s Natural Language API&lt;/a&gt;. On the other hand, there are software libraries for machine learning that allow you to build your own custom model, such as &lt;a href=&quot;http://scikit-learn.org/&quot;&gt;Scikit-learn&lt;/a&gt; for Python. In between those two options, you have cloud APIs that allow you to train your own model (&lt;a href=&quot;http://monkeylearn.com/&quot;&gt;Monkeylearn&lt;/a&gt;, for example), and there are software libraries that ship with pre-trained models for some popular tasks (&lt;a href=&quot;http://textblob.readthedocs.io/en/dev/&quot;&gt;Textblob&lt;/a&gt;, or &lt;a href=&quot;http://stanfordnlp.github.io/CoreNLP/&quot;&gt;Stanford CoreNLP&lt;/a&gt;). In this first blog post of two I’ll evaluate a wide range of available off-the-shelf methods for sentiment analysis. I’d like to find out if we can just take an existing API, apply it to a data set, and trust its results. In other words: is it OK to be lazy?
 &lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;padded&quot; src=&quot;https://www.dropbox.com/s/rgg7gesfc7iorci/Screenshot%202016-11-17%2022.09.08.png?raw=1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;img-fluid padded&quot; src=&quot;https://www.dropbox.com/s/rgg7gesfc7iorci/Screenshot%202016-11-17%2022.09.08.png?raw=1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;
 This is the full list of systems I tested:&lt;sup&gt;&lt;a href=&quot;#fn1&quot; id=&quot;ref1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 
@@ -794,7 +794,7 @@ This is the full list of systems I tested:&lt;sup&gt;&lt;a href=&quot;#fn1&quot;
 
 &lt;p&gt;It’s a well-known fact that the performance of an NLP model depends on the similarity between its training data and the data you’re testing it on. To get an idea of this variation in performance, I evaluated the available models on user reviews from four very different domains: movies, baby products, Android apps and tourism. In each of these domains, I compared the performance of the model with a &lt;em&gt;baseline&lt;/em&gt; that always labels a text as positive. Obviously, we’d like to do better than that baseline.&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;padded&quot; src=&quot;https://www.dropbox.com/s/6kj5kd9vwwjm9qj/Screenshot 2016-11-17 21.51.47.png?raw=1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;img-fluid padded&quot; src=&quot;https://www.dropbox.com/s/6kj5kd9vwwjm9qj/Screenshot 2016-11-17 21.51.47.png?raw=1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Three examples will show you what the test data looks like. The following texts should get the labels positive, neutral and negative, respectively: 
 &lt;ul class=&quot;nomargin&quot;&gt;
@@ -996,7 +996,7 @@ pre-processing steps (filtering, emoticon normalization, etc.) and select the be
 parameters for its models. When this is done, it creates an environment where we can 
 manipulate the parameters of our model, train it and explore its performance.&lt;/p&gt;
 
-&lt;img class=&quot;padded&quot; src=&quot;https://www.dropbox.com/s/ydxzd31qjc30i8e/Screenshot%202016-08-23%2010.10.38.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid padded&quot; src=&quot;https://www.dropbox.com/s/ydxzd31qjc30i8e/Screenshot%202016-08-23%2010.10.38.png?raw=1&quot; /&gt;
 
 &lt;p&gt;Before we can train our model, we need to upload the training data, either as a csv or Excel 
 file, or as text data, through a simple API call. Unfortunately, there’s a pretty strict limit on the 
@@ -1014,7 +1014,7 @@ trigrams, or a combination of these), the maximum number of features (the defaul
 the stopwords, etc. There’s also a reference page that explains what these 
 parameters mean.&lt;/p&gt;
 
-&lt;img class=&quot;padded&quot; src=&quot;https://www.dropbox.com/s/45p69ndljdfea3t/Screenshot%202016-09-18%2010.47.17.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid padded&quot; src=&quot;https://www.dropbox.com/s/45p69ndljdfea3t/Screenshot%202016-09-18%2010.47.17.png?raw=1&quot; /&gt;
 
 &lt;p&gt;Building a classifier takes a considerable amount of time. For example, MonkeyLearn needs around
 20 minutes to train an SVM on the unigrams and bigrams in 20,000 Sogou news texts. Scikit-learn does
@@ -1024,7 +1024,7 @@ really useful confusion matrix that helps us analyze what mistakes the classifie
 These statistics are based on 4-fold cross-validation on the training data, which explains the longer 
 training times at least partially.&lt;/p&gt;
 
-&lt;img class=&quot;padded&quot; src=&quot;https://www.dropbox.com/s/1ardbntka29w46l/Screenshot%202016-08-27%2015.42.19.png?raw=1&quot; /&gt;
+&lt;img class=&quot;img-fluid padded&quot; src=&quot;https://www.dropbox.com/s/1ardbntka29w46l/Screenshot%202016-08-27%2015.42.19.png?raw=1&quot; /&gt;
 
 &lt;p&gt;In order to test the trained model on our test set, we can make use of another of 
 MonkeyLearn’s distinguishing features: all trained classifiers are immediately available for 

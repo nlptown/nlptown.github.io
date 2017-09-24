@@ -15,7 +15,7 @@ Other people use sentiment analysis to conduct political analyses: they <a href=
 In line with the rising popularity of machine learning and artificial intelligence in recent years, the landscape of NLP software has grown increasingly complex. On the one hand, there are cloud APIs that offer off-the-shelf models for many common NLP tasks, such as sentiment analysis, named entity recognition, keyword extraction, etc. Some good examples are <a href="https://indico.io/">Indico</a> and <a href="https://cloud.google.com/natural-language/">Google’s Natural Language API</a>. On the other hand, there are software libraries for machine learning that allow you to build your own custom model, such as <a href="http://scikit-learn.org/">Scikit-learn</a> for Python. In between those two options, you have cloud APIs that allow you to train your own model (<a href="http://monkeylearn.com/">Monkeylearn</a>, for example), and there are software libraries that ship with pre-trained models for some popular tasks (<a href="http://textblob.readthedocs.io/en/dev/">Textblob</a>, or <a href="http://stanfordnlp.github.io/CoreNLP/">Stanford CoreNLP</a>). In this first blog post of two I’ll evaluate a wide range of available off-the-shelf methods for sentiment analysis. I’d like to find out if we can just take an existing API, apply it to a data set, and trust its results. In other words: is it OK to be lazy?
 </p>
 
-<img class="padded" src="https://www.dropbox.com/s/rgg7gesfc7iorci/Screenshot%202016-11-17%2022.09.08.png?raw=1">
+<img class="img-fluid padded" src="https://www.dropbox.com/s/rgg7gesfc7iorci/Screenshot%202016-11-17%2022.09.08.png?raw=1">
 
 <p>
 This is the full list of systems I tested:<sup><a href="#fn1" id="ref1">1</a></sup> 
@@ -37,7 +37,7 @@ This is the full list of systems I tested:<sup><a href="#fn1" id="ref1">1</a></s
 
 <p>It’s a well-known fact that the performance of an NLP model depends on the similarity between its training data and the data you’re testing it on. To get an idea of this variation in performance, I evaluated the available models on user reviews from four very different domains: movies, baby products, Android apps and tourism. In each of these domains, I compared the performance of the model with a <em>baseline</em> that always labels a text as positive. Obviously, we’d like to do better than that baseline.</p> 
 
-<img class="padded" src="https://www.dropbox.com/s/6kj5kd9vwwjm9qj/Screenshot 2016-11-17 21.51.47.png?raw=1">
+<img class="img-fluid padded" src="https://www.dropbox.com/s/6kj5kd9vwwjm9qj/Screenshot 2016-11-17 21.51.47.png?raw=1">
 
 <p>Three examples will show you what the test data looks like. The following texts should get the labels positive, neutral and negative, respectively: 
 <ul class="nomargin">

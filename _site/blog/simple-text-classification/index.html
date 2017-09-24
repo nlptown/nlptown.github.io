@@ -249,7 +249,7 @@ pre-processing steps (filtering, emoticon normalization, etc.) and select the be
 parameters for its models. When this is done, it creates an environment where we can 
 manipulate the parameters of our model, train it and explore its performance.</p>
 
-<img class="padded" src="https://www.dropbox.com/s/ydxzd31qjc30i8e/Screenshot%202016-08-23%2010.10.38.png?raw=1" />
+<img class="img-fluid padded" src="https://www.dropbox.com/s/ydxzd31qjc30i8e/Screenshot%202016-08-23%2010.10.38.png?raw=1" />
 
 <p>Before we can train our model, we need to upload the training data, either as a csv or Excel 
 file, or as text data, through a simple API call. Unfortunately, there’s a pretty strict limit on the 
@@ -267,7 +267,7 @@ trigrams, or a combination of these), the maximum number of features (the defaul
 the stopwords, etc. There’s also a reference page that explains what these 
 parameters mean.</p>
 
-<img class="padded" src="https://www.dropbox.com/s/45p69ndljdfea3t/Screenshot%202016-09-18%2010.47.17.png?raw=1" />
+<img class="img-fluid padded" src="https://www.dropbox.com/s/45p69ndljdfea3t/Screenshot%202016-09-18%2010.47.17.png?raw=1" />
 
 <p>Building a classifier takes a considerable amount of time. For example, MonkeyLearn needs around
 20 minutes to train an SVM on the unigrams and bigrams in 20,000 Sogou news texts. Scikit-learn does
@@ -277,7 +277,7 @@ really useful confusion matrix that helps us analyze what mistakes the classifie
 These statistics are based on 4-fold cross-validation on the training data, which explains the longer 
 training times at least partially.</p>
 
-<img class="padded" src="https://www.dropbox.com/s/1ardbntka29w46l/Screenshot%202016-08-27%2015.42.19.png?raw=1" />
+<img class="img-fluid padded" src="https://www.dropbox.com/s/1ardbntka29w46l/Screenshot%202016-08-27%2015.42.19.png?raw=1" />
 
 <p>In order to test the trained model on our test set, we can make use of another of 
 MonkeyLearn’s distinguishing features: all trained classifiers are immediately available for 
