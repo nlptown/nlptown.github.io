@@ -17,6 +17,10 @@
   margin-bottom: 0;
 }
 
+.btm3 {
+  margin-bottom: 3em;
+}
+
 p { 
     font-size: 15px; 
     line-height: 1.5; 
@@ -86,6 +90,12 @@ blockquote.nomargin {
 
 ul.nomargin {
     margin-top: -1.5em;
+    margin-bottom: 1.5em;
+}
+
+ol.nomargin {
+    margin-top: -1.5em;
+    margin-bottom: 1.5em;
 }
 
 table, th, td {
