@@ -201,6 +201,11 @@ The differences in Spearman correlation are more outspoken. This may indicate th
 
 ## Conclusions
 
+Sentence similarity is a complex phenomenon. The meaning of a sentence does not only depend on the words
+in it, but also on the way they are combined. As the harp-keyboard example above shows, semantic
+similarity can have several dimensions, and sentences may be similar in one but opposite in the other.
+Current sentence embedding methods only scratch the surface of what's possible.
+
 <figure class="padded2">
 <img class="img-fluid" src="/images/blog/sensim-all.png" />
 <figcaption>The combined results of all sentence similarity methods.</figcaption>
