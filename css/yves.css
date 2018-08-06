@@ -8,6 +8,8 @@
   background-color: #10778A;
 }
 
+body { padding-top: 70px; }
+
 .nlpgreen {
   background-color: #10778A;
 }
@@ -22,6 +24,11 @@ p {
     line-height: 1.5; 
     margin-bottom: 40px; 
 }
+
+table {
+    font-size: 15px;
+}
+
 ul {
     font-size: 15px; 
     line-height: 1.5

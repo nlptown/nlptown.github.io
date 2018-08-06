@@ -8,6 +8,8 @@
   background-color: #10778A;
 }
 
+body { padding-top: 70px; }
+
 .nlpgreen {
   background-color: #10778A;
 }
@@ -22,7 +24,14 @@ p {
     line-height: 1.5; 
     margin-bottom: 40px; 
 }
-ul { line-height: 1.5
+
+table {
+    font-size: 15px;
+}
+
+ul {
+    font-size: 15px; 
+    line-height: 1.5
 }
 p.first { font-weight:bold; }
 p.nomargin { margin-bottom: 0px; }
@@ -86,6 +95,13 @@ blockquote.nomargin {
 
 ul.nomargin {
     margin-top: -1.5em;
+    margin-bottom: 1.5em;
+}
+
+ol.nomargin {
+    font-size: 15px;
+    margin-top: -1.5em;
+    margin-bottom: 1.5em;
 }
 
 table, th, td {
@@ -100,3 +116,23 @@ th, td {
     margin-top: -1.5em;
     padding: 15px;
 }
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
+

@@ -14,6 +14,10 @@
     </url>
     
     <url>
+        <loc>http://www.nlp.town/hackathon/</loc>
+    </url>
+    
+    <url>
         <loc>http://www.nlp.town/index.html</loc>
     </url>
     
@@ -26,6 +30,14 @@
     </url>
     
 
+    
+    <url>
+        <loc>http://www.nlp.town/blog/sentence-similarity/</loc>
+    </url>
+    
+    <url>
+        <loc>http://www.nlp.town/blog/why-computers-dont-read-better-than-us/</loc>
+    </url>
     
     <url>
         <loc>http://www.nlp.town/blog/ner-and-the-road-to-deep-learning/</loc>
@@ -61,6 +73,10 @@
     
     <url>
         <loc>http://www.nlp.town/blog/nlppeople-jobmarket-analysis/</loc>
+    </url>
+    
+    <url>
+        <loc>http://www.nlp.town/blog/generating-genre-fiction-with-deep-learning/</loc>
     </url>
     
 

@@ -1,0 +1,478 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Comparing Sentence Similarity Methods</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Natural Language Processing Consultancy and Development.">
+    <link rel="canonical" href="http://www.nlp.town/blog/sentence-similarity/">
+    <link rel="canonical" href="http://www.nlp.town/blog/sentence-similarity/">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+    <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../favicon.ico">
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/bootstrap.min.css">
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="/assets/vendor/icon-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/vendor/icon-line/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/assets/vendor/icon-line-pro/style.css">
+    <link rel="stylesheet" href="/assets/vendor/icon-hs/style.css">
+    <link rel="stylesheet" href="/assets/vendor/animate.css">
+    <link rel="stylesheet" href="/assets/vendor/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="/assets/vendor/typedjs/typed.css">
+    <link rel="stylesheet" href="/assets/vendor/hs-megamenu/src/hs.megamenu.css">
+    <link rel="stylesheet" href="/assets/vendor/hamburgers/hamburgers.min.css">
+
+    <!-- CSS Unify -->
+    <link rel="stylesheet" href="/assets/css/unify.css">
+
+    <!-- CSS Customization -->
+    <!-- <link rel="stylesheet" href="/assets/css/main.min.css"> -->
+    <link rel="stylesheet" href="/css/yves.css">
+    <!--<link rel="stylesheet" href="/css/agency.css">-->
+
+<!-- Start of Async Drift Code -->
+<script>
+!function() {
+  var t;
+  if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0, 
+  t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ], 
+  t.factory = function(e) {
+    return function() {
+      var n;
+      return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
+    };
+  }, t.methods.forEach(function(e) {
+    t[e] = t.factory(e);
+  }), t.load = function(t) {
+    var e, n, o, i;
+    e = 3e5, i = Math.ceil(new Date() / e) * e, o = document.createElement("script"), 
+    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + i + "/" + t + ".js", 
+    n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
+  });
+}();
+drift.SNIPPET_VERSION = '0.3.1';
+drift.load('rx7ds4npwcke');
+</script>
+<!-- End of Async Drift Code -->
+
+</head>
+
+<link rel="stylesheet" href="/css/yves.css">
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+  <main>
+     <!-- Navigation -->
+      <header id="js-header" class="u-header u-header--sticky-top">
+        <div class="u-header__section u-header__section--light g-transition-0_3">
+          <nav class="js-mega-menu navbar navbar-toggleable-md">
+            <div class="container">
+              <!-- Logo -->
+              <a href="http://www.nlp.town" class="navbar-brand">
+                <img width=100 src="/images/nlp-town.png" alt="Image Description">
+              </a>
+              <!-- End Logo -->
+
+              <!-- Navigation -->
+              <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg g-mr-40--lg" id="navBar">
+                <ul class="navbar-nav text-uppercase g-pos-rel g-font-weight-600 ml-auto">
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/#about">About</a>
+                  </li>
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/#blog">Blog</a>
+                  </li>
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/#team">Team</a>
+                  </li>
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/hackathon">Hackathon</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <!-- End Header -->
+
+
+    <section class="container g-pt-100 g-pb-60 g-pl-30 g-pr-30">
+      <div class="row justify-content-center">
+        <div class="col-lg-7 col-sm-10 col-xs-10">
+          <div class="g-mb-60">
+            <h2 class="add-space g-color-black g-font-weight-600 text-center g-mb-30">Comparing Sentence Similarity Methods</h2>
+          </div>
+
+          <div class="row">
+            <p class="first">
+Word embeddings have become widespread in Natural Language Processing. They allow us to easily
+compute the semantic similarity between two words, or to find the words most similar to a target word.
+However, often we're more interested in the similarity between two sentences or short texts.
+In this blog post, we'll compare the most popular ways of computing sentence similarity and investigate how they perform.
+For people interested in the code, there's a companion
+<a href="https://github.com/nlptown/sentence-similarity/blob/master/Simple%20Sentence%20Similarity.ipynb">Jupyter Notebook</a>
+with all the details.
+</p>
+
+<p>Many NLP applications need to compute the similarity in meaning between two short texts. Search engines, for example,
+ need to model the
+relevance of a document to a query, beyond the overlap in words between the two. Similarly, question-and-answer sites
+such as <a href="https://www.kaggle.com/c/quora-question-pairs">Quora</a> need to determine whether a question has already been
+asked before. This type of text similarity is often computed by first embedding the two short texts and then
+calculating the cosine similarity between them. Although word embeddings such as word2vec and GloVe have
+become standard approaches for finding the semantic similarity between two words, there is less agreement
+on how sentence embeddings should be computed. Below we’ll review some of the most common methods and compare
+their performance on two established benchmarks.</p>
+
+<figure class="padded2">
+<img class="img-fluid" src="/images/blog/sensim.png" />
+<figcaption>Sentence similarity is typically calculated by first embedding the sentences and then taking
+the cosine similarity between them. (<a href="https://www.tensorflow.org/hub/modules/google/universal-sentence-encoder/1">Source</a>)</figcaption>
+</figure>
+
+<h2 id="data">Data</h2>
+
+<p>We'll evaluate all methods on two widely used datasets with human similarity judgements:</p>
+
+<ul class="nomargin">
+<li>The <a href="http://ixa2.si.ehu.es/stswiki/index.php/STSbenchmark">STS Benchmark</a>
+brings together the English data from the SemEval sentence similarity tasks between 2012 and 2017.</li>
+<li>The <a href="http://clic.cimec.unitn.it/composes/sick.html">SICK data</a> contains 10,000 English sentence pairs
+labelled with their semantic relatedness and entailment relation.</li>
+</ul>
+
+<p>The table below contains a few examples from the STS data. As you can see, the semantic relationship
+between the two sentences is often quite subtle: the sentences <code>a man is playing a harp</code> and <code>a man is playing a keyboard</code> are judged as very dissimilar,
+although they have the same syntactic structure and the words in them
+have very similar embeddings.
+</p>
+
+<figure class="padded2">
+<img class="img-fluid" src="https://www.dropbox.com/s/kew0g4190z5smsg/Screenshot%202018-05-01%2018.29.46.png?raw=1" />
+<figcaption>Example sentence pairs from the STS Benchmark.</figcaption>
+</figure>
+
+<h2 id="similarity-methods">Similarity Methods</h2>
+
+<p>There is a wide range of methods for calculating the similarity in meaning between two sentences. Here we take a look
+at the most common ones.</p>
+
+<h3 id="baselines">Baselines</h3>
+
+<p>The easiest way of estimating the semantic similarity between a pair of sentences
+is by taking the average of the word embeddings of
+all words in the two sentences, and calculating the cosine between the resulting embeddings. Obviously, this simple
+baseline leaves considerable room for variation. We’ll investigate the effects of ignoring stopwords
+and computing an average weighted by tf-idf in particular.</p>
+
+<h3 id="word-movers-distance">Word Mover’s Distance</h3>
+
+<figure class="padded2">
+<img class="img-fluid" src="https://www.dropbox.com/s/ou8hfnym922o8yj/Screenshot%202018-05-01%2018.21.33.png?raw=1" />
+<figcaption>The Word Mover's Distance between two documents is the
+minimum cumulative distance that all words in document 1 need
+to travel to exactly match document 2.</figcaption>
+</figure>
+
+<p>One interesting alternative to our baseline is <a href="http://proceedings.mlr.press/v37/kusnerb15.pdf">Word Mover’s Distance</a>.
+WMD uses the word embeddings of the words in two texts to measure the minimum distance that the words in one
+text need to “travel” in semantic space to reach the words in the other text.</p>
+
+<h3 id="smooth-inverse-frequency">Smooth Inverse Frequency</h3>
+
+<p>Taking the average of the word embeddings in a sentence tends to give too much weight to words that are
+quite irrelevant, semantically speaking. <a href="https://openreview.net/forum?id=SyK00v5xx">Smooth Inverse Frequency</a> tries to solve this problem in two ways:</p>
+
+<ol class="nomargin">
+<li>Weighting: like our tf-idf baseline above, SIF takes the weighted average of the word embeddings in the sentence.
+Every word embedding is
+weighted by <code>a/(a + p(w))</code>, where <code>a</code> is a parameter that is typically set to <code>0.001</code> and <code>p(w)</code> is the estimated frequency
+of the word in a reference corpus.</li>
+
+<li>Common component removal: next, SIF computes the principal component of the resulting embeddings
+for a set of sentences. It then subtracts from these sentence embeddings their projections on their
+first principal component. This should remove variation related to frequency and syntax that is less relevant
+semantically.</li>
+</ol>
+
+<p>As a result, SIF downgrades unimportant words such as <code>but</code>, <code>just</code>, etc., and
+keeps the information that contributes most to the semantics of the sentence.
+</p>
+
+<h3 id="pre-trained-encoders">Pre-trained encoders</h3>
+
+<p>
+All methods above share two important characteristics. First, as simple bag-of-word methods,
+they do take not word order into account. Second, the word embeddings they use have been learned
+in an unsupervised manner. Both these traits are potentially harmful. Since differences in
+word order often go hand in hand with differences in meaning (compare <code>the dog bites the man</code> with <code>the man bites the dog</code>),
+we'd like our sentence embeddings to be sensitive to this variation. Additionally, supervised training
+can help sentence embeddings learn the meaning of a sentence more directly.
+</p>
+
+<p>This is where pre-trained encoders come in. Pre-trained sentence encoders aim to play the same role as word2vec
+and GloVe, but for sentence embeddings: the embeddings they produce can be used in a variety of
+applications, such as text classification, paraphrase detection, etc. Typically they have been trained
+on a range of supervised and unsupervised tasks, in order to capture as much universal semantic
+information as possible. Several such encoders are available. We'll take a look at InferSent and the Google Sentence Encoder.
+</p>
+
+<figure class="padded2">
+<img class="img-fluid" src="https://www.dropbox.com/s/6ik0l49ad1mrj8d/Screenshot%202018-05-01%2019.09.14.png?raw=1" />
+<figcaption>Pre-trained sentence encoders rely on tasks such as Natural Language Inference to learn sentence
+embeddings that can be used in transfer tasks.</figcaption>
+</figure>
+
+<p><a href="https://github.com/facebookresearch/InferSent">InferSent</a> is a pre-trained encoder that was developed
+by Facebook Research. It is a BiLSTM with max pooling, trained on the SNLI dataset, 570k English sentence pairs labelled with one of three categories: entailment, contradiction or neutral.</p>
+
+<p>The <a href="https://www.tensorflow.org/hub/modules/google/universal-sentence-encoder/1">Google Sentence Encoder</a> is Google’s answer to Facebook’s InferSent. It comes in two forms:</p>
+
+<ul class="nomargin">
+<li>an advanced model that takes the element-wise sum of the context-aware word representations produced by the encoding subgraph of a Transformer model.</li>
+<li>a simpler Deep Averaging Network (DAN) where input embeddings for words and bigrams are averaged together and passed through a feed-forward deep neural network.</li>
+</ul>
+
+<p>The Transformer-based model tends to give better results, but at the time of writing, only the DAN-based encoder was available.
+
+In contrast to InferSent, the Google Sentence Encoder was trained on a combination of unsupervised data (in a skip-thought-like task) and supervised data (the SNLI corpus).</p>
+
+<h2 id="results">Results</h2>
+
+<p>We tested all the methods above by getting their similarities for the sentence pairs in the development
+and test sets of the SICK and STS data, and computing their correlation with the human judgements. We’ll
+mostly work with Pearson correlation, as is standard in the literature, except where Spearman correlation gives different results.</p>
+
+<h3 id="baselines-1">Baselines</h3>
+
+<p>Despite their simplicity, the baseline methods that take the cosine between average word embeddings can perform
+surprisingly well. Still, a few conditions have to be met:</p>
+
+<ul class="nomargin">
+<li>Simple word2vec embeddings outperform GloVe embeddings.</li>
+<li>With word2vec, it is unclear whether using a stoplist or tf-idf weighting helps. On STS it sometimes does, on SICK it does not. Simply computing an unweighted average of all word2vec embeddings consistently does pretty well.</li>
+<li>With GloVe, using a stoplist is crucial to obtaining good results. Using tf-idf weights does not help, with or without a stoplist.</li>
+</ul>
+
+<figure class="padded2">
+<img class="img-fluid" src="/images/blog/sensim-baselines.png" />
+<figcaption>Our simple baselines can perform surprisingly well.</figcaption>
+</figure>
+
+<h3 id="word-movers-distance-1">Word Mover’s Distance</h3>
+
+<p>Based on our results, there’s little reason to use Word Mover’s Distance rather than simple word2vec averages. Only on STS-TEST, and only in combination with a stoplist, can WMD compete with the simpler baselines.</p>
+
+<figure class="padded2">
+<img class="img-fluid" src="/images/blog/sensim-wmd.png" />
+<figcaption>Word Mover's Distance disappoints.</figcaption>
+</figure>
+
+<h3 id="smooth-inverse-frequency-1">Smooth Inverse Frequency</h3>
+
+<p>Smooth Inverse Frequency is the most consistent performer in our tests. On the SICK data, it does about as well as its baseline competitors, on STS it outranks them by a clear margin. Note there is little difference between SIF with word2vec embeddings and SIF with GloVe embeddings. This is remarkable, given the large differences between the two we observed above. It shows SIF’s weighting and common component removal effectively reduces uninformative noise from the embeddings.</p>
+
+<figure class="padded2">
+<img class="img-fluid" src="/images/blog/sensim-sif.png" />
+<figcaption>Smooth Inverse Frequency is the most consistent performer.</figcaption>
+</figure>
+
+<h3 id="pre-trained-encoders-1">Pre-trained encoders</h3>
+
+<p>Pre-trained encoders have a lot to be said for them. However, our results indicate they are not yet able to capitalize fully on their training regime. Google’s Sentence Encoder looks like a better choice than InferSent, but the Pearson correlation coefficient shows very little difference with Smooth Inverse Frequency.</p>
+
+<figure class="padded2">
+<img class="img-fluid" src="/images/blog/sensim-enc-pearson.png" />
+<figcaption>Pre-trained encoders perform well, but SIF gives them a run for their money.</figcaption>
+</figure>
+
+<p>The differences in Spearman correlation are more outspoken. This may indicate that the Google Sentence Encoder more often gets the ordering of the sentences right, but not necessarily the relative differences between them.</p>
+
+<figure class="padded2">
+<img class="img-fluid" src="/images/blog/sensim-enc-spearman.png" />
+<figcaption>Spearman correlation shows a larger difference than Pearson correlation.</figcaption>
+</figure>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>Sentence similarity is a complex phenomenon. The meaning of a sentence does not only depend on the words
+in it, but also on the way they are combined. As the harp-keyboard example above shows, semantic
+similarity can have several dimensions, and sentences may be similar in one but opposite in the other.
+Current sentence embedding methods only scratch the surface of what’s possible.</p>
+
+<figure class="padded2">
+<img class="img-fluid" src="/images/blog/sensim-all.png" />
+<figcaption>The combined results of all sentence similarity methods.</figcaption>
+</figure>
+
+<p>So, what should you do when you’re looking to compute sentence similarities? Our results suggest the following:</p>
+
+<ul class="nomargin">
+<li>Word2vec embeddings are a safer choice than GloVe embeddings.</li>
+<li>Although an unweighted average of the word embeddings in the sentence holds its own as a simple baseline, Smooth Inverse Frequency is usually a stronger alternative.</li>
+<li>If you can use a pre-trained encoder, pick Google's Sentence Encoder, but remember its performance gain may not be all that spectacular.</li>
+</ul>
+
+                
+          </div>
+          <!-- End Blog Single Item Info -->
+
+          <div class="addthis_sharing_toolbox"></div> <br/>
+                      <!-- Author -->
+            <div class="g-brd-top g-brd-gray-light-v3 g-pt-10 g-pb-10">
+              <div class="row justify-content-center">
+                <div class="media">
+                  <img class="d-flex g-width-100 g-height-100 rounded-circle g-mr-30" src="/images/team/yves.jpg" alt="Yves Peirsman">
+                  <div class="media-body">
+                    <h4 class="h5 g-color-black g-font-weight-600">Yves Peirsman</h4>
+                    <p class="g-color-gray-dark-v5 mb-4">Yves discovered Natural Language Processing 13 years ago as an MSc student at the University of Edinburgh, and has never looked back.
+                    With a background as a researcher and developer in academia (University of Leuven, Stanford University) and industry (Textkernel, Wolters Kluwer), he founded NLP Town
+                    to further indulge and spread his love for NLP.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Author -->
+
+          
+            <div class="g-pb-30" id="disqus_thread"></div><!-- /#disqus_thread -->
+          
+
+          <div class="footer-wrap">
+            <div class="related-articles">
+              <h4>You might also enjoy <small class="pull-right">(<a href="http://www.nlp.town/blog/">View all posts</a>)</small></h4>
+                <ul>
+                
+                  <li><a href="http://www.nlp.town/blog/why-computers-dont-read-better-than-us/" title="Why computers don’t yet read better than us">Why computers don’t yet read better than us</a></li>
+                
+                  <li><a href="http://www.nlp.town/blog/ner-and-the-road-to-deep-learning/" title="Named Entity Recognition and the Road to Deep Learning">Named Entity Recognition and the Road to Deep Learning</a></li>
+                
+                  <li><a href="http://www.nlp.town/blog/song-of-ngrams-and-lms/" title="Perplexed by Game of Thrones. A Song of N-Grams and Language Models">Perplexed by Game of Thrones. A Song of N-Grams and Language Models</a></li>
+                
+                </ul>
+                <hr />
+            </div><!-- /.related-articles -->
+          </div><!-- /.footer-wrap -->
+        </div><!-- /.col-lg-7 -->
+      </div><!-- /.row -->
+    </section>
+        <!-- Copyright Footer -->
+      <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 g-py-20">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 text-center text-md-left g-mb-15 g-mb-0--md">
+              <div class="d-lg-flex">
+                <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2017 © NLP Town</small>
+              </div>
+            </div>
+
+            <div class="col-md-6 text-center g-mb-15 g-mb-0--md">
+                <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">
+                Langelostraat 11, 3212 Lubbeek, +32 485 02 43 34, hello@nlp.town</small>
+            </div>
+
+            <div class="col-md-3 align-self-center">
+              <ul class="list-inline text-center text-md-right mb-0">
+                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                  <a href="https://www.linkedin.com/company/nlp-town" class="g-color-white-opacity-0_5 g-color-white--hover">
+                    <i class="fa fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Twitter">
+                  <a href="https://twitter.com/nlptown" class="g-color-white-opacity-0_5 g-color-white--hover">
+                    <i class="fa fa-twitter"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- End Copyright Footer -->
+
+  
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://www.nlp.town/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://www.nlp.town/assets/js/scripts.min.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-105530786-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53fb5daa449762bb"></script>
+  
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'nlp-town'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+	        
+  </main>
+</body>
+</html>
