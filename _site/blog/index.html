@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="Natural Language Processing Consultancy and Development.">
     <link rel="canonical" href="http://www.nlp.town/blog/">
+    <link rel="canonical" href="http://www.nlp.town/blog/">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="/feed.xml">
 
     <!-- Custom Fonts -->
@@ -54,6 +55,31 @@
     <link rel="stylesheet" href="/css/yves.css">
     <!--<link rel="stylesheet" href="/css/agency.css">-->
 
+<!-- Start of Async Drift Code -->
+<script>
+!function() {
+  var t;
+  if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0, 
+  t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ], 
+  t.factory = function(e) {
+    return function() {
+      var n;
+      return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
+    };
+  }, t.methods.forEach(function(e) {
+    t[e] = t.factory(e);
+  }), t.load = function(t) {
+    var e, n, o, i;
+    e = 3e5, i = Math.ceil(new Date() / e) * e, o = document.createElement("script"), 
+    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + i + "/" + t + ".js", 
+    n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
+  });
+}();
+drift.SNIPPET_VERSION = '0.3.1';
+drift.load('rx7ds4npwcke');
+</script>
+<!-- End of Async Drift Code -->
+
 </head>
 
   
@@ -82,6 +108,9 @@
                   <li class="nav-item g-mx-10--lg g-mx-15--xl">
                     <a class="nav-link g-color-primary--hover g-color-white" href="/#team">Team</a>
                   </li>
+                  <li class="nav-item g-mx-10--lg g-mx-15--xl">
+                    <a class="nav-link g-color-primary--hover g-color-white" href="/hackathon">Hackathon</a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -105,6 +134,24 @@
           <div class="col-lg-7">
             <!-- Blog Minimal Blocks -->
                 
+           <article class="g-mb-100">
+              <div class="g-mb-30">
+                <span class="d-block g-color-gray-dark-v4 g-font-weight-700 g-font-size-12 text-uppercase mb-2"><time datetime="2018-05-02T08:00:00-04:00">May 02, 2018</time></span>
+                <h2 class="h4 g-color-black g-font-weight-600 mb-3"><a class="u-link-v5 g-color-black g-color-primary--hover" href="http://www.nlp.town/blog/sentence-similarity/">Comparing Sentence Similarity Methods</a></h2>
+                <p class="g-color-gray-dark-v4 g-line-height-1_8">Word embeddings have become widespread in Natural Language Processing. They allow us to easilycompute the semantic similarity between two words, or to find the words most similar to a target word.However, often we're more interested in the similarity between two sentences or short texts.In this b...</p>
+                <a class="g-font-size-13 g-color-primary" href="http://www.nlp.town/blog/sentence-similarity/">Read more...</a>
+              </div>
+            </article>
+                 
+           <article class="g-mb-100">
+              <div class="g-mb-30">
+                <span class="d-block g-color-gray-dark-v4 g-font-weight-700 g-font-size-12 text-uppercase mb-2"><time datetime="2018-01-31T07:00:00-05:00">January 31, 2018</time></span>
+                <h2 class="h4 g-color-black g-font-weight-600 mb-3"><a class="u-link-v5 g-color-black g-color-primary--hover" href="http://www.nlp.town/blog/why-computers-dont-read-better-than-us/">Why computers don’t yet read better than us</a></h2>
+                <p class="g-color-gray-dark-v4 g-line-height-1_8">Artificial Intelligence is on a roll these days. It feels like the media report a new breakthrough every day. In 2017, computer and board games were at the center of public attention, but this year things look different. In the early days of 2018, both Microsoft and Alibaba claimed to have develo...</p>
+                <a class="g-font-size-13 g-color-primary" href="http://www.nlp.town/blog/why-computers-dont-read-better-than-us/">Read more...</a>
+              </div>
+            </article>
+                 
            <article class="g-mb-100">
               <div class="g-mb-30">
                 <span class="d-block g-color-gray-dark-v4 g-font-weight-700 g-font-size-12 text-uppercase mb-2"><time datetime="2017-09-12T08:00:00-04:00">September 12, 2017</time></span>
@@ -185,6 +232,15 @@
                 <a class="g-font-size-13 g-color-primary" href="http://www.nlp.town/blog/nlppeople-jobmarket-analysis/">Read more...</a>
               </div>
             </article>
+                 
+           <article class="g-mb-100">
+              <div class="g-mb-30">
+                <span class="d-block g-color-gray-dark-v4 g-font-weight-700 g-font-size-12 text-uppercase mb-2"><time datetime="2015-08-09T11:00:00-04:00">August 09, 2015</time></span>
+                <h2 class="h4 g-color-black g-font-weight-600 mb-3"><a class="u-link-v5 g-color-black g-color-primary--hover" href="http://www.nlp.town/blog/generating-genre-fiction-with-deep-learning/">Generating Genre Fiction with Deep Learning</a></h2>
+                <p class="g-color-gray-dark-v4 g-line-height-1_8"> These days Deep Learning is everywhere. Neural networks are used for just about every task in Natural Language Processing &mdash; from named entity recognition to sentiment analysis and machine translation. A few months ago, Andrej Karpathy, PhD student at Stanford University, released a small s...</p>
+                <a class="g-font-size-13 g-color-primary" href="http://www.nlp.town/blog/generating-genre-fiction-with-deep-learning/">Read more...</a>
+              </div>
+            </article>
                 
             <!-- End Blog Minimal Blocks -->
           </div>
@@ -204,7 +260,7 @@
 
             <div class="col-md-6 text-center g-mb-15 g-mb-0--md">
                 <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">
-                Tervuursevest 21/1103, 3001 Leuven, +32 485 02 43 34, hello@nlp.town</small>
+                Langelostraat 11, 3212 Lubbeek, +32 485 02 43 34, hello@nlp.town</small>
             </div>
 
             <div class="col-md-3 align-self-center">
